@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Consulta de EPI"
+             x:Class="AppEpi.CnEPI">
+    <ContentPage.Content>
+        <ScrollView x:Name="scrolly">
+            <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">
+                <StackLayout Padding="5,10" HeightRequest="200">
+                    <Label >EPI´S</Label>
+                    <Editor x:Name="epis" HeightRequest="200" Text="0E8D4A5AC1200001033303DC"  />
+                </StackLayout>
+                <Button Text="Consultar" FontSize="18" x:Name="btnConfirmar" Clicked="btnConfirmar_Clicked" Style="{StaticResource BotaoAzul1}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

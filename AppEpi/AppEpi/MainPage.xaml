@@ -1,0 +1,16 @@
+﻿<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AppEpi;assembly:AppEpi"
+             x:Class="AppEpi.MainPage">
+    <MasterDetailPage.Master>
+        <local:MasterPage x:Name="masterPage" />
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <!-- O NOME DA TELA QUE ABRE AO INICIAR O APLICATIVO-->
+                <local:Principal />
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>

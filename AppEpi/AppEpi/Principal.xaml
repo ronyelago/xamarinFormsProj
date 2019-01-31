@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Easy Epi"
+             x:Class="AppEpi.Principal">
+    <RelativeLayout>
+        <Image Source="fundoi2.png"
+  RelativeLayout.WidthConstraint=
+  "{ConstraintExpression Type=RelativeToParent, 
+  Property=Width,Constant=200}"
+  RelativeLayout.HeightConstraint=
+  "{ConstraintExpression Type=RelativeToParent, 
+  Property=Height,Constant=250}"
+        RelativeLayout.XConstraint =
+      "{ConstraintExpression Type=RelativeToParent,
+      Property=Width,
+      Factor=0.0,
+      Constant=-100}"
+  RelativeLayout.YConstraint =
+  "{ConstraintExpression Type=RelativeToParent,
+  Property=Height,
+  Factor=0.0,
+  Constant=-100}"/>
+
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Faça seu Pedido!" IsVisible="False" WidthRequest="200" FontSize="18" Margin="5,5"  Clicked="btnPrincipalFacaPedido"  Style="{StaticResource BotaoAzul1}" />
+        </StackLayout>
+    </RelativeLayout>
+</ContentPage>

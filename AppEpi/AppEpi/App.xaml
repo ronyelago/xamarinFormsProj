@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppEpi.App">
+	<Application.Resources>
+
+		<!-- Application resource dictionary -->
+
+        <ResourceDictionary>
+
+
+            <Color x:Key="Branco">White</Color>
+            <Color x:Key="Vermelho">#F70C24</Color>
+            <Color x:Key="Preto">Black</Color>
+            <Color x:Key="Cinza">Gray</Color>
+            <Color x:Key="Azul">Blue</Color>
+            <Color x:Key="Verde">#A4A4A6</Color>
+            <Color x:Key="Azul1">#124284</Color>
+            <Color x:Key="Amarelo">#124284</Color>
+
+            <Font x:Key="Titulo">16,Bold</Font>
+            <Font x:Key="Titulo2">18,Bold</Font>
+            <Font x:Key="Subtitulo">16,Bold</Font>
+            <Font x:Key="Descricao">16</Font>
+            <Font x:Key="Detalhes">16</Font>
+
+            <Font x:Key="TituloBTN">14,Bold</Font>
+
+            <Style x:Key="ListaFont" TargetType="Label">
+                <Setter Property="Font" Value="{StaticResource Titulo}"/>
+            </Style>
+
+            <Style  TargetType="Label">
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
+
+            <Style TargetType="ContentPage">
+                <Setter Property="BackgroundColor" Value="#f9f9f9"/>
+            </Style>
+
+
+
+            <Style x:Key="ListaFont2" TargetType="Label">
+                <Setter Property="Font" Value="{StaticResource Titulo2}"/>
+                <Setter Property="TextColor" Value="#141411"/>
+            </Style>
+
+            <Style x:Key="Botao" TargetType="Button">
+                <Setter Property="TextColor" Value="{StaticResource Branco}"/>
+                <Setter Property="Font" Value="{StaticResource Titulo}"/>
+            </Style>
+
+            <Style x:Key="BotaoPreto" TargetType="Button">
+                <Setter Property="TextColor" Value="{StaticResource Branco}"/>
+                <Setter Property="Font" Value="{StaticResource Titulo}"/>
+            </Style>
+
+            <Style x:Key="BotaoAzul" BasedOn="{StaticResource Botao}" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Azul}"/>
+            </Style>
+            <Style x:Key="BotaoVerde" BasedOn="{StaticResource Botao}" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Verde}"/>
+                <Setter Property="Font" Value="{StaticResource TituloBTN}"/>
+            </Style>
+            <Style x:Key="BotaoAzul1" BasedOn="{StaticResource Botao}" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Azul1}"/>
+            </Style>
+
+            <Style x:Key="BotaoAmarelo" BasedOn="{StaticResource BotaoPreto}" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Amarelo}"/>
+            </Style>
+
+            <Style x:Key="BotaoVermelho" BasedOn="{StaticResource Botao}" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Vermelho}"/>
+                <Setter Property="Font" Value="{StaticResource TituloBTN}"/>
+            </Style>
+
+            <Style x:Key="ListDetail" TargetType="ListView">
+                <Setter Property="BackgroundColor" Value="#124284"/>
+            </Style>
+
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarTextColor" Value="Color.White"/>
+            </Style>
+
+            <Style x:Key="ListaFontDetalhes" TargetType="Label">
+                <Setter Property="TextColor" Value="#777878"/>
+                <Setter Property="Font" Value="{StaticResource Detalhes}"/>
+            </Style>
+
+            <Style x:Key="ListaFontMenu" TargetType="Label">
+                <Setter Property="TextColor" Value="#000000"/>
+                <Setter Property="Font" Value="{StaticResource Detalhes}"/>
+            </Style>
+
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>
