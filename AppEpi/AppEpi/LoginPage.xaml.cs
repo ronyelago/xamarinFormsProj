@@ -44,6 +44,8 @@ namespace AppEpi
                         UsuarioLogado.MatriculaDistribuicao = entMatricula.Text;
                         UsuarioLogado.SenhaConfirmada = true;
                         UsuarioLogado.SenhaConfirmadaEntrega = true;
+                        UsuarioLogado.Cnpj = result[0].Cnpj;
+                        UsuarioLogado.FkCliente = result[0].FkCliente;
                         CloseAllPopup();
                     }
                     else

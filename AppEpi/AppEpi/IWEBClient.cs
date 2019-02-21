@@ -39,8 +39,7 @@ namespace AppEpi
 
         List<RESULTADOMOV> retornarDEpi(string listaEPCS);
 
-
-        ObservableCollection<DADOSEPI> retornarDadosEpiValidar(string listaEPCS);
+        ObservableCollection<DADOSEPI> retornarDadosEpiValidar(string listaEPCS, string cnpj, int fkCliente);
 
         bool temSenha(string listaEPCS);
 

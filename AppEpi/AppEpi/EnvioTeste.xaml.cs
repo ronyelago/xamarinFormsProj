@@ -70,7 +70,7 @@ namespace AppEpi
                 {
 
                     //var result = wbs.envioParaTeste(listEPCS, localEstoque);
-                    var result = wbs.retornarDadosEpiValidar(listEPCS);
+                    var result = wbs.retornarDadosEpiValidar(listEPCS, UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "4";
                     UsuarioLogado.LocalEstoque = localEstoque;
 

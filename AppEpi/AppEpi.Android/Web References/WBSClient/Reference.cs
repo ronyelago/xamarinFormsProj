@@ -91,6 +91,8 @@ namespace AppEpi.Droid.WBSClient {
         
         private System.Threading.SendOrPostCallback convertHtmlDocxOperationCompleted;
         
+        private System.Threading.SendOrPostCallback documentoAssinadoOperationCompleted;
+        
         private System.Threading.SendOrPostCallback enviarDocumentoOperationCompleted;
         
         private System.Threading.SendOrPostCallback restListaAssinaturaOperationCompleted;
@@ -239,6 +241,9 @@ namespace AppEpi.Droid.WBSClient {
         
         /// <remarks/>
         public event convertHtmlDocxCompletedEventHandler convertHtmlDocxCompleted;
+        
+        /// <remarks/>
+        public event documentoAssinadoCompletedEventHandler documentoAssinadoCompleted;
         
         /// <remarks/>
         public event enviarDocumentoCompletedEventHandler enviarDocumentoCompleted;
@@ -937,24 +942,28 @@ namespace AppEpi.Droid.WBSClient {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/retornarDadosEpiValidar", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public DADOSEPI[] retornarDadosEpiValidar(string listaEPCS) {
+        public DADOSEPI[] retornarDadosEpiValidar(string listaEPCS, string cnpj, int fkCliente) {
             object[] results = this.Invoke("retornarDadosEpiValidar", new object[] {
-                        listaEPCS});
+                        listaEPCS,
+                        cnpj,
+                        fkCliente});
             return ((DADOSEPI[])(results[0]));
         }
         
         /// <remarks/>
-        public void retornarDadosEpiValidarAsync(string listaEPCS) {
-            this.retornarDadosEpiValidarAsync(listaEPCS, null);
+        public void retornarDadosEpiValidarAsync(string listaEPCS, string cnpj, int fkCliente) {
+            this.retornarDadosEpiValidarAsync(listaEPCS, cnpj, fkCliente, null);
         }
         
         /// <remarks/>
-        public void retornarDadosEpiValidarAsync(string listaEPCS, object userState) {
+        public void retornarDadosEpiValidarAsync(string listaEPCS, string cnpj, int fkCliente, object userState) {
             if ((this.retornarDadosEpiValidarOperationCompleted == null)) {
                 this.retornarDadosEpiValidarOperationCompleted = new System.Threading.SendOrPostCallback(this.OnretornarDadosEpiValidarOperationCompleted);
             }
             this.InvokeAsync("retornarDadosEpiValidar", new object[] {
-                        listaEPCS}, this.retornarDadosEpiValidarOperationCompleted, userState);
+                        listaEPCS,
+                        cnpj,
+                        fkCliente}, this.retornarDadosEpiValidarOperationCompleted, userState);
         }
         
         private void OnretornarDadosEpiValidarOperationCompleted(object arg) {
@@ -1171,7 +1180,7 @@ namespace AppEpi.Droid.WBSClient {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/convertHtmlDocx", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string convertHtmlDocx(string matricula, System.Guid codDistribuicao) {
+        public string convertHtmlDocx(string matricula, string codDistribuicao) {
             object[] results = this.Invoke("convertHtmlDocx", new object[] {
                         matricula,
                         codDistribuicao});
@@ -1179,12 +1188,12 @@ namespace AppEpi.Droid.WBSClient {
         }
         
         /// <remarks/>
-        public void convertHtmlDocxAsync(string matricula, System.Guid codDistribuicao) {
+        public void convertHtmlDocxAsync(string matricula, string codDistribuicao) {
             this.convertHtmlDocxAsync(matricula, codDistribuicao, null);
         }
         
         /// <remarks/>
-        public void convertHtmlDocxAsync(string matricula, System.Guid codDistribuicao, object userState) {
+        public void convertHtmlDocxAsync(string matricula, string codDistribuicao, object userState) {
             if ((this.convertHtmlDocxOperationCompleted == null)) {
                 this.convertHtmlDocxOperationCompleted = new System.Threading.SendOrPostCallback(this.OnconvertHtmlDocxOperationCompleted);
             }
@@ -1197,6 +1206,44 @@ namespace AppEpi.Droid.WBSClient {
             if ((this.convertHtmlDocxCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.convertHtmlDocxCompleted(this, new convertHtmlDocxCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/documentoAssinado", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void documentoAssinado(string codDistribuicao, string nomeArquivo, string matricula, string cnpj, string fkCliente, string chave) {
+            this.Invoke("documentoAssinado", new object[] {
+                        codDistribuicao,
+                        nomeArquivo,
+                        matricula,
+                        cnpj,
+                        fkCliente,
+                        chave});
+        }
+        
+        /// <remarks/>
+        public void documentoAssinadoAsync(string codDistribuicao, string nomeArquivo, string matricula, string cnpj, string fkCliente, string chave) {
+            this.documentoAssinadoAsync(codDistribuicao, nomeArquivo, matricula, cnpj, fkCliente, chave, null);
+        }
+        
+        /// <remarks/>
+        public void documentoAssinadoAsync(string codDistribuicao, string nomeArquivo, string matricula, string cnpj, string fkCliente, string chave, object userState) {
+            if ((this.documentoAssinadoOperationCompleted == null)) {
+                this.documentoAssinadoOperationCompleted = new System.Threading.SendOrPostCallback(this.OndocumentoAssinadoOperationCompleted);
+            }
+            this.InvokeAsync("documentoAssinado", new object[] {
+                        codDistribuicao,
+                        nomeArquivo,
+                        matricula,
+                        cnpj,
+                        fkCliente,
+                        chave}, this.documentoAssinadoOperationCompleted, userState);
+        }
+        
+        private void OndocumentoAssinadoOperationCompleted(object arg) {
+            if ((this.documentoAssinadoCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.documentoAssinadoCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -3329,6 +3376,10 @@ namespace AppEpi.Droid.WBSClient {
             }
         }
     }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    public delegate void documentoAssinadoCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]

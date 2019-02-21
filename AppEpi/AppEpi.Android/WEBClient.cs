@@ -554,12 +554,12 @@ namespace AppEpi.Droid
             }
         }
 
-        public ObservableCollection<DADOSEPI> retornarDadosEpiValidar(string listaEPCS)
+        public ObservableCollection<DADOSEPI> retornarDadosEpiValidar(string listaEPCS, string cnpj, int fkCliente)
         {
             try
             {
                 WBSClient.Client cl = new WBSClient.Client();
-                var rest = cl.retornarDadosEpiValidar(listaEPCS);
+                var rest = cl.retornarDadosEpiValidar(listaEPCS, cnpj, fkCliente);
                 ObservableCollection<DADOSEPI> Lpd = new ObservableCollection<DADOSEPI>();
                 foreach (var item in rest)
                 {
