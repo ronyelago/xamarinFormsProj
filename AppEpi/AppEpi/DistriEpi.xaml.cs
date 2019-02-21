@@ -52,7 +52,7 @@ namespace AppEpi
                     //var result = wbs.retornarDEpi(listEPCS);
                     //await DisplayAlert("Recebimento", result.Count.ToString(), "OK");
                     UsuarioLogado.Operacao = "3";
-                    var result = wbs.retornarDadosEpiValidar(listEPCS);
+                    var result = wbs.retornarDadosEpiValidar(listEPCS, UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     var detailPage = new Page4(result);
                     //await Navigation.PushModalAsync(detailPage);
                     btnConfirmar.Clicked += btnConfirmar_Clicked;

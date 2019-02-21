@@ -48,7 +48,7 @@ namespace AppEpi
                 {
                     var data = dtProximtoTeste.Date.Day + "-" + dtProximtoTeste.Date.Month + "-" + dtProximtoTeste.Date.Year;
                     //var result = wbs.recebimentoDoTeste(listEPCS, data, entART.Text);
-                    var result = wbs.retornarDadosEpiValidar(listEPCS);
+                    var result = wbs.retornarDadosEpiValidar(listEPCS, UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "5";
                     UsuarioLogado.DataTeste = data;
                     UsuarioLogado.ART = entART.Text;

@@ -42,7 +42,7 @@ namespace AppEpi
                 {
 
                     //var result = wbs.recebimentoEstoques(listEPCS);
-                    var result = wbs.retornarDadosEpiValidar(listEPCS);
+                    var result = wbs.retornarDadosEpiValidar(listEPCS, UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "1";
                     //await DisplayAlert("Recebimento", result.Count.ToString(), "OK");
                     var detailPage = new Page4(result);

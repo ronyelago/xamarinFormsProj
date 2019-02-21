@@ -107,7 +107,7 @@ namespace AppEpi
                 {
 
                     //var result = wbs.movimentacaoEstoque(listEPCS, localEstoque.Split('-')[0], abreviarStatus(entradaSaida));
-                    var result = wbs.retornarDadosEpiValidar(listEPCS);
+                    var result = wbs.retornarDadosEpiValidar(listEPCS, UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "2";
                     UsuarioLogado.LocalEstoque = localEstoque.Split('-')[0];
                     UsuarioLogado.StatusEstoque = abreviarStatus(entradaSaida);
