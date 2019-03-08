@@ -36,7 +36,6 @@ namespace AppEpi
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
-            string resultados = "";
             int coun = 0;
             string localEstoque = "";
             string[] lines = epis.Text.Split('\n');

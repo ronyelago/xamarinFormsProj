@@ -21,11 +21,6 @@ namespace AppEpi
         async private void Button_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
-            string listEPCS = "";
-            string resultados = "";
-            int coun = 0;
-            bool confirmarMovimentacao = true;
-            string localEstoque = "";
 
             string[] lines = entMatricula.Text.Split('\n');
 

@@ -21,8 +21,8 @@ namespace AppEpi
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
-            string resultados = "";
             int coun = 0;
+            // unused var: remover essa linha gera VARIOS erros por todos os lados
             bool confirmarMovimentacao = true;
             string localEstoque = "";
 

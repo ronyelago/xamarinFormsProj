@@ -23,7 +23,6 @@ namespace AppEpi
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
-            string resultados = "";
             int coun = 0;
 
             var locator = CrossGeolocator.Current;

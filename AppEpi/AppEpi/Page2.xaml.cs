@@ -12,10 +12,6 @@ namespace AppEpi
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Page2 : ContentPage
     {
-
-        private string listaEpcs;
-
-
         public Page2()
         {
             InitializeComponent();
@@ -44,7 +40,6 @@ namespace AppEpi
 
         async void EditorCompleted(object sender, EventArgs e)
         {
-            int count = 0;
             var text = ((Editor)sender).Text; // sender is cast to an Editor to enable reading the `Text` property of the view.
 
 
@@ -62,7 +57,6 @@ namespace AppEpi
             string localEstoque = "";
             string entradaSaida = "";
             string listEPCS = "";
-            string resultados = "";
             int coun = 0;
             if (epis.Text == "")
             {
@@ -99,7 +93,6 @@ namespace AppEpi
                 }
             }
 
-
             if (confirmarMovimentacao)
             {
                 var answer = await DisplayAlert("Movimentação de Estoque", "Confirmar Transação?\nTotal de Itens:" + coun, "Sim", "Não");
@@ -126,18 +119,16 @@ namespace AppEpi
 
         }
 
+
         private string abreviarStatus(string entradaSaida)
         {
             switch (entradaSaida)
             {
                 case "Entrada":
                     return "E";
-                    break;
                 case "Saida":
                     return "S";
-                    break;
             }
-
             return "S";
         }
     }

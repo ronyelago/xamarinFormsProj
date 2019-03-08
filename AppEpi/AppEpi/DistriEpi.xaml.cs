@@ -13,8 +13,6 @@ namespace AppEpi
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DistriEpi : ContentPage
     {
-        private string epcs = "";
-
         public DistriEpi()
         {
             InitializeComponent();
@@ -25,7 +23,6 @@ namespace AppEpi
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
-            string resultados = "";
             int coun = 0;
             //var locator = CrossGeolocator.Current;
             //var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));

@@ -21,10 +21,7 @@ namespace AppEpi
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
-            string resultados = "";
             int coun = 0;
-            bool confirmarMovimentacao = true;
-            string localEstoque = "";
 
             string[] lines = epis.Text.Split('\n');
             foreach (string line in lines)

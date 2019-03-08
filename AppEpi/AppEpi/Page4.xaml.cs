@@ -116,10 +116,8 @@ namespace AppEpi
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
-            string resultados = "";
             int coun = 0;
             List<RESULTADOMOV> result = new List<RESULTADOMOV>();
-            bool entrar = true;
 
 
 
