@@ -129,11 +129,16 @@ namespace AppEpi
                 TargetType = typeof(RegistrarSenha)
             });
 
-
             masterPageItems.Add(new MasterPageItem
             {
                 Title = "Consultar EPI",
                 TargetType = typeof(CnEPI)
+            });
+
+            masterPageItems.Add(new MasterPageItem
+            {
+                Title = "Leitor Bluetooth",
+                TargetType = typeof(BluetoothSelectPage)
             });
 
             listView.ItemsSource = masterPageItems;
