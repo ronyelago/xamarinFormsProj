@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppEpi.Android", "AppEpi\AppEpi.Android\AppEpi.Android.csproj", "{1FB852F0-4B22-4C1A-AEC3-3ABF3A37438F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppEpi", "AppEpi\AppEpi\AppEpi.csproj", "{3BF01C50-0B83-454B-8F51-97FC5D0EF11F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppEpi.iOS", "AppEpi\AppEpi.iOS\AppEpi.iOS.csproj", "{7F9781AA-5E46-4458-B7D6-B51157921C77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,40 +155,11 @@ Global
 		{3BF01C50-0B83-454B-8F51-97FC5D0EF11F}.Release|x64.Build.0 = Release|Any CPU
 		{3BF01C50-0B83-454B-8F51-97FC5D0EF11F}.Release|x86.ActiveCfg = Release|Any CPU
 		{3BF01C50-0B83-454B-8F51-97FC5D0EF11F}.Release|x86.Build.0 = Release|Any CPU
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Ad-Hoc|Any CPU.ActiveCfg = Ad-Hoc|iPhoneSimulator
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Ad-Hoc|ARM.ActiveCfg = Ad-Hoc|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Ad-Hoc|iPhoneSimulator
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Ad-Hoc|iPhoneSimulator.Build.0 = Ad-Hoc|iPhoneSimulator
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Ad-Hoc|x64.ActiveCfg = Ad-Hoc|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Ad-Hoc|x86.ActiveCfg = Ad-Hoc|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.AppStore|Any CPU.ActiveCfg = AppStore|iPhoneSimulator
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.AppStore|ARM.ActiveCfg = AppStore|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.AppStore|iPhone.Build.0 = AppStore|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.AppStore|iPhoneSimulator.ActiveCfg = AppStore|iPhoneSimulator
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.AppStore|iPhoneSimulator.Build.0 = AppStore|iPhoneSimulator
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.AppStore|x64.ActiveCfg = AppStore|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.AppStore|x86.ActiveCfg = AppStore|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Debug|ARM.ActiveCfg = Debug|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Debug|iPhone.ActiveCfg = Debug|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Debug|iPhone.Build.0 = Debug|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Debug|x64.ActiveCfg = Debug|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Debug|x86.ActiveCfg = Debug|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Release|ARM.ActiveCfg = Release|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Release|iPhone.ActiveCfg = Release|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Release|iPhone.Build.0 = Release|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Release|x64.ActiveCfg = Release|iPhone
-		{7F9781AA-5E46-4458-B7D6-B51157921C77}.Release|x86.ActiveCfg = Release|iPhone
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {13EBDB07-251C-42AE-BEDD-74748341B9A5}
 	EndGlobalSection
 EndGlobal
