@@ -58,14 +58,14 @@ namespace AppEpi
             PopupNavigation.PopAsync();
         }
 
-        protected override Task OnAppearingAnimationEnd()
+        protected override void OnAppearingAnimationEnd()
         {
-            return Content.FadeTo(1);
+            return;// Content.FadeTo(1);
         }
 
-        protected override Task OnDisappearingAnimationBegin()
+        protected override void OnDisappearingAnimationBegin()
         {
-            return Content.FadeTo(1);
+            return;// Content.FadeTo(1);
         }
     }
 }
