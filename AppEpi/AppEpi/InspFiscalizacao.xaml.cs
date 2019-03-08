@@ -9,7 +9,6 @@ using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class InspFiscalizacao : ContentPage
     {
         public InspFiscalizacao(string titulo)

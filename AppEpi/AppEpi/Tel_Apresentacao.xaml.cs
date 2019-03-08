@@ -9,7 +9,6 @@ using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Tel_Apresentacao : ContentPage
     {
         public Tel_Apresentacao()

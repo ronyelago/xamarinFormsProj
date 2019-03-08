@@ -11,7 +11,6 @@ using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CadSenha : PopupPage
     {
         List<RESULTADOMOV> resultEnter;

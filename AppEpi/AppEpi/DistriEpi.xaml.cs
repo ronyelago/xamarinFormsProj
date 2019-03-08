@@ -10,7 +10,6 @@ using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DistriEpi : ContentPage
     {
         public DistriEpi()

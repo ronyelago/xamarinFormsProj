@@ -9,7 +9,6 @@ using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Login : ContentPage
     {
         private int contadorErroSenha = 0;

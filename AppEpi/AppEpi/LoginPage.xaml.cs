@@ -11,7 +11,6 @@ using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : PopupPage
     {
         private int contadorErroSenha = 0;
