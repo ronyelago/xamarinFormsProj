@@ -3,5 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppEpi.BluetoothSelectPage">
     <ContentPage.Content>
+        <ScrollView x:Name="scrolly">
+            <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">
+                <StackLayout Padding="5,10" HeightRequest="200">
+                    <Label >Escaneando dispositivos</Label>
+                </StackLayout>
+                <Button Text="Parear" FontSize="18" x:Name="btnParear" Clicked="btnParear_Clicked" Style="{StaticResource BotaoAzul1}" />
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
