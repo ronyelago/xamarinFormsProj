@@ -20,6 +20,7 @@ namespace AppEpi
             InitializeComponent();
         }
 
+
         async private void LoginButton_Clicked(object sender, EventArgs e)
         {
             try
@@ -66,6 +67,7 @@ namespace AppEpi
             }
         }
 
+
         async private void OnCloseButtonTapped(object sender, EventArgs e)
         {
             //await DisplayAlert("1", "!", "ok");
@@ -77,16 +79,17 @@ namespace AppEpi
         }
 
 
-
         private void OnClose(object sender, EventArgs e)
         {
             PopupNavigation.PopAsync();
         }
 
+
         protected override void OnAppearingAnimationEnd()
         {
             return;// Content.FadeTo(1);
         }
+
 
         protected override void OnDisappearingAnimationBegin()
         {

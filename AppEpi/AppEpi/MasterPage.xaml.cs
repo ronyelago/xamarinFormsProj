@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,30 +11,14 @@ namespace AppEpi
     public partial class MasterPage : ContentPage
     {
         public ListView ListView { get { return listView; } }
+        public List<PersonList> ListOfPeople { get { return _listOfPeople; } set { _listOfPeople = value; base.OnPropertyChanged(); } }
 
         private List<PersonList> _listOfPeople;
-        public List<PersonList> ListOfPeople { get { return _listOfPeople; } set { _listOfPeople = value; base.OnPropertyChanged(); } }
+
+
         public MasterPage()
         {
             InitializeComponent();
-
-
-
-            //var sList = new PersonList()
-            //{
-            //    new MasterPageItem() { Title = "Atribuição de Cracha", TargetType = typeof(AtribuicaoCracha) },
-            //    new MasterPageItem() { Title = "Recebimento de EPI", TargetType = typeof(RecebimentoItens) }
-
-            //};
-
-            //sList.Heading = "Operação";
-
-            //var list = new List<PersonList>()
-            //{
-            //    sList
-            //};
-
-            //listView.ItemsSource = list;
 
             nameUsuario.Text = UsuarioLogado.DadosUsuario[0].Nome;
 
@@ -46,9 +29,7 @@ namespace AppEpi
                 Title = "Atribuir Cracha",
                 TargetType = typeof(AtribuicaoCracha)
             });
-
-
-
+            
             masterPageItems.Add(new MasterPageItem
             {
                 Title = "Movimentação de Estoque",
@@ -141,7 +122,6 @@ namespace AppEpi
             });
 
             listView.ItemsSource = masterPageItems;
-
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,27 +15,26 @@ namespace AppEpi
             InitializeComponent();
         }
 
+
         async private void btnConfirmar_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
-            int coun = 0;
-
+            int count = 0;
             
-
             string[] lines = epis.Text.Split('\n');
             foreach (string line in lines)
             {
                 if (line != "")
                 {
-                    coun++;
+                    count++;
                     listEPCS = listEPCS + "|" + line;
                 }
             }
 
-            if (coun > 0)
+            if (count > 0)
             {
-                var answer = await DisplayAlert("Consulta de Epi", "Confirmar Consulta?\nTotal de Itens:" + coun, "Sim", "Não");
+                var answer = await DisplayAlert("Consulta de Epi", "Confirmar Consulta?\nTotal de Itens:" + count, "Sim", "Não");
                 if (answer)
                 {
 

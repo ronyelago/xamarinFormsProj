@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
 
 namespace AppEpi
 {
@@ -28,9 +26,9 @@ namespace AppEpi
             }
             catch
             {
-
             }
         }
+
 
         async private void btnEnvioTeste_Clicked(object sender, EventArgs e)
         {
@@ -40,10 +38,8 @@ namespace AppEpi
             string localEstoque = "";
             string[] lines = epis.Text.Split('\n');
 
-
             foreach (string line in lines)
             {
-
                 if (line != "")
                 {
                     coun++;
@@ -61,21 +57,17 @@ namespace AppEpi
                 localEstoque = localEstoque.Split('-')[0];
             }
 
-
             if (coun > 0)
             {
                 var answer = await DisplayAlert("Envio Para Higienização", "Confirmar Envio para Higienização?\nTotal de Itens:" + coun, "Sim", "Não");
                 if (answer)
                 {
-
-                    //var result = wbs.envioParaTeste(listEPCS, localEstoque);
                     var result = wbs.retornarDadosEpiValidar(listEPCS, UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "8";
                     UsuarioLogado.LocalEstoque = localEstoque;
 
                     var detailPage = new Page4(result);
                     await Navigation.PushAsync(detailPage);
-                    //await Navigation.PushModalAsync(detailPage);
                 }
             }
             else
@@ -83,6 +75,7 @@ namespace AppEpi
                 await DisplayAlert("Envio Para Higienização", "Verifique os Campos!", "OK");
             }
         }
+
 
         protected override void OnAppearing()
         {

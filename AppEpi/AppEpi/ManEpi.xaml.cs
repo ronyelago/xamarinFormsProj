@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +14,7 @@ namespace AppEpi
         {
             InitializeComponent();
         }
+
 
         async protected override void OnAppearing()
         {
@@ -32,18 +32,15 @@ namespace AppEpi
             }
             catch
             {
-
             }
-
         }
+
 
         async private void Button_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
             int coun = 0;
-            // unused var: remover essa linha gera VARIOS erros por todos os lados
-            bool confirmarMovimentacao = true;
             string localEstoque = "";
 
             string[] lines = epis.Text.Split('\n');
@@ -60,7 +57,6 @@ namespace AppEpi
             {
                 if (pckLocalEstoque.SelectedIndex.ToString() == "-1")
                 {
-                    confirmarMovimentacao = false;
                     localEstoque = "";
                 }
                 else
@@ -68,20 +64,15 @@ namespace AppEpi
                     localEstoque = pckLocalEstoque.Items[pckLocalEstoque.SelectedIndex];
                     localEstoque = localEstoque.Split('-')[0];
                 }
-
-
+                
                 var answer = await DisplayAlert("Manutenção", "Confirmar Manutenção?\nTotal de Itens:" + coun, "Sim", "Não");
                 if (answer)
                 {
 
                     var result = wbs.manutencaoEPIS(listEPCS, localEstoque);
-                    //await DisplayAlert("Recebimento", result.Count.ToString(), "OK");
                     var detailPage = new ResultadoTrn(result);
                     await Navigation.PushAsync(detailPage);
-                    //await Navigation.PushModalAsync(detailPage);
-                    //PushModalAsync(detailPage);
                 }
-
             }
             else
             {

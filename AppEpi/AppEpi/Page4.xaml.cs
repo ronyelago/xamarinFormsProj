@@ -55,7 +55,6 @@ namespace AppEpi
                 btnSenha.IsVisible = false;
                 btnConfirmar.IsVisible = true;
             }
-
             return true;
         }
 
@@ -87,7 +86,7 @@ namespace AppEpi
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
-            int coun = 0;
+            int count = 0;
             List<RESULTADOMOV> result = new List<RESULTADOMOV>();
 
             if (countConfirmacao == it.Count)
@@ -97,17 +96,13 @@ namespace AppEpi
                 {
                     if (item.EPC != "")
                     {
-                        coun++;
+                        count++;
                         listEPCS = listEPCS + "|" + item.EPC;
                     }
                 }
 
-                if (coun > 0)
+                if (count > 0)
                 {
-                    //var answer = await DisplayAlert("Recebimento", "Confirmar Recebimento?\nTotal de Itens:" + coun, "Sim", "Não");
-                    //if (answer)
-                    //{
-
                     switch (UsuarioLogado.Operacao)
                     {
                         case "1":
@@ -149,22 +144,17 @@ namespace AppEpi
                     if (UsuarioLogado.Operacao != "6")
                     {
                         var detailPage = new ResultadoTrn(result);
-                        //await Navigation.PushModalAsync(detailPage);
 
                         NavigationPage.SetBackButtonTitle(this, "Voltar");
                         await Navigation.PushAsync(detailPage);
-
-
                     }
                     else
                     {
                         var detailPage = new NaoConforme(result);
-                        //await Navigation.PushPopupAsync(detailPage);
 
                         NavigationPage.SetBackButtonTitle(this, "Voltar");
                         await Navigation.PushAsync(detailPage);
                     }
-                    //}
                 }
                 else
                 {
@@ -181,12 +171,12 @@ namespace AppEpi
         private async void btnSenha_Clicked(object sender, EventArgs e)
         {
             string listEPCS = "";
-            int coun = 0;
+            int count = 0;
             foreach (var item in it)
             {
                 if (item.EPC != "")
                 {
-                    coun++;
+                    count++;
                     listEPCS = listEPCS + "|" + item.EPC;
                 }
             }

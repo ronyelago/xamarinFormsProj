@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -22,13 +21,11 @@ namespace AppEpi.Droid
         {
             try
             {
-
                 List<L_LOCALESTOQUE> Lpd = new List<L_LOCALESTOQUE>();
                 WBSClient.Client cl = new WBSClient.Client();
                 var result = cl.retornaLocalEstoque();
                 foreach (var item in result)
                 {
-
                     Lpd.Add(new L_LOCALESTOQUE
                     {
                         CODIGO = item.CODIGO,
@@ -42,12 +39,12 @@ namespace AppEpi.Droid
 
                 return Lpd;
             }
-            catch (Exception e)
+            catch
             {
-
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> movimentacaoEstoque(string listaEPCS, string estoque, string entSaida)
         {
@@ -58,7 +55,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -75,6 +71,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> recebimentoEstoques(string listaEPCS)
         {
@@ -113,8 +110,6 @@ namespace AppEpi.Droid
                             });
                         }
                     }
-
-                   
                 }
                 return Lpd;
             }
@@ -123,6 +118,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> recebimentoEstoquesCnpj(string listaEPCS, string cnpj)
         {
@@ -161,8 +157,6 @@ namespace AppEpi.Droid
                             });
                         }
                     }
-
-
                 }
                 return Lpd;
             }
@@ -171,6 +165,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> atribuicaoCrachar(string matricula, string cracha)
         {
@@ -181,7 +176,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -198,6 +192,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> distribuicaoEPIS(string listaEPCS, string matricula)
         {
@@ -208,7 +203,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -225,6 +219,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> envioParaTeste(string listaEPCS, string codEstoque)
         {
@@ -235,7 +230,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -252,6 +246,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> recebimentoDoTeste(string listaEPCS, string dataTeste, string art)
         {
@@ -262,7 +257,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -279,6 +273,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> inspecaoEPIFUNC(string listaEPCS, string latitude, string longitude)
         {
@@ -289,7 +284,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -306,6 +300,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> itemNaoConforme(string epc, string motivo)
         {
@@ -316,7 +311,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -333,6 +327,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> manutencaoEPIS(string epc, string estoque)
         {
@@ -361,6 +356,7 @@ namespace AppEpi.Droid
             }
         }
 
+
         public List<RESULTADOMOV> funcionarioCracha(string cracha)
         {
             try
@@ -370,7 +366,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -387,6 +382,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> cadastSenha(string senha, string matricula)
         {
@@ -397,7 +393,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -415,6 +410,7 @@ namespace AppEpi.Droid
             }
         }
 
+
         public List<DADOSLOGIN> loginFunc(string matricula, string senha)
         {
             try
@@ -424,7 +420,6 @@ namespace AppEpi.Droid
                 List<DADOSLOGIN> Lpd = new List<DADOSLOGIN>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new DADOSLOGIN
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -446,6 +441,7 @@ namespace AppEpi.Droid
             }
         }
 
+
         public List<RESULTADOMOV> devEPI(string epc, string estoque)
         {
             try
@@ -455,7 +451,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -472,6 +467,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> descartItem(string epc, string estoque)
         {
@@ -482,7 +478,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -499,6 +494,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> consultEPI(string listaEPCS)
         {
@@ -509,7 +505,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -526,6 +521,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public List<RESULTADOMOV> retornarDEpi(string listaEPCS)
         {
@@ -536,7 +532,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -553,6 +548,7 @@ namespace AppEpi.Droid
                 return null;
             }
         }
+
 
         public ObservableCollection<DADOSEPI> retornarDadosEpiValidar(string listaEPCS, string cnpj, int fkCliente)
         {
@@ -583,6 +579,7 @@ namespace AppEpi.Droid
             }
         }
 
+
         private string isnullCor(string corAviso)
         {
             if (corAviso != null)
@@ -595,6 +592,7 @@ namespace AppEpi.Droid
             }
         }
 
+
         public bool temSenha(string listaEPCS)
         {
             try
@@ -602,13 +600,13 @@ namespace AppEpi.Droid
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.FuncionarioTemSenha(listaEPCS);
                 return rest;
-
             }
             catch
             {
                 return false;
             }
         }
+
 
         public List<RESULTADOMOV> envioParaHigienizacao(string listaEPCS, string codEstoque)
         {
@@ -620,7 +618,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
@@ -638,6 +635,7 @@ namespace AppEpi.Droid
             }
         }
 
+
         public List<RESULTADOMOV> recebimentoDaHigienizacao(string listaEPCS)
         {
             try
@@ -647,7 +645,6 @@ namespace AppEpi.Droid
                 List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-
                     Lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,

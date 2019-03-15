@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +14,7 @@ namespace AppEpi
         {
             InitializeComponent();
         }
+
 
         async protected override void OnAppearing()
         {
@@ -32,22 +32,21 @@ namespace AppEpi
             }
             catch
             {
-
             }
-
         }
+
 
         async void EditorCompleted(object sender, EventArgs e)
         {
-            var text = ((Editor)sender).Text; // sender is cast to an Editor to enable reading the `Text` property of the view.
-
-
+            // sender is cast to an Editor to enable reading the `Text` property of the view.
+            var text = ((Editor)sender).Text; 
         }
+
 
         async void EditorTextChanged(object sender, TextChangedEventArgs e)
         {
-
         }
+
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
@@ -61,8 +60,7 @@ namespace AppEpi
             {
                 confirmarMovimentacao = false;
             }
-
-
+            
             if (pckLocalEstoque.SelectedIndex.ToString() == "-1")
             {
                 confirmarMovimentacao = false;
@@ -71,8 +69,7 @@ namespace AppEpi
             {
                 localEstoque = pckLocalEstoque.Items[pckLocalEstoque.SelectedIndex];
             }
-
-
+            
             if (pckEntradaSaida.SelectedIndex.ToString() == "-1")
             {
                 confirmarMovimentacao = false;
@@ -97,25 +94,18 @@ namespace AppEpi
                 var answer = await DisplayAlert("Movimentação de Estoque", "Confirmar Transação?\nTotal de Itens:" + coun, "Sim", "Não");
                 if (answer)
                 {
-
-                    //var result = wbs.movimentacaoEstoque(listEPCS, localEstoque.Split('-')[0], abreviarStatus(entradaSaida));
                     var result = wbs.retornarDadosEpiValidar(listEPCS, UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "2";
                     UsuarioLogado.LocalEstoque = localEstoque.Split('-')[0];
                     UsuarioLogado.StatusEstoque = abreviarStatus(entradaSaida);
                     var detailPage = new Page4(result);
                     await Navigation.PushAsync(detailPage);
-                    //await Navigation.PushModalAsync(detailPage);
                 }
-
-
             }
             else
             {
                 await DisplayAlert("Easy Epi", "Verifique os Campos!", "OK");
             }
-
-
         }
 
 

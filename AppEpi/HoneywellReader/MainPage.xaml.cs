@@ -21,6 +21,7 @@ namespace HoneywellReader
         private bool mSoftContinuousScanStarted = false;
         private bool mSoftOneShotScanStarted = false;
 
+
         public MainPage()
         {
             InitializeComponent();
@@ -28,8 +29,8 @@ namespace HoneywellReader
             mBarcodeReaders = new Dictionary<string, BarcodeReader>();
         }
 
-        #region Manage UI Controls
 
+        #region Manage UI Controls
         private async void PopulateReaderPicker()
         {
             try
@@ -57,12 +58,14 @@ namespace HoneywellReader
             mReaderPicker.SelectedIndex = 0;
         }
 
+
         private void UpdateBarcodeInfo(string data, string symbology, DateTime timestamp)
         {
             mScanDataEditor.Text = data;
             mSymbologyLabel.Text = "Symbology: " + symbology;
             mTimestampLabel.Text = "Timestamp: " + timestamp.ToString();
         }
+
 
         private string GetSelectedReaderName()
         {
@@ -78,6 +81,7 @@ namespace HoneywellReader
         }
 
         #endregion // Manage UI Controls
+
 
         /// <summary>
         /// Get an instance of BarcodeReader from the mBarcodeReaders collection
@@ -138,6 +142,7 @@ namespace HoneywellReader
             return reader;
         }
 
+
         // Event handler for the BarcodeDataReady event.
         private async void MBarcodeReader_BarcodeDataReady(object sender, BarcodeDataArgs e)
         {
@@ -164,6 +169,7 @@ namespace HoneywellReader
                 mSoftOneShotScanStarted = false;
             }
         }
+
 
         /// <summary>
         /// Opens the barcode reader. This method should be called from the
@@ -205,6 +211,7 @@ namespace HoneywellReader
                 }
             } //endif (mOpenReader)
         }
+
 
         /// <summary>
         /// Closes the barcode reader. This method should be called from the
@@ -249,6 +256,7 @@ namespace HoneywellReader
             }
         }
 
+
         private async void SetScannerAndSymbologySettings()
         {
             try
@@ -283,6 +291,7 @@ namespace HoneywellReader
             }
         }
 
+
         #region UI Event Handlers
         private void OpenReaderSwitch_Toggled(object sender, ToggledEventArgs e)
         {
@@ -296,6 +305,7 @@ namespace HoneywellReader
                 CloseBarcodeReader();
             }
         }
+
 
         private async void EnableScanningSwitch_Toggled(object sender, ToggledEventArgs e)
         {
@@ -313,6 +323,7 @@ namespace HoneywellReader
                 }
             }
         }
+
 
         private async void ContinuousSwitch_Toggled(object sender, ToggledEventArgs e)
         {
@@ -376,6 +387,7 @@ namespace HoneywellReader
                 }
             }
         }
+
 
         public async void OnScanButtonClicked(object sender, EventArgs args)
         {

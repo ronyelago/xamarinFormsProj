@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,11 +17,12 @@ namespace AppEpi
             InitializeComponent();
         }
 
+
         async private void btnConfirmar_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
-            int coun = 0;
+            int count = 0;
 
             var locator = CrossGeolocator.Current;
             var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
@@ -34,31 +34,23 @@ namespace AppEpi
             {
                 if (line != "")
                 {
-                    coun++;
+                    count++;
                     listEPCS = listEPCS + "|" + line;
                 }
             }
 
-            if (coun > 0)
+
+            if (count > 0)
             {
-                var answer = await DisplayAlert("Fiscalização", "Confirmar Fiscalização?\nTotal de Itens:" + coun, "Sim", "Não");
+                var answer = await DisplayAlert("Fiscalização", "Confirmar Fiscalização?\nTotal de Itens:" + count, "Sim", "Não");
                 if (answer)
                 {
-
-                    //var result = wbs.inspecaoEPIFUNC(listEPCS);
                     var result = wbs.retornarDadosEpiValidar(listEPCS, UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "6";
-                    //await DisplayAlert("Recebimento", result.Count.ToString(), "OK");
                     var detailPage = new Page4(result);
-                    //await Navigation.PushModalAsync(detailPage);
 
                     NavigationPage.SetBackButtonTitle(this, "Voltar");
                     await Navigation.PushAsync(detailPage);
-
-                    //await DisplayAlert("Recebimento", result.Count.ToString(), "OK");
-                    //var detailPage = new NaoConforme(result);
-                    //await Navigation.PushPopupAsync(detailPage);
-                    //PushModalAsync(detailPage);
                 }
             }
             else
@@ -67,11 +59,11 @@ namespace AppEpi
             }
         }
 
+
         async protected override void OnAppearing()
         {
             base.OnAppearing();
             epis.Text = "";
-
         }
     }
 }

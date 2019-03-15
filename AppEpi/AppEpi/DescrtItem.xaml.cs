@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,32 +15,30 @@ namespace AppEpi
             InitializeComponent();
         }
 
+
         async private void Button_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
-            int coun = 0;
+            int count = 0;
 
             string[] lines = epis.Text.Split('\n');
             foreach (string line in lines)
             {
                 if (line != "")
                 {
-                    coun++;
+                    count++;
                     listEPCS = listEPCS + "|" + line;
                 }
             }
 
-            if (coun > 0)
+            if (count > 0)
             {
                 if (edtMotivo.Text != "")
                 {
-
-
-                    var answer = await DisplayAlert("Descarte", "Confirmar Descarte?\nTotal de Itens:" + coun, "Sim", "Não");
+                    var answer = await DisplayAlert("Descarte", "Confirmar Descarte?\nTotal de Itens:" + count, "Sim", "Não");
                     if (answer)
                     {
-
                         var result = wbs.descartItem(listEPCS, edtMotivo.Text);
                         //await DisplayAlert("Recebimento", result.Count.ToString(), "OK");
                         var detailPage = new ResultadoTrn(result);
@@ -54,13 +51,13 @@ namespace AppEpi
                 {
                     await DisplayAlert("Descarte", "Verifique os Campos!", "OK");
                 }
-
             }
             else
             {
                 await DisplayAlert("Descarte", "Verifique os Campos!", "OK");
             }
         }
+
 
         protected override void OnAppearing()
         {

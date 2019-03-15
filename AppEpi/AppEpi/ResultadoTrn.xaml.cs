@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,10 +14,10 @@ namespace AppEpi
         private List<RESULTADOMOV> it;
         private List<RESULTADOMOV> temChave;
 
+
         public ResultadoTrn(List<RESULTADOMOV> result)
         {
             InitializeComponent();
-
             
             temChave = result.Where(x => x.Produto == "chave").ToList();
             List<RESULTADOMOV> l = new List<RESULTADOMOV>();
@@ -42,6 +41,7 @@ namespace AppEpi
             it = result;
         }
 
+
         async protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -53,7 +53,6 @@ namespace AppEpi
                 {
                     erro = true;
                     await DisplayAlert("Resultado", "Existe itens em Inconformidades\nQtd Itens:" + result.Count, "OK");
-
                 }
             }
 
@@ -74,9 +73,8 @@ namespace AppEpi
             {
                 btnAssinar.IsVisible = false;
             }
-
-
         }
+
 
         async private void btnAssinar_Clicked(object sender, EventArgs e)
         {
@@ -88,7 +86,6 @@ namespace AppEpi
             var detailPage = new MAssinar();
             NavigationPage.SetBackButtonTitle(this, "Voltar");
             await Navigation.PushAsync(detailPage);
-            //Navigation.PushAsync(detailPage);
         }
     }
 }

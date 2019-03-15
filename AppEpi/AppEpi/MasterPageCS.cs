@@ -13,13 +13,13 @@ namespace AppEpi
 
         public MasterPageCS()
         {
-
             var masterPageItems = new List<MasterPageItem>();
 
             listView = new ListView
             {
                 ItemsSource = masterPageItems,
-                ItemTemplate = new DataTemplate(() => {
+                ItemTemplate = new DataTemplate(() =>
+                {
                     var imageCell = new ImageCell();
                     imageCell.SetBinding(TextCell.TextProperty, "Title");
                     imageCell.SetBinding(ImageCell.ImageSourceProperty, "IconSource");

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,13 +15,12 @@ namespace AppEpi
             InitializeComponent();
         }
 
+
         async private void Button_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
-            int coun = 0;
-            // unused var: remover essa linha gera VARIOS erros por todos os lados
-            bool confirmarMovimentacao = true;
+            int count = 0;
             string localEstoque = "";
 
             string[] lines = epis.Text.Split('\n');
@@ -30,16 +28,15 @@ namespace AppEpi
             {
                 if (line != "")
                 {
-                    coun++;
+                    count++;
                     listEPCS = listEPCS + "|" + line;
                 }
             }
 
-            if (coun > 0)
+            if (count > 0)
             {
                 if (pckLocalEstoque.SelectedIndex.ToString() == "-1")
                 {
-                    confirmarMovimentacao = false;
                     localEstoque = "";
                 }
                 else
@@ -47,9 +44,8 @@ namespace AppEpi
                     localEstoque = pckLocalEstoque.Items[pckLocalEstoque.SelectedIndex];
                     localEstoque = localEstoque.Split('-')[0];
                 }
-
-
-                var answer = await DisplayAlert("Devolução", "Confirmar Devolução?\nTotal de Itens:" + coun, "Sim", "Não");
+                
+                var answer = await DisplayAlert("Devolução", "Confirmar Devolução?\nTotal de Itens:" + count, "Sim", "Não");
                 if (answer)
                 {
 
@@ -60,13 +56,13 @@ namespace AppEpi
                     //await Navigation.PushModalAsync(detailPage);
                     //PushModalAsync(detailPage);
                 }
-
             }
             else
             {
                 await DisplayAlert("Devolução", "Verifique os Campos!", "OK");
             }
         }
+
 
         async protected override void OnAppearing()
         {
@@ -84,9 +80,7 @@ namespace AppEpi
             }
             catch
             {
-
             }
-
         }
     }
 }

@@ -17,16 +17,15 @@ namespace AppEpi
             InitializeComponent();
         }
 
+
         async private void Button_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
 
             string[] lines = entMatricula.Text.Split('\n');
-
-
+            
             if (entMatricula.Text != "")
             {
-
                 var result = wbs.funcionarioCracha(entMatricula.Text);
                 if (result.Count > 0)
                 {
@@ -40,9 +39,6 @@ namespace AppEpi
                         await DisplayAlert("Senha", result[0].Resultado, "OK");
                     }
                 }
-                //await DisplayAlert("Recebimento", result.Count.ToString(), "OK");
-                //var detailPage = new ResultadoTrn(result);
-                //await Navigation.PushModalAsync(detailPage);
             }
             else
             {

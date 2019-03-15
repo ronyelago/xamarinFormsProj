@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,8 +20,8 @@ namespace AppEpi
             InitializeComponent();
             listResultado.ItemsSource = result;
             it = result;
-
         }
+
 
         async protected override void OnAppearing()
         {
@@ -37,6 +36,7 @@ namespace AppEpi
             }
         }
 
+
         async private void listResultado_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
@@ -49,18 +49,20 @@ namespace AppEpi
 
             var detailPage = new EnviarNaoConforme(id.EPC);
             await Navigation.PushPopupAsync(detailPage);
-
         }
+
 
         private void OnClose(object sender, EventArgs e)
         {
             PopupNavigation.PopAsync();
         }
 
+
         protected override void OnAppearingAnimationEnd()
         {
             return;// Content.FadeTo(1);
         }
+
 
         protected override void OnDisappearingAnimationBegin()
         {

@@ -11,6 +11,9 @@ namespace AppEpi
 {
     public partial class MainPage : MasterDetailPage
     {
+        public Color CorThema { get; private set; }
+
+
         public MainPage()
         {
             InitializeComponent();
@@ -28,11 +31,8 @@ namespace AppEpi
                 BarTextColor = Color.White,
                 Icon = "mnH.png"
             };
-
         }
-
-        public Color CorThema { get; private set; }
-
+        
 
         void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -50,13 +50,11 @@ namespace AppEpi
             }
         }
 
+
         async private void btnLocalizacao_Clicked(object sender, EventArgs e)
         {
             var locator = CrossGeolocator.Current;
-
             var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-            
-
         }
     }
 }

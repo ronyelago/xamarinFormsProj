@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,6 +17,7 @@ namespace AppEpi
             InitializeComponent();
             epc.Text = EPC;
         }
+
 
         async private void btnConfirmar_Clicked(object sender, EventArgs e)
         {
@@ -38,6 +38,7 @@ namespace AppEpi
                 }
             }
         }
+
 
 
         private void OnClose(object sender, EventArgs e)
