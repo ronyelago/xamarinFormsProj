@@ -14,8 +14,8 @@ namespace AppEpi
         public App()
         {
             InitializeComponent();
-
             //MainPage = new AppEpi.MainPage();
+
             NavigationPage.SetHasNavigationBar(this, false);
             MainPage = new NavigationPage(new Login());
         }
