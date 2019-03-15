@@ -178,5 +178,6 @@
   <ItemGroup>
     <None Include="Web References\WBSClient\Client.disco" />
   </ItemGroup>
+  <Import Project="..\HoneywellReader\HoneywellReader.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
