@@ -37,7 +37,6 @@ namespace AppEpi
         void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = e.SelectedItem as MasterPageItem;
-            UsuarioLogado.IrProCarrinho = false;
             if (item != null)
             {
                 Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType))

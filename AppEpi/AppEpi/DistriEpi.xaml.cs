@@ -15,7 +15,6 @@ namespace AppEpi
         public DistriEpi()
         {
             InitializeComponent();
-            UsuarioLogado.SenhaConfirmadaEntrega = false;
         }
 
         async private void btnConfirmar_Clicked(object sender, EventArgs e)

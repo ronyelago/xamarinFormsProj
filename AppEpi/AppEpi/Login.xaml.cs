@@ -43,7 +43,6 @@ namespace AppEpi
                         UsuarioLogado.FkCliente = result[0].FkCliente;
                         UsuarioLogado.MatriculaDistribuicao = entMatricula.Text;
                         UsuarioLogado.SenhaConfirmada = true;
-                        UsuarioLogado.SenhaConfirmadaEntrega = true;
                         //CloseAllPopup();
                         NavigationPage.SetHasNavigationBar(this, false);
                         var navPage = new NavigationPage(new Tel_Apresentacao());

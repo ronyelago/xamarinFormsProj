@@ -21,9 +21,5 @@
   Property=Height,
   Factor=0.0,
   Constant=-100}"/>
-
-        <StackLayout Orientation="Horizontal">
-            <Button Text="Faça seu Pedido!" IsVisible="False" WidthRequest="200" FontSize="18" Margin="5,5"  Clicked="btnPrincipalFacaPedido"  Style="{StaticResource BotaoAzul1}" />
-        </StackLayout>
     </RelativeLayout>
 </ContentPage>

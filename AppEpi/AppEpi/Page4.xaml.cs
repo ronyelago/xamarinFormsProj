@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,21 +21,8 @@ namespace AppEpi
 
             listResultado.ItemsSource = result;
             it = result;
-
-
-
-            //foreach (var i in result)
-            //{
-            //    var tc = new TextCell();
-            //    tc.TextColor = Color.Black;
-            //    tc.Text = "EPC:" + i.EPC + "\n" + i.Resultado;
-            //    tc.Detail = i.DataMovimentacao.ToLongDateString();
-            //    tc.DetailColor = Color.FromHex("#313131");
-            //    tbPedido.Add(tc);
-            //}
-
-
         }
+
 
         async protected override void OnAppearing()
         {
@@ -46,40 +32,23 @@ namespace AppEpi
 
             if (UsuarioLogado.Operacao == "3")
             {
-                //if (!UsuarioLogado.SenhaConfirmadaEntrega)
-                //{
-                //    btnSenha.IsVisible = true;
-                //    btnConfirmar.IsVisible = false;
-                //}
-                //else
-                //{
                     btnSenha.IsVisible = false;
                     btnConfirmar.IsVisible = true;
-                //}
             }
             else
             {
                 btnSenha.IsVisible = false;
                 btnConfirmar.IsVisible = true;
             }
-
-
         }
+
 
         private bool TimerElapsed()
         {
             if (UsuarioLogado.Operacao == "3")
             {
-                //if (!UsuarioLogado.SenhaConfirmadaEntrega)
-                //{
-                //    btnSenha.IsVisible = true;
-                //    btnConfirmar.IsVisible = false;
-                //}
-                //else
-                //{
                     btnSenha.IsVisible = false;
                     btnConfirmar.IsVisible = true;
-                //}
             }
             else
             {
@@ -90,6 +59,7 @@ namespace AppEpi
             return true;
         }
 
+
         async private void Button_Clicked(object sender, EventArgs e)
         {
             var item = (Xamarin.Forms.Button)sender;
@@ -97,6 +67,7 @@ namespace AppEpi
             countConfirmacao++;
             item.IsEnabled = false;
         }
+
 
         async private void Button_ClickedRemove(object sender, EventArgs e)
         {
@@ -111,14 +82,13 @@ namespace AppEpi
             }
         }
 
+
         private async void btnConfirmar_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
             int coun = 0;
             List<RESULTADOMOV> result = new List<RESULTADOMOV>();
-
-
 
             if (countConfirmacao == it.Count)
             {
@@ -207,6 +177,7 @@ namespace AppEpi
             }
         }
 
+
         private async void btnSenha_Clicked(object sender, EventArgs e)
         {
             string listEPCS = "";
@@ -232,6 +203,7 @@ namespace AppEpi
             }
         }
 
+
         private bool validarMatriculaSenha(string listEPCS)
         {
             try
@@ -244,7 +216,6 @@ namespace AppEpi
             {
                 return false;
             }
-
         }
     }
 }
