@@ -35,7 +35,7 @@ namespace RFIDComm
             lv.ItemTemplate.SetBinding(TextCell.TextProperty, ".");
 
             int topPadding = 0;
-            if (Device.RuntimePlatform == Device.iOS)
+            if (Device.RuntimePlatform == Device.Android)
                 topPadding = 20;
 
             StackLayout sl = new StackLayout { Children = { pickerBluetoothDevices, entrySleepTime, slButtons, lv }, Padding = new Thickness(0, topPadding, 0, 0) };
