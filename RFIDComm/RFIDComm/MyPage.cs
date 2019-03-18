@@ -27,7 +27,11 @@ namespace RFIDComm
             buttonDisconnect.SetBinding(Button.CommandProperty, "DisconnectCommand");
             buttonDisconnect.SetBinding(VisualElement.IsEnabledProperty, "IsDisconnectEnabled");
 
-            StackLayout slButtons = new StackLayout() { Orientation = StackOrientation.Horizontal, Children = { buttonDisconnect, buttonConnect } };
+            Button buttonAttributes = new Button() { Text = "Attributes" };
+            buttonAttributes.SetBinding(Button.CommandProperty, "AttributesCommand");
+            buttonAttributes.SetBinding(VisualElement.IsEnabledProperty, "IsAttributesEnabled");
+
+            StackLayout slButtons = new StackLayout() { Orientation = StackOrientation.Horizontal, Children = { buttonDisconnect, buttonConnect, buttonAttributes } };
 
             ListView lv = new ListView();
             lv.SetBinding(ListView.ItemsSourceProperty, "ListOfBarcodes");

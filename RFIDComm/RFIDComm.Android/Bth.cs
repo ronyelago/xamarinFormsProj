@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
+using System.IO;
+using System.Text;
 
 [assembly: Dependency(typeof(Bth))]
 namespace RFIDComm.Droid
@@ -19,6 +21,7 @@ namespace RFIDComm.Droid
         private CancellationTokenSource _ct { get; set; }
 
         const int RequestResolveError = 1000;
+        private BluetoothSocket bthSocket;
 
         public Bth()
         {
@@ -32,7 +35,6 @@ namespace RFIDComm.Droid
         /// <param name="name">Name of the paired bluetooth device (also a part of the name)</param>
         public void Start(string name, int sleepTime = 200, bool readAsCharArray = false)
         {
-
             Task.Run(async () => Loop(name, sleepTime, readAsCharArray));
         }
 
@@ -41,12 +43,11 @@ namespace RFIDComm.Droid
         {
             BluetoothDevice device = null;
             BluetoothAdapter adapter = BluetoothAdapter.DefaultAdapter;
-            BluetoothSocket BthSocket = null;
+            bthSocket = null;
 
             _ct = new CancellationTokenSource();
             while (_ct.IsCancellationRequested == false)
             {
-
                 try
                 {
                     Thread.Sleep(sleepTime);
@@ -70,7 +71,6 @@ namespace RFIDComm.Droid
                         Debug.WriteLine("Paired devices found: " + bd.Name.ToUpper());
                         if (bd.Name.ToUpper().IndexOf(name.ToUpper()) >= 0)
                         {
-
                             Debug.WriteLine("Found " + bd.Name + ". Try to connect with it!");
                             device = bd;
                             break;
@@ -82,21 +82,25 @@ namespace RFIDComm.Droid
                     else
                     {
                         UUID uuid = UUID.FromString("00001101-0000-1000-8000-00805f9b34fb");
-                        if ((int)Android.OS.Build.VERSION.SdkInt >= 10) // Gingerbread 2.3.3 2.3.4
-                            BthSocket = device.CreateInsecureRfcommSocketToServiceRecord(uuid);
-                        else
-                            BthSocket = device.CreateRfcommSocketToServiceRecord(uuid);
-
-                        if (BthSocket != null)
+                        if ((int)Android.OS.Build.VERSION.SdkInt >= 10) // Gingerbread 2.3.3 2.3.4 
                         {
-                            await BthSocket.ConnectAsync();
+                            bthSocket = device.CreateInsecureRfcommSocketToServiceRecord(uuid);
+                        }
+                        else
+                        {
+                            bthSocket = device.CreateRfcommSocketToServiceRecord(uuid);
+                        }
 
-                            if (BthSocket.IsConnected)
+                        if (bthSocket != null)
+                        {
+                            await bthSocket.ConnectAsync();
+
+                            if (bthSocket.IsConnected)
                             {
                                 Debug.WriteLine("Connected!");
-                                var mReader = new InputStreamReader(BthSocket.InputStream);
-                                var buffer = new BufferedReader(mReader);
 
+                                var mReader = new InputStreamReader(bthSocket.InputStream);
+                                var buffer = new BufferedReader(mReader);
                                 while (_ct.IsCancellationRequested == false)
                                 {
                                     if (buffer.Ready())
@@ -113,10 +117,11 @@ namespace RFIDComm.Droid
                                                     break;
                                                 barcode += c;
                                             }
-
                                         }
                                         else
+                                        {
                                             barcode = await buffer.ReadLineAsync();
+                                        }
 
                                         if (barcode.Length > 0)
                                         {
@@ -125,26 +130,27 @@ namespace RFIDComm.Droid
                                         }
                                         else
                                             Debug.WriteLine("No data");
-
                                     }
                                     else
+                                    {
                                         Debug.WriteLine("No data to read");
+                                    }
 
                                     // A little stop to the uneverending thread...
                                     Thread.Sleep(sleepTime);
-                                    if (!BthSocket.IsConnected)
+                                    if (!bthSocket.IsConnected)
                                     {
                                         Debug.WriteLine("BthSocket.IsConnected = false, Throw exception");
                                         throw new Exception();
                                     }
                                 }
-
                                 Debug.WriteLine("Exit the inner loop");
                             }
                         }
                         else
-                            Debug.WriteLine("BthSocket = null");
-
+                        {
+                            Debug.WriteLine("bthSocket = null");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -154,13 +160,13 @@ namespace RFIDComm.Droid
 
                 finally
                 {
-                    if (BthSocket != null)
-                        BthSocket.Close();
+                    if (bthSocket != null)
+                    {
+                        bthSocket.Close();
+                    }
                     device = null;
-                    adapter = null;
                 }
             }
-
             Debug.WriteLine("Exit the external loop");
         }
 
@@ -178,6 +184,32 @@ namespace RFIDComm.Droid
             }
         }
 
+        // Rodolfo: NÃO PARECE ESTAR FUNCIONANDO AINDA
+        // Requires further developing
+        public void SendMessage(string message)
+        {
+            if (_ct != null)
+            {
+                try
+                {
+                    throw new NotSupportedException();
+
+                    Stream outStream = bthSocket.OutputStream;
+                    byte[] msgBuffer = Encoding.ASCII.GetBytes(message);
+
+                    //Task.Run(async () => outStream.WriteAsync(msgBuffer, 0, msgBuffer.Length));
+                    outStream.Write(msgBuffer, 0, msgBuffer.Length);
+                    outStream.Flush();
+
+                    Debug.WriteLine("Sent message: \"" + message + "\"");
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("EXCEPTION: " + ex.Message);
+                }
+            }
+        }
+
 
         public ObservableCollection<string> PairedDevices()
         {
@@ -188,7 +220,6 @@ namespace RFIDComm.Droid
             {
                 devices.Add(bd.Name);
             }
-
             return devices;
         }
         #endregion

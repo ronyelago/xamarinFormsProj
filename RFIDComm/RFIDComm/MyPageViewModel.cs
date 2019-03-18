@@ -59,6 +59,16 @@ namespace RFIDComm
             }
         }
 
+        public bool IsAttributesEnabled
+        {
+            get
+            {
+                if (_isSelectedBthDevice == false)
+                    return false;
+                return _isConnected;
+            }
+        }
+
         public bool IsPickerEnabled
         {
             get
@@ -88,21 +98,24 @@ namespace RFIDComm
             });
 
 
-            this.ConnectCommand = new Command(() => {
+            this.ConnectCommand = new Command(() =>
+            {
 
                 // Try to connect to a bth device
                 DependencyService.Get<IBth>().Start(SelectedBthDevice, _sleepTime, true);
                 _isConnected = true;
 
                 // Receive data from bth device
-                MessagingCenter.Subscribe<App, string>(this, "Barcode", (sender, arg) => {
+                MessagingCenter.Subscribe<App, string>(this, "Barcode", (sender, arg) =>
+                {
 
                     // Add the barcode to a list (first position)
                     ListOfBarcodes.Insert(0, arg);
                 });
             });
 
-            this.DisconnectCommand = new Command(() => {
+            this.DisconnectCommand = new Command(() =>
+            {
 
                 // Disconnect from bth device
                 DependencyService.Get<IBth>().Cancel();
@@ -110,6 +123,13 @@ namespace RFIDComm
                 _isConnected = false;
             });
 
+            this.AttributesCommand = new Command(() =>
+            {
+
+                // Request device's attributes
+                DependencyService.Get<IBth>().SendMessage("ATTRIBUTE<CRLF>");
+            });
+            
 
             try
             {
@@ -124,6 +144,7 @@ namespace RFIDComm
 
         public ICommand ConnectCommand { get; protected set; }
         public ICommand DisconnectCommand { get; protected set; }
+        public ICommand AttributesCommand { get; protected set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
