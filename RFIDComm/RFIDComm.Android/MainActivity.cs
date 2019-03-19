@@ -17,9 +17,6 @@ namespace RFIDComm.Droid
 
         public static BluetoothSocket BthSocket = null;
 
-        const int RequestResolveError = 1000;
-
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);

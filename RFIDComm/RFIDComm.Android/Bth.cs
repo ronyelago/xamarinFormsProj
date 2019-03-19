@@ -20,29 +20,119 @@ namespace RFIDComm.Droid
 
         private CancellationTokenSource _ct { get; set; }
 
-        const int RequestResolveError = 1000;
         private BluetoothSocket bthSocket;
 
         public Bth()
         {
         }
 
-        #region IBth implementation
-
-        /// <summary>
-        /// Start the "reading" loop 
-        /// </summary>
-        /// <param name="name">Name of the paired bluetooth device (also a part of the name)</param>
-        public void Start(string name, int sleepTime = 200, bool readAsCharArray = false)
+        // escaneia inputStream continuamente
+        // throws exceptions
+        // exits on disconnection
+        private async Task ScanInput(int pollingInterval, bool readAsCharArray)
         {
-            Task.Run(async () => Loop(name, sleepTime, readAsCharArray));
+            var mReader = new InputStreamReader(bthSocket.InputStream);
+            var buffer = new BufferedReader(mReader);
+
+            while (_ct.IsCancellationRequested == false)
+            {
+                Thread.Sleep(pollingInterval);
+
+                if (bthSocket.IsConnected)
+                {
+                    if (buffer.Ready())
+                    {
+                        string barcode = "";
+                        if (readAsCharArray)
+                        {
+                            char[] chr = new char[100];
+
+                            await buffer.ReadAsync(chr);
+                            foreach (char c in chr)
+                            {
+                                if (c == '\0')
+                                    break;
+                                barcode += c;
+                            }
+                        }
+                        else
+                        {
+                            barcode = await buffer.ReadLineAsync();
+                        }
+
+                        if (barcode.Length > 0)
+                        {
+                            Debug.WriteLine("Letto: " + barcode);
+                            MessagingCenter.Send<App, string>((App)Application.Current, "Barcode", barcode);
+                        }
+                        else
+                            Debug.WriteLine("No data");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("No data to read");
+                    }
+                }
+                if (!bthSocket.IsConnected)
+                {
+                    Debug.WriteLine("bthSocket.IsConnected = false, Throw exception");
+                    throw new Exception();
+                }
+            }
+            Debug.WriteLine("ScanInput loop exit");
         }
 
 
-        private async Task Loop(string name, int sleepTime, bool readAsCharArray)
+        // retorna BluetoothDevice pareado buscando por nome
+        private BluetoothDevice FindDevice(string name)
         {
-            BluetoothDevice device = null;
             BluetoothAdapter adapter = BluetoothAdapter.DefaultAdapter;
+
+            #region adapter debugging
+            if (adapter == null)
+            {
+                Debug.WriteLine("No Bluetooth adapter found.");
+            }
+            else
+            {
+                Debug.WriteLine("Adapter found!");
+            }
+
+            if (!adapter.IsEnabled)
+            {
+                Debug.WriteLine("Bluetooth adapter is not enabled.");
+            }
+            else
+            {
+                Debug.WriteLine("Adapter enabled!");
+            }
+
+            Debug.WriteLine("Try to connect to " + name);
+            #endregion
+
+            BluetoothDevice device = null;
+
+            foreach (var bd in adapter.BondedDevices)
+            {
+                Debug.WriteLine("Paired devices found: " + bd.Name.ToUpper());
+                if (bd.Name.ToUpper().IndexOf(name.ToUpper()) >= 0)
+                {
+                    Debug.WriteLine("Found " + bd.Name + ". Try to connect with it!");
+                    device = bd;
+                    break;
+                }
+            }
+            if (device == null)
+            {
+                Debug.WriteLine("Named device not found.");
+            }
+
+            return device;
+        }
+
+
+        private async Task Loop(string name, int pollingInterval, bool readAsCharArray)
+        {
             bthSocket = null;
 
             _ct = new CancellationTokenSource();
@@ -50,46 +140,14 @@ namespace RFIDComm.Droid
             {
                 try
                 {
-                    Thread.Sleep(sleepTime);
+                    Thread.Sleep(pollingInterval);
 
-                    adapter = BluetoothAdapter.DefaultAdapter;
+                    var device = FindDevice(name);
 
-                    if (adapter == null)
-                        Debug.WriteLine("No Bluetooth adapter found.");
-                    else
-                        Debug.WriteLine("Adapter found!!");
-
-                    if (!adapter.IsEnabled)
-                        Debug.WriteLine("Bluetooth adapter is not enabled.");
-                    else
-                        Debug.WriteLine("Adapter enabled!");
-
-                    Debug.WriteLine("Try to connect to " + name);
-
-                    foreach (var bd in adapter.BondedDevices)
-                    {
-                        Debug.WriteLine("Paired devices found: " + bd.Name.ToUpper());
-                        if (bd.Name.ToUpper().IndexOf(name.ToUpper()) >= 0)
-                        {
-                            Debug.WriteLine("Found " + bd.Name + ". Try to connect with it!");
-                            device = bd;
-                            break;
-                        }
-                    }
-
-                    if (device == null)
-                        Debug.WriteLine("Named device not found.");
-                    else
+                    if (device != null)
                     {
                         UUID uuid = UUID.FromString("00001101-0000-1000-8000-00805f9b34fb");
-                        if ((int)Android.OS.Build.VERSION.SdkInt >= 10) // Gingerbread 2.3.3 2.3.4 
-                        {
-                            bthSocket = device.CreateInsecureRfcommSocketToServiceRecord(uuid);
-                        }
-                        else
-                        {
-                            bthSocket = device.CreateRfcommSocketToServiceRecord(uuid);
-                        }
+                        bthSocket = device.CreateInsecureRfcommSocketToServiceRecord(uuid);
 
                         if (bthSocket != null)
                         {
@@ -99,57 +157,13 @@ namespace RFIDComm.Droid
                             {
                                 Debug.WriteLine("Connected!");
 
-                                var mReader = new InputStreamReader(bthSocket.InputStream);
-                                var buffer = new BufferedReader(mReader);
-                                while (_ct.IsCancellationRequested == false)
-                                {
-                                    if (buffer.Ready())
-                                    {
-                                        char[] chr = new char[100];
-                                        string barcode = "";
-                                        if (readAsCharArray)
-                                        {
-
-                                            await buffer.ReadAsync(chr);
-                                            foreach (char c in chr)
-                                            {
-                                                if (c == '\0')
-                                                    break;
-                                                barcode += c;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            barcode = await buffer.ReadLineAsync();
-                                        }
-
-                                        if (barcode.Length > 0)
-                                        {
-                                            Debug.WriteLine("Letto: " + barcode);
-                                            MessagingCenter.Send<App, string>((App)Application.Current, "Barcode", barcode);
-                                        }
-                                        else
-                                            Debug.WriteLine("No data");
-                                    }
-                                    else
-                                    {
-                                        Debug.WriteLine("No data to read");
-                                    }
-
-                                    // A little stop to the uneverending thread...
-                                    Thread.Sleep(sleepTime);
-                                    if (!bthSocket.IsConnected)
-                                    {
-                                        Debug.WriteLine("BthSocket.IsConnected = false, Throw exception");
-                                        throw new Exception();
-                                    }
-                                }
-                                Debug.WriteLine("Exit the inner loop");
+                                // Escaneia continuamente até que seja solicitado cancelamento de _ct
+                                await ScanInput(pollingInterval, readAsCharArray);
                             }
-                        }
-                        else
-                        {
-                            Debug.WriteLine("bthSocket = null");
+                            else
+                            {
+                                Debug.WriteLine("bthSocket = null");
+                            }
                         }
                     }
                 }
@@ -164,17 +178,23 @@ namespace RFIDComm.Droid
                     {
                         bthSocket.Close();
                     }
-                    device = null;
                 }
             }
-            Debug.WriteLine("Exit the external loop");
+            Debug.WriteLine("Reading loop exit");
+        }
+
+        #region IBth implementation
+
+
+        // Start the Reading loop 
+        /// <param name="name">Name of the paired bluetooth device (also a part of the name)</param>
+        public void Start(string name, int sleepTime = 200, bool readAsCharArray = false)
+        {
+            Task.Run(async () => Loop(name, sleepTime, readAsCharArray));
         }
 
 
-        /// <summary>
-        /// Cancel the Reading loop
-        /// </summary>
-        /// <returns><c>true</c> if this instance cancel ; otherwise, <c>false</c>.</returns>
+        // Cancel the Reading loop
         public void Cancel()
         {
             if (_ct != null)
@@ -183,6 +203,7 @@ namespace RFIDComm.Droid
                 _ct.Cancel();
             }
         }
+
 
         // Rodolfo: NÃO PARECE ESTAR FUNCIONANDO AINDA
         // Requires further developing
@@ -195,7 +216,7 @@ namespace RFIDComm.Droid
                     throw new NotSupportedException();
 
                     Stream outStream = bthSocket.OutputStream;
-                    byte[] msgBuffer = Encoding.ASCII.GetBytes(string.Concat(message,"<CRLF>"));
+                    byte[] msgBuffer = Encoding.ASCII.GetBytes(string.Concat(message, "<CRLF>"));
 
                     //Task.Run(async () => outStream.WriteAsync(msgBuffer, 0, msgBuffer.Length));
                     outStream.Write(msgBuffer, 0, msgBuffer.Length);
