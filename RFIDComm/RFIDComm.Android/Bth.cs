@@ -195,7 +195,7 @@ namespace RFIDComm.Droid
                     throw new NotSupportedException();
 
                     Stream outStream = bthSocket.OutputStream;
-                    byte[] msgBuffer = Encoding.ASCII.GetBytes(message);
+                    byte[] msgBuffer = Encoding.ASCII.GetBytes(string.Concat(message,"<CRLF>"));
 
                     //Task.Run(async () => outStream.WriteAsync(msgBuffer, 0, msgBuffer.Length));
                     outStream.Write(msgBuffer, 0, msgBuffer.Length);
