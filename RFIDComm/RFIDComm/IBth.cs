@@ -7,7 +7,7 @@ namespace RFIDComm
 {
     public interface IBth
     {
-        void Start(string name, int sleepTime, bool readAsCharArray);
+        void Start(string name, int pollingTime, bool readAsCharArray);
         void Cancel();
         void SendMessage(string message);
         ObservableCollection<string> PairedDevices();

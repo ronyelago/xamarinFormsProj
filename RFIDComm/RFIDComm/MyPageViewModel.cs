@@ -16,7 +16,7 @@ namespace RFIDComm
         public ObservableCollection<string> ListOfBarcodes { get; set; } = new ObservableCollection<string>();
         public string SelectedBthDevice { get; set; } = "";
         bool _isConnected { get; set; } = false;
-        int _sleepTime { get; set; } = 250;
+        int _sleepTime { get; set; } = 100;
 
         public String SleepTime
         {

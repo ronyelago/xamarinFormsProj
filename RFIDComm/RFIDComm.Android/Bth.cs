@@ -17,14 +17,15 @@ namespace RFIDComm.Droid
 {
     public class Bth : IBth
     {
+        private const int pollsBeforeReconnect = 200;
 
         private CancellationTokenSource _ct { get; set; }
-
         private BluetoothSocket bthSocket;
 
         public Bth()
         {
         }
+        
 
         // escaneia inputStream continuamente
         // throws exceptions
@@ -34,14 +35,27 @@ namespace RFIDComm.Droid
             var mReader = new InputStreamReader(bthSocket.InputStream);
             var buffer = new BufferedReader(mReader);
 
+            int count = 0;
             while (_ct.IsCancellationRequested == false)
             {
                 Thread.Sleep(pollingInterval);
+                BluetoothAdapter adapter = BluetoothAdapter.DefaultAdapter;
 
-                if (bthSocket.IsConnected)
+                /*
+                #region check bth vars
+                Debug.WriteLine("socket.isConnected= " + bthSocket.IsConnected);
+                Debug.WriteLine("socket.RemoteDevice.Name= " + bthSocket.RemoteDevice.Name);
+                Debug.WriteLine("adapter.SapConnState=" + adapter.GetProfileConnectionState(ProfileType.Sap));
+                Debug.WriteLine("adapter.GattConnState=" + adapter.GetProfileConnectionState(ProfileType.Gatt));
+                #endregion
+                */
+
+                count++;
+                if (count < pollsBeforeReconnect) //precisa verificar se esta conectado (Rodolfo Cortese)
                 {
                     if (buffer.Ready())
                     {
+                        #region read as char array
                         string barcode = "";
                         if (readAsCharArray)
                         {
@@ -55,27 +69,30 @@ namespace RFIDComm.Droid
                                 barcode += c;
                             }
                         }
+                        #endregion
                         else
                         {
-                            barcode = await buffer.ReadLineAsync();
+                            barcode = buffer.ReadLine();
                         }
 
                         if (barcode.Length > 0)
                         {
-                            Debug.WriteLine("Letto: " + barcode);
+                            Debug.WriteLine("input: " + barcode);
                             MessagingCenter.Send<App, string>((App)Application.Current, "Barcode", barcode);
                         }
                         else
+                        {
                             Debug.WriteLine("No data");
+                        }
                     }
                     else
                     {
                         Debug.WriteLine("No data to read");
                     }
                 }
-                if (!bthSocket.IsConnected)
-                {
-                    Debug.WriteLine("bthSocket.IsConnected = false, Throw exception");
+                if (!(count < pollsBeforeReconnect)) // if not connected (Rodolfo Cortese)
+                { // Force timed reconnection
+                    //Debug.WriteLine("Unexpected connection loss. Throw exception");
                     throw new Exception();
                 }
             }
@@ -144,6 +161,8 @@ namespace RFIDComm.Droid
 
                     var device = FindDevice(name);
 
+
+
                     if (device != null)
                     {
                         UUID uuid = UUID.FromString("00001101-0000-1000-8000-00805f9b34fb");
@@ -158,6 +177,7 @@ namespace RFIDComm.Droid
                                 Debug.WriteLine("Connected!");
 
                                 // Escaneia continuamente até que seja solicitado cancelamento de _ct
+                                // ou perdida a conexão
                                 await ScanInput(pollingInterval, readAsCharArray);
                             }
                             else
@@ -183,14 +203,14 @@ namespace RFIDComm.Droid
             Debug.WriteLine("Reading loop exit");
         }
 
-        #region IBth implementation
 
+        #region IBth implementation
 
         // Start the Reading loop 
         /// <param name="name">Name of the paired bluetooth device (also a part of the name)</param>
-        public void Start(string name, int sleepTime = 200, bool readAsCharArray = false)
+        public void Start(string name, int pollingTime = 100, bool readAsCharArray = false)
         {
-            Task.Run(async () => Loop(name, sleepTime, readAsCharArray));
+            Task.Run(async () => Loop(name, pollingTime, readAsCharArray));
         }
 
 
