@@ -9,7 +9,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace AppEpi.Droid
 {
-    [Activity(Label = "Homologação", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation =ScreenOrientation.Sensor)]
+    [Activity(Label = "Homologação", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
      
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
