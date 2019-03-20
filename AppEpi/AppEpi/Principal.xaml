@@ -3,15 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Easy Epi"
              x:Class="AppEpi.Principal">
-    <RelativeLayout>
-        <Image Source="fundoi2.png"
+  <RelativeLayout>
+    <Image Source="fundoi2.png"
   RelativeLayout.WidthConstraint=
   "{ConstraintExpression Type=RelativeToParent, 
   Property=Width,Constant=200}"
   RelativeLayout.HeightConstraint=
   "{ConstraintExpression Type=RelativeToParent, 
   Property=Height,Constant=250}"
-        RelativeLayout.XConstraint =
+    RelativeLayout.XConstraint =
       "{ConstraintExpression Type=RelativeToParent,
       Property=Width,
       Factor=0.0,
@@ -21,5 +21,5 @@
   Property=Height,
   Factor=0.0,
   Constant=-100}"/>
-    </RelativeLayout>
+  </RelativeLayout>
 </ContentPage>
