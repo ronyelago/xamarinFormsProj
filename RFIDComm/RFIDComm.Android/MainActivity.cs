@@ -15,8 +15,6 @@ namespace RFIDComm.Droid
     {
         const string Tag = "MainActivity";
 
-        public static BluetoothSocket BthSocket = null;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);

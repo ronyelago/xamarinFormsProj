@@ -134,7 +134,7 @@ namespace RFIDComm
             try
             {
                 // At startup, I load all paired devices
-                ListOfDevices = DependencyService.Get<IBth>().PairedDevices();
+                ListOfDevices = DependencyService.Get<IBth>().GetPairedDevices();
             }
             catch (Exception ex)
             {
