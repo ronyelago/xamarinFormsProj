@@ -9,7 +9,7 @@ namespace RFIDComm
     {
         void Start(string name, int pollingTime, bool readAsCharArray);
         void Cancel();
-        void SendMessage(string message);
+        void SendCommand(string command);
         ObservableCollection<string> PairedDevices();
     }
 }

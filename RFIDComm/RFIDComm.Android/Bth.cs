@@ -161,8 +161,6 @@ namespace RFIDComm.Droid
 
                     var device = FindDevice(name);
 
-
-
                     if (device != null)
                     {
                         UUID uuid = UUID.FromString("00001101-0000-1000-8000-00805f9b34fb");
@@ -225,22 +223,64 @@ namespace RFIDComm.Droid
         }
 
 
+        public void SendCommand(string command)
+        {
+            string cmd = string.Concat(command, "<CRLF>");
+            Task.Run(async () => StreamMessage(cmd));
+        }
+
+
         // Rodolfo: NÃO PARECE ESTAR FUNCIONANDO AINDA
         // Requires further developing
-        public void SendMessage(string message)
+        private async Task StreamMessage(string message)
         {
-            if (_ct != null)
+            if (_ct.IsCancellationRequested == false)
             {
                 try
                 {
                     throw new NotSupportedException();
 
-                    Stream outStream = bthSocket.OutputStream;
-                    byte[] msgBuffer = Encoding.ASCII.GetBytes(string.Concat(message, "<CRLF>"));
+                    /*
+                    mmBufferedOut = new BufferedOutputStream(tmpOut, 80);
+
+                    // Initial request
+
+                    btWrite(new DeviceRecord(0, 4));
+                    tmpIn = bthSocket.InputStream;
+                    tmpOut = bthSocket.OutputStream;
+                    */
+                    /*
+                    Stream tmpOut = null;
+
+                    // Get the BluetoothSocket output stream
+                    try
+                    {
+                        tmpOut = bthSocket.OutputStream;
+                    }
+                    catch (Java.IO.IOException ex2)
+                    {
+                        Debug.WriteLine("Temp sockets not created" + ex2);
+                    }
+
+                    //throw new NotSupportedException();
+                    outStream = tmpOut;*/
+                    byte[] msgBuffer = Encoding.ASCII.GetBytes(message);
 
                     //Task.Run(async () => outStream.WriteAsync(msgBuffer, 0, msgBuffer.Length));
-                    outStream.Write(msgBuffer, 0, msgBuffer.Length);
-                    outStream.Flush();
+                    //outStream.Write(msgBuffer, 0, msgBuffer.Length);
+                    //outStream.Flush();
+                    Stream out2 = bthSocket.OutputStream;
+
+                    DateTime timeAntes = DateTime.Now;
+
+                    await out2.WriteAsync(msgBuffer, 0, msgBuffer.Length);
+
+                    DateTime timeDepois = DateTime.Now;
+
+                    TimeSpan timeDiff = timeDepois - timeAntes;
+                    Debug.WriteLine("time diff= " + timeDiff);
+
+                    out2.Flush();
 
                     Debug.WriteLine("Sent message: \"" + message + "\"");
                 }

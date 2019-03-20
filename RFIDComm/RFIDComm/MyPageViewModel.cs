@@ -127,7 +127,7 @@ namespace RFIDComm
             {
 
                 // Request device's attributes
-                DependencyService.Get<IBth>().SendMessage("ATTRIBUTE");
+                DependencyService.Get<IBth>().SendCommand("ATTRIBUTE");
             });
             
 
