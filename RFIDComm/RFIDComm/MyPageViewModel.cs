@@ -93,7 +93,7 @@ namespace RFIDComm
 
                 // When the app "resume" I try to restart the connection with bluetooth
                 if (_isConnected)
-                    DependencyService.Get<IBth>().Start(SelectedBthDevice, _sleepTime, true);
+                    DependencyService.Get<IBth>().Start(SelectedBthDevice, _sleepTime);
 
             });
 
@@ -102,7 +102,7 @@ namespace RFIDComm
             {
 
                 // Try to connect to a bth device
-                DependencyService.Get<IBth>().Start(SelectedBthDevice, _sleepTime, true);
+                DependencyService.Get<IBth>().Start(SelectedBthDevice, _sleepTime);
                 _isConnected = true;
 
                 // Receive data from bth device

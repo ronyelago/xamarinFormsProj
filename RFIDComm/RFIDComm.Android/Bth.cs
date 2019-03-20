@@ -25,7 +25,30 @@ namespace RFIDComm.Droid
         public Bth()
         {
         }
-        
+
+
+        // Envia mensagem através do BT, sem manipular message
+        private async Task StreamMessage(string message)
+        {
+            if (_ct.IsCancellationRequested == false)
+            {
+                try
+                {
+                    byte[] msgBuffer = Encoding.ASCII.GetBytes(message);
+
+                    Stream outStream = bthSocket.OutputStream;
+                    await outStream.WriteAsync(msgBuffer, 0, msgBuffer.Length);
+
+                    outStream.Flush();
+                    Debug.WriteLine("Sent message: \"" + message + "\"");
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("EXCEPTION: " + e.Message);
+                }
+            }
+        }
+
 
         // escaneia inputStream continuamente
         // throws exceptions
@@ -206,9 +229,11 @@ namespace RFIDComm.Droid
 
         // Start the Reading loop 
         /// <param name="name">Name of the paired bluetooth device (also a part of the name)</param>
-        public void Start(string name, int pollingTime = 100, bool readAsCharArray = false)
+        public void Start(string name, int pollingTime = 100, bool readAsCharArray = true)
         {
-            Task.Run(async () => Loop(name, pollingTime, readAsCharArray));
+            Task.Run(async () => 
+                Loop(name, pollingTime, readAsCharArray)
+                );
         }
 
 
@@ -223,72 +248,12 @@ namespace RFIDComm.Droid
         }
 
 
+        // Envia um comando ao leitor RFID conectado (assincrono)
         public void SendCommand(string command)
         {
-            string cmd = string.Concat(command, "<CRLF>");
-            Task.Run(async () => StreamMessage(cmd));
-        }
-
-
-        // Rodolfo: NÃO PARECE ESTAR FUNCIONANDO AINDA
-        // Requires further developing
-        private async Task StreamMessage(string message)
-        {
-            if (_ct.IsCancellationRequested == false)
-            {
-                try
-                {
-                    throw new NotSupportedException();
-
-                    /*
-                    mmBufferedOut = new BufferedOutputStream(tmpOut, 80);
-
-                    // Initial request
-
-                    btWrite(new DeviceRecord(0, 4));
-                    tmpIn = bthSocket.InputStream;
-                    tmpOut = bthSocket.OutputStream;
-                    */
-                    /*
-                    Stream tmpOut = null;
-
-                    // Get the BluetoothSocket output stream
-                    try
-                    {
-                        tmpOut = bthSocket.OutputStream;
-                    }
-                    catch (Java.IO.IOException ex2)
-                    {
-                        Debug.WriteLine("Temp sockets not created" + ex2);
-                    }
-
-                    //throw new NotSupportedException();
-                    outStream = tmpOut;*/
-                    byte[] msgBuffer = Encoding.ASCII.GetBytes(message);
-
-                    //Task.Run(async () => outStream.WriteAsync(msgBuffer, 0, msgBuffer.Length));
-                    //outStream.Write(msgBuffer, 0, msgBuffer.Length);
-                    //outStream.Flush();
-                    Stream out2 = bthSocket.OutputStream;
-
-                    DateTime timeAntes = DateTime.Now;
-
-                    await out2.WriteAsync(msgBuffer, 0, msgBuffer.Length);
-
-                    DateTime timeDepois = DateTime.Now;
-
-                    TimeSpan timeDiff = timeDepois - timeAntes;
-                    Debug.WriteLine("time diff= " + timeDiff);
-
-                    out2.Flush();
-
-                    Debug.WriteLine("Sent message: \"" + message + "\"");
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("EXCEPTION: " + ex.Message);
-                }
-            }
+            Task.Run(async () =>
+                StreamMessage(string.Concat(command, "\r\n"))
+            );
         }
 
 
