@@ -25,16 +25,13 @@ namespace RFIDComm.Droid.Bluetooth
             {
                 if (response.StartsWith(_evtPrefix))
                 {
-                    string evtResponse = response.Remove(0, _evtPrefix.Length);
-
                     Task.Run(async () =>
-                        HandleEvent(evtResponse)
+                        HandleEvent(response.Remove(0, _evtPrefix.Length))
                         );
                 }
                 else
                 {
-                    Debug.WriteLine("NonEvent response: " + response);
-                    throw new NotImplementedException();
+                    ProcessCommand(response);
                 }
             }
             catch (Exception e)
@@ -44,35 +41,46 @@ namespace RFIDComm.Droid.Bluetooth
         }
 
 
-        private static async Task HandleEvent(string evtResponse)
+        // Event Handler. Vide BRI Manual
+        private static async Task HandleEvent(string eventMessage)
         {
-            Debug.WriteLine("response: " + evtResponse);
+            Debug.WriteLine("response: " + eventMessage);
 
             // Rodolfo Cortese: usado durante desenvolvimento do modulo apenas
-            MessagingCenter.Send<App, string>((App)Application.Current, "Barcode", evtResponse);
+            MessagingCenter.Send<App, string>((App)Application.Current, "Barcode", eventMessage);
             // remover depois!
-            
-            if (evtResponse.StartsWith(_epcPrefix)) // evento = novo EPC
+
+            if (eventMessage.StartsWith(_epcPrefix)) // evento = novo EPC
             {
-                string epc = evtResponse.Remove(0, _epcPrefix.Length);
-                Debug.WriteLine("Incoming EPC: " + evtResponse);
-                MessagingCenter.Send<App, string>((App)Application.Current, "EPC", epc);
+                BroadcastEPC(eventMessage.Remove(0, _epcPrefix.Length));
+            }
+            else if (eventMessage.Contains(_triggerPressEvt)) // evento = trigger pressed
+            {
+                BluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Fast);
+            }
+            else if (eventMessage.Contains(_triggerReleaseEvt)) // evento = trigger released
+            {
+                BluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Slow);
             }
             else
             {
-                if (evtResponse.Contains(_triggerPressEvt)) // evento = trigger pressed
-                {
-                    BluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Fast);
-                }
-                else if (evtResponse.Contains(_triggerReleaseEvt)) // evento = trigger released
-                {
-                    BluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Slow);
-                }
-                else
-                {
-                    Debug.WriteLine("Handle other incoming event. Input: " + evtResponse);
-                }
+                Debug.WriteLine("Handle other incoming event. Input: " + eventMessage);
             }
+        }
+
+
+        private static void BroadcastEPC(string epc)
+        {
+            Debug.WriteLine("Incoming EPC: " + epc);
+            MessagingCenter.Send<App, string>((App)Application.Current, "EPC", epc);
+        }
+
+
+        // Command Processor. Vide BRI Manual
+        private static void ProcessCommand(string command)
+        {
+            Debug.WriteLine("NonEvent response: " + command);
+            throw new NotImplementedException();
         }
     }
 }
