@@ -15,9 +15,11 @@ namespace RFIDComm.Droid.Bluetooth
     class RFIDComm
     {
         private const string _evtPrefix = "EVT: ";
-        private const string _epcPrefix = "EPC: ";
+        private const string _epcPrefix = "TAG ";
         private const string _triggerPressEvt = "TRIGGER PRESS";
         private const string _triggerReleaseEvt = "TRIGGER RELEASE";
+        private const string _lowBattEvt = "BATTERY LOW";
+        private const string _overheatEvt = "THERMAL OVERTEMP";
 
         public static void HandleResponse(string response)
         {
@@ -61,6 +63,14 @@ namespace RFIDComm.Droid.Bluetooth
             else if (eventMessage.Contains(_triggerReleaseEvt)) // evento = trigger released
             {
                 BluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Slow);
+            }
+            else if (eventMessage.Contains(_lowBattEvt)) // evento = low battery warning
+            {
+                throw new NotImplementedException();
+            }
+            else if (eventMessage.Contains(_overheatEvt)) // evento = overheating
+            {
+                throw new NotImplementedException();
             }
             else
             {
