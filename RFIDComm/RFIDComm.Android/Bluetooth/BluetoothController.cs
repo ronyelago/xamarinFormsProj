@@ -17,8 +17,11 @@ namespace RFIDComm.Droid
 {
     public class BluetoothController : IBth
     {
-        private const int _pollsBeforeReconnect = 200;
-        private static int _pollingInterval = 250;
+        private const int _fastPolling = 100;
+        private const int _slowPolling = 250;
+        private const int _reconnectTime = 30000;
+
+        private static int _pollingInterval = _slowPolling;
         private CancellationTokenSource _ct;
         private BluetoothSocket _bthSocket;
 
@@ -120,13 +123,13 @@ namespace RFIDComm.Droid
         {
             var buffer = new BufferedReader(new InputStreamReader(_bthSocket.InputStream));
 
-            int count = 0;
+            int reconnectTimer = 0;
             while (_ct.IsCancellationRequested == false)
             {
                 Thread.Sleep(_pollingInterval);
 
-                count++;
-                if (count < _pollsBeforeReconnect) //precisa verificar se esta conectado (Rodolfo Cortese)
+                reconnectTimer += _pollingInterval;
+                if (reconnectTimer < _reconnectTime) //precisa verificar se esta conectado (Rodolfo Cortese)
                 {
                     if (buffer.Ready())
                     {
@@ -165,7 +168,7 @@ namespace RFIDComm.Droid
                         Debug.WriteLine("No data to read");
                     }
                 }
-                if (!(count < _pollsBeforeReconnect)) // if not connected (Rodolfo Cortese)
+                if (!(reconnectTimer < _reconnectTime)) // if not connected (Rodolfo Cortese)
                 { // Force timed reconnection
                     //Debug.WriteLine("Unexpected connection loss. Throw exception");
                     throw new Exception();
