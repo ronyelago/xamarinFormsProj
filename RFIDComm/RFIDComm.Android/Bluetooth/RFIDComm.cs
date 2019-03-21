@@ -9,19 +9,27 @@ using Android.Views;
 using Android.Widget;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using static RFIDComm.Droid.BluetoothController;
 
 namespace RFIDComm.Droid.Bluetooth
 {
     class RFIDComm
     {
         private const string _evtPrefix = "EVT:";
-        private const string _epcPrefix = "TAG";
+        private const string _epcPrefix = "TAG ";
         private const string _triggerPressEvt = "TRIGGER TRIGPULL";
         private const string _triggerReleaseEvt = "TRIGGER TRIGRELEASE";
         private const string _lowBattEvt = "BATTERY LOW";
         private const string _overheatEvt = "THERMAL OVERTEMP";
 
-        public static void HandleResponse(string response)
+        private BluetoothController _bluetoothController = null;
+
+        public RFIDComm(BluetoothController bluetoothController)
+        {
+            _bluetoothController = bluetoothController;
+        }
+
+        public void HandleResponse(string response)
         {
             try
             {
@@ -44,7 +52,7 @@ namespace RFIDComm.Droid.Bluetooth
 
 
         // Event Handler. Vide BRI Manual
-        private static async Task HandleEvent(string eventMessage)
+        private async Task HandleEvent(string eventMessage)
         {
             Debug.WriteLine("response: " + eventMessage);
 
@@ -58,11 +66,13 @@ namespace RFIDComm.Droid.Bluetooth
             }
             else if (eventMessage.Contains(_triggerPressEvt)) // evento = trigger pressed
             {
-                BluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Fast);
+                _bluetoothController.SetPollingSpeed(PollingSpeed.Fast);
+                _bluetoothController.SetReadingMode(ReadingMode.Continuous);
             }
             else if (eventMessage.Contains(_triggerReleaseEvt)) // evento = trigger released
             {
-                BluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Slow);
+                _bluetoothController.SetPollingSpeed(PollingSpeed.Slow);
+                _bluetoothController.SetReadingMode(ReadingMode.Disabled);
             }
             else if (eventMessage.Contains(_lowBattEvt)) // evento = low battery warning
             {
@@ -79,15 +89,15 @@ namespace RFIDComm.Droid.Bluetooth
         }
 
 
-        private static void BroadcastEPC(string epc)
+        private void BroadcastEPC(string epc)
         {
             Debug.WriteLine("Incoming EPC: " + epc);
-            MessagingCenter.Send<App, string>((App)Application.Current, "EPC", epc);
+            MessagingCenter.Send((App)Application.Current, "EPC", epc);
         }
 
 
         // Command Processor. Vide BRI Manual
-        private static void ProcessCommand(string command)
+        private void ProcessCommand(string command)
         {
             Debug.WriteLine("NonEvent response: " + command);
             throw new NotImplementedException();

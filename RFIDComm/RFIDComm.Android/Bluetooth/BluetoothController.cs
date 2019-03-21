@@ -21,18 +21,26 @@ namespace RFIDComm.Droid
         private const int _slowPolling = 250;
         private const int _reconnectTime = 30000;
 
-        private static int _pollingInterval = _slowPolling;
+        private int _pollingInterval = _slowPolling;
         private CancellationTokenSource _ct;
         private BluetoothSocket _bthSocket;
+
+        private Bluetooth.RFIDComm _rfidComm;
 
         public enum PollingSpeed
         {
             Fast,
             Slow
         }
+        public enum ReadingMode
+        {
+            Continuous,
+            Disabled
+        }
 
         public BluetoothController()
         {
+            _rfidComm = new Bluetooth.RFIDComm(this);
         }
 
         #region IBth implementation
@@ -73,7 +81,7 @@ namespace RFIDComm.Droid
         #endregion
 
         #region public methods
-        public static void SetPollingSpeed(PollingSpeed speed)
+        public void SetPollingSpeed(PollingSpeed speed)
         {
             switch (speed)
             {
@@ -87,6 +95,23 @@ namespace RFIDComm.Droid
                     break;
                 default:
                     Debug.WriteLine("Bluetooth: Invalid polling mode setup");
+                    break;
+            }
+        }
+
+
+        public void SetReadingMode(ReadingMode readingMode)
+        {
+            switch (readingMode)
+            {
+                case ReadingMode.Continuous:
+                    SendCommand("READ REPORT=EVENT");
+                    break;
+                case ReadingMode.Disabled:
+                    SendCommand("READ STOP");
+                    break;
+                default:
+                    Debug.WriteLine("Bluetooth: Invalid reading mode setup");
                     break;
             }
         }
@@ -128,7 +153,7 @@ namespace RFIDComm.Droid
             {
                 Thread.Sleep(_pollingInterval);
 
-                reconnectTimer += _pollingInterval;
+                //reconnectTimer += _pollingInterval;
                 if (reconnectTimer < _reconnectTime) //precisa verificar se esta conectado (Rodolfo Cortese)
                 {
                     if (buffer.Ready())
@@ -156,7 +181,7 @@ namespace RFIDComm.Droid
 
                         if (response.Length > 0)
                         {
-                            Bluetooth.RFIDComm.HandleResponse(response);
+                            _rfidComm.HandleResponse(response);
                         }
                         else
                         {
@@ -230,6 +255,9 @@ namespace RFIDComm.Droid
                 else throw new NullReferenceException();
             }
             else throw new ArgumentException();
+
+            // Initialize RFIDReader
+            SendCommand("FACDFLT");
         }
         #endregion
     }
