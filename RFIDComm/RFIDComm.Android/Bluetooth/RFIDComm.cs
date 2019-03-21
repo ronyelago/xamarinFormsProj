@@ -14,10 +14,10 @@ namespace RFIDComm.Droid.Bluetooth
 {
     class RFIDComm
     {
-        private const string _evtPrefix = "EVT: ";
-        private const string _epcPrefix = "TAG ";
-        private const string _triggerPressEvt = "TRIGGER PRESS";
-        private const string _triggerReleaseEvt = "TRIGGER RELEASE";
+        private const string _evtPrefix = "EVT:";
+        private const string _epcPrefix = "TAG";
+        private const string _triggerPressEvt = "TRIGGER TRIGPULL";
+        private const string _triggerReleaseEvt = "TRIGGER TRIGRELEASE";
         private const string _lowBattEvt = "BATTERY LOW";
         private const string _overheatEvt = "THERMAL OVERTEMP";
 
