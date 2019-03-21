@@ -16,9 +16,6 @@ namespace RFIDComm
             pickerBluetoothDevices.SetBinding(Picker.SelectedItemProperty, "SelectedBthDevice");
             pickerBluetoothDevices.SetBinding(VisualElement.IsEnabledProperty, "IsPickerEnabled");
 
-            Entry entrySleepTime = new Entry() { Keyboard = Keyboard.Numeric, Placeholder = "Sleep time" };
-            entrySleepTime.SetBinding(Entry.TextProperty, "SleepTime");
-
             Button buttonConnect = new Button() { Text = "Connect" };
             buttonConnect.SetBinding(Button.CommandProperty, "ConnectCommand");
             buttonConnect.SetBinding(VisualElement.IsEnabledProperty, "IsConnectEnabled");
@@ -42,7 +39,7 @@ namespace RFIDComm
             if (Device.RuntimePlatform == Device.Android)
                 topPadding = 20;
 
-            StackLayout sl = new StackLayout { Children = { pickerBluetoothDevices, entrySleepTime, slButtons, lv }, Padding = new Thickness(0, topPadding, 0, 0) };
+            StackLayout sl = new StackLayout { Children = { pickerBluetoothDevices, slButtons, lv }, Padding = new Thickness(0, topPadding, 0, 0) };
             Content = sl;
         }
 

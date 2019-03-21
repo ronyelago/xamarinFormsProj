@@ -16,20 +16,6 @@ namespace RFIDComm
         public ObservableCollection<string> ListOfBarcodes { get; set; } = new ObservableCollection<string>();
         public string SelectedBthDevice { get; set; } = "";
         bool _isConnected { get; set; } = false;
-        int _sleepTime { get; set; } = 100;
-
-        public String SleepTime
-        {
-            get { return _sleepTime.ToString(); }
-            set
-            {
-                try
-                {
-                    _sleepTime = int.Parse(value);
-                }
-                catch { }
-            }
-        }
 
         private bool _isSelectedBthDevice
         {
@@ -93,7 +79,7 @@ namespace RFIDComm
 
                 // When the app "resume" I try to restart the connection with bluetooth
                 if (_isConnected)
-                    DependencyService.Get<IBth>().Start(SelectedBthDevice, _sleepTime);
+                    DependencyService.Get<IBth>().Start(SelectedBthDevice);
 
             });
 
@@ -102,7 +88,7 @@ namespace RFIDComm
             {
 
                 // Try to connect to a bth device
-                DependencyService.Get<IBth>().Start(SelectedBthDevice, _sleepTime);
+                DependencyService.Get<IBth>().Start(SelectedBthDevice);
                 _isConnected = true;
 
                 // Receive data from bth device

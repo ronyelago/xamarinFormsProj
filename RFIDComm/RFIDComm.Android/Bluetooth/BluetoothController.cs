@@ -12,28 +12,33 @@ using Xamarin.Forms;
 using System.IO;
 using System.Text;
 
-[assembly: Dependency(typeof(BTController))]
+[assembly: Dependency(typeof(BluetoothController))]
 namespace RFIDComm.Droid
 {
-    public class BTController : IBth
+    public class BluetoothController : IBth
     {
         private const int _pollsBeforeReconnect = 200;
-        private CancellationTokenSource _ct { get; set; }
+        private static int _pollingInterval = 250;
+        private CancellationTokenSource _ct;
         private BluetoothSocket _bthSocket;
 
-        public BTController()
+        public enum PollingSpeed
+        {
+            Fast,
+            Slow
+        }
+
+        public BluetoothController()
         {
         }
 
-
         #region IBth implementation
-
         // Start the Reading loop 
         /// <param name="name">Name of the paired bluetooth device (also a part of the name)</param>
-        public void Start(string name, int pollingTime = 100, bool readAsCharArray = true)
+        public void Start(string name, bool readAsCharArray = true)
         {
-            Task.Run(async () => 
-                Loop(name, pollingTime, readAsCharArray)
+            Task.Run(async () =>
+                Loop(name, readAsCharArray)
                 );
         }
 
@@ -64,7 +69,27 @@ namespace RFIDComm.Droid
         }
         #endregion
 
+        #region public methods
+        public static void SetPollingSpeed(PollingSpeed speed)
+        {
+            switch (speed)
+            {
+                case PollingSpeed.Fast:
+                    _pollingInterval = 100;
+                    Debug.WriteLine("Bluetooth: Fast polling mode");
+                    break;
+                case PollingSpeed.Slow:
+                    _pollingInterval = 250;
+                    Debug.WriteLine("Bluetooth: Slow polling mode");
+                    break;
+                default:
+                    Debug.WriteLine("Bluetooth: Invalid polling mode setup");
+                    break;
+            }
+        }
+        #endregion
 
+        #region private methods
         // Envia mensagem através do BT, sem manipular message
         private async Task StreamMessage(string message)
         {
@@ -91,23 +116,24 @@ namespace RFIDComm.Droid
         // escaneia inputStream continuamente
         // throws exceptions
         // exits on disconnection
-        private async Task ScanInput(int pollingInterval, bool readAsCharArray)
+        private async Task ScanInput(bool readAsCharArray)
         {
             var buffer = new BufferedReader(new InputStreamReader(_bthSocket.InputStream));
 
             int count = 0;
             while (_ct.IsCancellationRequested == false)
             {
-                Thread.Sleep(pollingInterval);
+                Thread.Sleep(_pollingInterval);
 
                 count++;
                 if (count < _pollsBeforeReconnect) //precisa verificar se esta conectado (Rodolfo Cortese)
                 {
                     if (buffer.Ready())
                     {
-                        #region read as char array
-                        string barcode = "";
+                        string response = "";
+
                         if (readAsCharArray)
+                        #region read as char array
                         {
                             char[] chr = new char[100];
 
@@ -116,19 +142,18 @@ namespace RFIDComm.Droid
                             {
                                 if (c == '\0')
                                     break;
-                                barcode += c;
+                                response += c;
                             }
                         }
                         #endregion
                         else
                         {
-                            barcode = buffer.ReadLine();
+                            response = buffer.ReadLine();
                         }
 
-                        if (barcode.Length > 0)
+                        if (response.Length > 0)
                         {
-                            Debug.WriteLine("input: " + barcode);
-                            MessagingCenter.Send<App, string>((App)Application.Current, "Barcode", barcode);
+                            Bluetooth.RFIDComm.HandleResponse(response);
                         }
                         else
                         {
@@ -150,7 +175,7 @@ namespace RFIDComm.Droid
         }
 
 
-        private async Task Loop(string name, int pollingInterval, bool readAsCharArray)
+        private async Task Loop(string name, bool readAsCharArray)
         {
             _bthSocket = null;
 
@@ -159,7 +184,7 @@ namespace RFIDComm.Droid
             {
                 try
                 {
-                    Thread.Sleep(pollingInterval);
+                    Thread.Sleep(_pollingInterval);
 
                     var device = BluetoothUtils.FindDevice(name);
 
@@ -178,7 +203,7 @@ namespace RFIDComm.Droid
 
                                 // Escaneia continuamente até que seja solicitado cancelamento de _ct
                                 // ou perdida a conexão
-                                await ScanInput(pollingInterval, readAsCharArray);
+                                await ScanInput(readAsCharArray);
                             }
                             else
                             {
@@ -202,6 +227,6 @@ namespace RFIDComm.Droid
             }
             Debug.WriteLine("Reading loop exit");
         }
+        #endregion
     }
 }
-

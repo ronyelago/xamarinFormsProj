@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bluetooth\BluetoothUtils.cs" />
-    <Compile Include="Bluetooth\BTController.cs" />
+    <Compile Include="Bluetooth\BluetoothController.cs" />
     <Compile Include="Bluetooth\RFIDComm.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
