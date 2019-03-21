@@ -163,10 +163,6 @@ namespace RFIDComm.Droid
                             Debug.WriteLine("No data");
                         }
                     }
-                    else
-                    {
-                        Debug.WriteLine("No data to read");
-                    }
                 }
                 if (!(reconnectTimer < _reconnectTime)) // if not connected (Rodolfo Cortese)
                 { // Force timed reconnection
@@ -191,21 +187,9 @@ namespace RFIDComm.Droid
 
                     await ConnectDevice(name);
 
-                    if (_bthSocket != null)
-                    {
-                        if (_bthSocket.IsConnected)
-                        {
-                            Debug.WriteLine("Connected!");
-
-                            // Escaneia continuamente até que seja solicitado cancelamento de _ct
-                            // ou perdida a conexão
-                            await ScanInput(readAsCharArray);
-                        }
-                        else
-                        {
-                            Debug.WriteLine("bthSocket = null");
-                        }
-                    }
+                    // Escaneia continuamente até que seja solicitado cancelamento de _ct
+                    // ou perdida a conexão
+                    await ScanInput(readAsCharArray);
                 }
                 catch (Exception e)
                 {
@@ -223,6 +207,7 @@ namespace RFIDComm.Droid
         }
 
 
+        // throws descriptive exceptions
         private async Task ConnectDevice(string name)
         {
             var device = BluetoothUtils.FindDevice(name);
@@ -235,7 +220,14 @@ namespace RFIDComm.Droid
                 if (_bthSocket != null)
                 {
                     await _bthSocket.ConnectAsync();
+
+                    if (_bthSocket.IsConnected)
+                    {
+                        Debug.WriteLine("Bluetooth: connected!");
+                    }
+                    else throw new UnauthorizedAccessException();
                 }
+                else throw new NullReferenceException();
             }
             else throw new ArgumentException();
         }
