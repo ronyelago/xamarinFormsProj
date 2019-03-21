@@ -101,11 +101,11 @@ namespace RFIDComm.Droid
                 try
                 {
                     byte[] msgBuffer = Encoding.ASCII.GetBytes(message);
-
                     Stream outStream = _bthSocket.OutputStream;
-                    await outStream.WriteAsync(msgBuffer, 0, msgBuffer.Length);
 
+                    await outStream.WriteAsync(msgBuffer, 0, msgBuffer.Length);
                     outStream.Flush();
+
                     Debug.WriteLine("Sent message: \"" + message + "\"");
                 }
                 catch (Exception e)
@@ -189,29 +189,21 @@ namespace RFIDComm.Droid
                 {
                     Thread.Sleep(_pollingInterval);
 
-                    var device = BluetoothUtils.FindDevice(name);
+                    await ConnectDevice(name);
 
-                    if (device != null)
+                    if (_bthSocket != null)
                     {
-                        UUID uuid = UUID.FromString("00001101-0000-1000-8000-00805f9b34fb");
-                        _bthSocket = device.CreateInsecureRfcommSocketToServiceRecord(uuid);
-
-                        if (_bthSocket != null)
+                        if (_bthSocket.IsConnected)
                         {
-                            await _bthSocket.ConnectAsync();
+                            Debug.WriteLine("Connected!");
 
-                            if (_bthSocket.IsConnected)
-                            {
-                                Debug.WriteLine("Connected!");
-
-                                // Escaneia continuamente até que seja solicitado cancelamento de _ct
-                                // ou perdida a conexão
-                                await ScanInput(readAsCharArray);
-                            }
-                            else
-                            {
-                                Debug.WriteLine("bthSocket = null");
-                            }
+                            // Escaneia continuamente até que seja solicitado cancelamento de _ct
+                            // ou perdida a conexão
+                            await ScanInput(readAsCharArray);
+                        }
+                        else
+                        {
+                            Debug.WriteLine("bthSocket = null");
                         }
                     }
                 }
@@ -219,7 +211,6 @@ namespace RFIDComm.Droid
                 {
                     Debug.WriteLine("EXCEPTION: " + e.Message);
                 }
-
                 finally
                 {
                     if (_bthSocket != null)
@@ -229,6 +220,24 @@ namespace RFIDComm.Droid
                 }
             }
             Debug.WriteLine("Reading loop exit");
+        }
+
+
+        private async Task ConnectDevice(string name)
+        {
+            var device = BluetoothUtils.FindDevice(name);
+
+            if (device != null)
+            {
+                UUID uuid = UUID.FromString("00001101-0000-1000-8000-00805f9b34fb");
+                _bthSocket = device.CreateInsecureRfcommSocketToServiceRecord(uuid);
+
+                if (_bthSocket != null)
+                {
+                    await _bthSocket.ConnectAsync();
+                }
+            }
+            else throw new ArgumentException();
         }
         #endregion
     }
