@@ -12,16 +12,16 @@ using Xamarin.Forms;
 using System.IO;
 using System.Text;
 
-[assembly: Dependency(typeof(Bth))]
+[assembly: Dependency(typeof(BTController))]
 namespace RFIDComm.Droid
 {
-    public class Bth : IBth
+    public class BTController : IBth
     {
         private const int _pollsBeforeReconnect = 200;
         private CancellationTokenSource _ct { get; set; }
         private BluetoothSocket _bthSocket;
 
-        public Bth()
+        public BTController()
         {
         }
 
