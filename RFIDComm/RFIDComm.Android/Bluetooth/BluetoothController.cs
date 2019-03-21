@@ -20,6 +20,7 @@ namespace RFIDComm.Droid
         private const int _fastPolling = 100;
         private const int _slowPolling = 250;
         private const int _reconnectTime = 30000;
+        private const string _crlf = "\r\n";
 
         private int _pollingInterval = _slowPolling;
         private CancellationTokenSource _ct;
@@ -65,11 +66,11 @@ namespace RFIDComm.Droid
         }
 
 
-        // Envia um comando ao leitor RFID conectado (assincrono)
+        // Envia um comando ao leitor RFID conectado
         public void SendCommand(string command)
         {
             Task.Run(async () =>
-                StreamMessage(string.Concat(command, "\r\n"))
+                SendCommandAsync(command)
             );
         }
 
@@ -257,7 +258,18 @@ namespace RFIDComm.Droid
             else throw new ArgumentException();
 
             // Initialize RFIDReader
-            SendCommand("FACDFLT");
+            await SendCommandAsync("FACDFLT");
+        }
+
+
+        private async Task SendCommandAsync(string command)
+        {
+            await StreamMessage(AppendEOL(command));
+        }
+
+        private string AppendEOL(string input)
+        {
+            return string.Concat(input, _crlf);
         }
         #endregion
     }
