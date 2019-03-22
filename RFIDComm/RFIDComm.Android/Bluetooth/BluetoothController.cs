@@ -18,7 +18,8 @@ namespace RFIDComm.Droid
     {
         private const int _fastPollingInterval = 100; // intervalo entre polls (em ms) quando trigger pressed
         private const int _slowPollingInterval = 250; // intervalo entre polls (em ms) quando trigger released
-        private const int _reconnectTime = 30000;
+        private const int _pingIfIdleFor = 5000; // se não houver mensagem do leitor durante esse intervalo (em ms), envia-se um ping
+        private const int _connectionTimeout = 10000; // se não houver mensagem do leitor durante esse intervalo (em ms), inicia-se reconexão
         private const string _uuid = "00001101-0000-1000-8000-00805f9b34fb";
         private const string _crlf = "\r\n";
 
@@ -122,20 +123,23 @@ namespace RFIDComm.Droid
 
         // escaneia inputStream continuamente
         // throws exceptions
-        // exits on disconnection
+        // returns on connection lost or cancellation requested
         private async Task ScanInput(bool readAsCharArray)
         {
             var buffer = new BufferedReader(new InputStreamReader(_bthSocket.InputStream));
 
+            int pingTimer = 0;
             int reconnectTimer = 0;
             while (_ct.IsCancellationRequested == false)
             {
                 Thread.Sleep(_pollingInterval);
 
-                //reconnectTimer += _pollingInterval;
-                if (reconnectTimer < _reconnectTime) //precisa verificar se esta conectado (Rodolfo Cortese)
+                pingTimer += _pollingInterval;
+                reconnectTimer += _pollingInterval;
+
+                if (reconnectTimer < _connectionTimeout)
                 {
-                    if (buffer.Ready())
+                    if (buffer.Ready()) // se houver o que ler
                     {
                         string response = "";
 
@@ -158,20 +162,29 @@ namespace RFIDComm.Droid
                             response = buffer.ReadLine();
                         }
 
-                        if (response.Length > 0)
+                        if (response.Length > 0) // se a leitura foi válida
                         {
                             _rfidComm.HandleResponse(response);
+
+                            pingTimer = 0; // timers são reiniciados
+                            reconnectTimer = 0;
                         }
                         else
                         {
                             Debug.WriteLine("No data");
                         }
                     }
+                    else if (pingTimer >= _pingIfIdleFor)
+                    {
+                        SendCommand(BRICommands.Ping);
+                        pingTimer = 0;
+                    }
+
                 }
-                if (!(reconnectTimer < _reconnectTime)) // if not connected (Rodolfo Cortese)
-                { // Force timed reconnection
-                    //Debug.WriteLine("Unexpected connection loss. Throw exception");
-                    throw new Exception();
+                else
+                { 
+                    Debug.WriteLine("Connection Timeout. Retrying...");
+                    break;
                 }
             }
             Debug.WriteLine("ScanInput loop exit");
