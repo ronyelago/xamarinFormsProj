@@ -12,6 +12,8 @@ namespace RFIDComm.Droid.Bluetooth
         private const int _epcLength = 24;
 
         private Queue<string> commandQueue = new Queue<string>();
+        private Queue<string> eventQueue = new Queue<string>();
+        private Task eventHandlingTask;
 
         // Constructor
         public RFIDComm(BluetoothController bluetoothController)
@@ -25,17 +27,24 @@ namespace RFIDComm.Droid.Bluetooth
             Debug.WriteLine("NEW RESPONSE---------------------\n" + response);
             try
             {
-                string[] splitResponse = response.Split(BRICommands.Crlf, StringSplitOptions.RemoveEmptyEntries);
-                foreach (string line in splitResponse)
+                foreach (string line in response.Split(BRICommands.Crlf, StringSplitOptions.RemoveEmptyEntries))
                 {
                     if (line.StartsWith(BRICommands.EventPrefix))
                     {
-                        Task.Run(async () =>
-                            HandleEvent(line.Remove(0, BRICommands.EventPrefix.Length))
-                            );
+                        eventQueue.Enqueue(line); // guarda os eventos em uma queue
                     }
                     else
                         ProcessCommand(line);
+                }
+
+                if (eventQueue.Count > 0) // se houver eventos em espera
+                {
+                    if (eventHandlingTask == null || eventHandlingTask.IsCompleted) // que não estejam sendo tratados
+                    {
+                        eventHandlingTask = Task.Run(async () =>
+                           HandleEventQueue()
+                            );
+                    }
                 }
             }
             catch (Exception e)
@@ -46,57 +55,70 @@ namespace RFIDComm.Droid.Bluetooth
 
 
         // Event Handler. Vide BRI Manual
-        private async Task HandleEvent(string eventMessage)
+        private async Task HandleEventQueue()
         {
-            // Rodolfo Cortese: usado durante desenvolvimento do modulo apenas
-            MessagingCenter.Send<App, string>((App)Application.Current, "Barcode", eventMessage);
-            // remover depois!
-
-            try
+            while (eventQueue.Count > 0)
             {
-                // evento = novo EPC
-                if (eventMessage.StartsWith(BRICommands.EpcPrefix))
-                {
-                    string epc = eventMessage
-                        .Remove(0, BRICommands.EpcPrefix.Length); // retira prefixo
+                string message = eventQueue.Dequeue(); ;
 
-                    if (epc.Length > _epcLength) // throws exception otherwise
-                        epc = epc.Remove(_epcLength); // retira qualquer coisa que possa ter vindo extra por engano
-
-                    if (epc.Length == _epcLength)
-                        BroadcastEPC(epc);
-                    else
-                        Debug.WriteLine("Invalid EPC: " + epc);
-                }
-                // evento = trigger pressed
-                else if (eventMessage.Contains(BRICommands.TriggerPressEvent))
-                {
-                    _bluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Fast);
-                    _bluetoothController.SendCommand(BRICommands.ReadContinuously);
-                }
-                // evento = trigger released
-                else if (eventMessage.Contains(BRICommands.TriggerReleaseEvent))
-                {
-                    _bluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Slow);
-                    _bluetoothController.SendCommand(BRICommands.ReadStop);
-                }
-                // evento = low battery warning
-                else if (eventMessage.Contains(BRICommands.LowBatteryEvent))
-                {
-                    throw new NotImplementedException();
-                }
-                // evento = overheating
-                else if (eventMessage.Contains(BRICommands.OverheatEvent))
-                {
-                    throw new NotImplementedException();
-                }
+                if (message.StartsWith(BRICommands.EventPrefix))
+                    message = message.Remove(0, BRICommands.EventPrefix.Length);
                 else
-                    Debug.WriteLine("Handle other incoming event. Input: " + eventMessage);
+                {
+                    Debug.WriteLine("Invalid event: " + message);
+                    break;
+                }
 
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("EVENT HANDLING EXCEPTION: " + e.Message);
+                // Rodolfo Cortese: usado durante desenvolvimento do modulo apenas
+                MessagingCenter.Send<App, string>((App)Application.Current, "Barcode", message);
+                // remover depois!
+
+                try
+                {
+                    // evento = novo EPC
+                    if (message.StartsWith(BRICommands.EpcPrefix))
+                    {
+                        string epc = message
+                            .Remove(0, BRICommands.EpcPrefix.Length); // retira prefixo
+
+                        if (epc.Length > _epcLength) // throws exception otherwise
+                            epc = epc.Remove(_epcLength); // retira qualquer coisa que possa ter vindo extra por engano
+
+                        if (epc.Length == _epcLength)
+                            BroadcastEPC(epc);
+                        else
+                            Debug.WriteLine("Invalid EPC: " + epc);
+                    }
+                    // evento = trigger pressed
+                    else if (message.Contains(BRICommands.TriggerPressEvent))
+                    {
+                        _bluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Fast);
+                        _bluetoothController.SendCommand(BRICommands.ReadContinuously);
+                    }
+                    // evento = trigger released
+                    else if (message.Contains(BRICommands.TriggerReleaseEvent))
+                    {
+                        _bluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Slow);
+                        _bluetoothController.SendCommand(BRICommands.ReadStop);
+                    }
+                    // evento = low battery warning
+                    else if (message.Contains(BRICommands.LowBatteryEvent))
+                    {
+                        throw new NotImplementedException();
+                    }
+                    // evento = overheating
+                    else if (message.Contains(BRICommands.OverheatEvent))
+                    {
+                        throw new NotImplementedException();
+                    }
+                    else
+                        Debug.WriteLine("Handle other incoming event. Input: " + message);
+
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("EVENT HANDLING EXCEPTION: " + e.Message);
+                }
             }
         }
 
@@ -117,9 +139,14 @@ namespace RFIDComm.Droid.Bluetooth
                 return;
             }
 
-            Debug.WriteLine("Command:\n");
-            foreach (string line in commandQueue)
-                Debug.WriteLine(line);
+            if (commandQueue.Count > 0)
+            {
+                Debug.WriteLine("Command:\n");
+                foreach (string line in commandQueue)
+                    Debug.WriteLine(line);
+            }
+            else
+                Debug.WriteLine("RFID Ok!\n");
 
             // os comandos são armazenados na ordem correta, mas ainda não são tratados
             commandQueue.Clear();
