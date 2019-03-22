@@ -2,12 +2,26 @@
 {
     public class BRICommands
     {
+        ///
         // output
         internal const string ReadContinuously = "READ REPORT=EVENT";
         internal const string ReadStop = "READ STOP";
         internal const string ResetFactoryDefaults = "FACDFLT";
         internal const string Ping = "PING";
 
+        // Vide documentação "Manual BRI", em FIELDSTRENGTH
+        internal const string ReaderPower = "ATTRIBUTE FIELDSTRENGTH=";
+        internal enum Power
+        {
+            Full = 100,
+            Half = 85,
+            Quarter = 70,
+            Eigth = 55,
+            Sixteenth = 40,
+            Min = 25
+        }
+
+        /// 
         // input
         internal const string EpcPrefix = "TAG H";
         internal const string EventPrefix = "EVT:";
