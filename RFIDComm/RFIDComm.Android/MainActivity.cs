@@ -8,7 +8,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
-namespace RFIDComm.Droid
+namespace AppEpi.Droid
 {
     [Activity(Label = "RFIDComm", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity

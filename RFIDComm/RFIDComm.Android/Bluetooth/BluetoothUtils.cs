@@ -1,8 +1,8 @@
 ﻿using Android.Bluetooth;
 using System.Collections.ObjectModel;
-using RFIDComm.Droid.Bluetooth;
+using AppEpi.Droid.Bluetooth;
 
-namespace RFIDComm.Droid
+namespace AppEpi.Droid
 {
     public class BluetoothUtils
     {

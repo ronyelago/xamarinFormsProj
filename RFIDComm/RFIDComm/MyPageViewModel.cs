@@ -6,7 +6,7 @@ using PropertyChanged;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace RFIDComm
+namespace AppEpi
 {
     //	[ImplementPropertyChanged]
     public class MyPageViewModel : INotifyPropertyChanged

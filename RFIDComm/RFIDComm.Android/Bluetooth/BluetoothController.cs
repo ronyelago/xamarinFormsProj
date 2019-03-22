@@ -3,16 +3,16 @@ using Android.Bluetooth;
 using Java.Util;
 using System.Threading.Tasks;
 using Java.IO;
-using RFIDComm.Droid;
+using AppEpi.Droid;
 using System.Threading;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using System.IO;
 using System.Text;
-using RFIDComm.Droid.Bluetooth;
+using AppEpi.Droid.Bluetooth;
 
 [assembly: Dependency(typeof(BluetoothController))]
-namespace RFIDComm.Droid
+namespace AppEpi.Droid
 {
     public class BluetoothController : IBth
     {

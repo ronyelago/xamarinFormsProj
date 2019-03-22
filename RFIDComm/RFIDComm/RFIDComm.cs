@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace RFIDComm
+namespace AppEpi
 {
     public partial class App : Application
     {

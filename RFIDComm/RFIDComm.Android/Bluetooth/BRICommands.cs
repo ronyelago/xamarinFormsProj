@@ -1,4 +1,4 @@
-﻿namespace RFIDComm.Droid.Bluetooth
+﻿namespace AppEpi.Droid.Bluetooth
 {
     public class BRICommands
     {

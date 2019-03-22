@@ -2,7 +2,7 @@
 
 using Xamarin.Forms;
 
-namespace RFIDComm
+namespace AppEpi
 {
     public class MyPage : ContentPage
     {
