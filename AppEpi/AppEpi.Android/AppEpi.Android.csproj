@@ -69,6 +69,11 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bluetooth\BluetoothController.cs" />
+    <Compile Include="Bluetooth\BluetoothUtils.cs" />
+    <Compile Include="Bluetooth\BRICommands.cs" />
+    <Compile Include="Bluetooth\Debug.cs" />
+    <Compile Include="Bluetooth\RFIDComm.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
