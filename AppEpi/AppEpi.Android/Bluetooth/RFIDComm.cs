@@ -60,10 +60,6 @@ namespace AppEpi.Droid.Bluetooth
             {
                 string message = eventQueue.Dequeue();
 
-                // Rodolfo Cortese: usado durante desenvolvimento do modulo apenas
-                MessagingCenter.Send<App, string>((App)Application.Current, "Barcode", message);
-                // remover depois!
-
                 try
                 {
                     // validação e preparação da mensagem para tratamento
