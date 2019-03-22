@@ -29,7 +29,7 @@ namespace RFIDComm.Droid.Bluetooth
             {
                 foreach (string line in response.Split(BRICommands.Crlf, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    if (line.StartsWith(BRICommands.EventPrefix))
+                    if (line.Contains(BRICommands.EventPrefix))
                     {
                         eventQueue.Enqueue(line); // guarda os eventos em uma queue
                     }
@@ -59,15 +59,7 @@ namespace RFIDComm.Droid.Bluetooth
         {
             while (eventQueue.Count > 0)
             {
-                string message = eventQueue.Dequeue(); ;
-
-                if (message.StartsWith(BRICommands.EventPrefix))
-                    message = message.Remove(0, BRICommands.EventPrefix.Length);
-                else
-                {
-                    Debug.WriteLine("Invalid event: " + message);
-                    break;
-                }
+                string message = eventQueue.Dequeue();
 
                 // Rodolfo Cortese: usado durante desenvolvimento do modulo apenas
                 MessagingCenter.Send<App, string>((App)Application.Current, "Barcode", message);
@@ -75,6 +67,18 @@ namespace RFIDComm.Droid.Bluetooth
 
                 try
                 {
+                    // validação e preparação da mensagem para tratamento
+                    if (message.Contains(BRICommands.EventPrefix))
+                    {
+                        message = message.Split(BRICommands.EventPrefix, StringSplitOptions.RemoveEmptyEntries)[1];
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Invalid event: " + message);
+                        break;
+                    }
+
+
                     // evento = novo EPC
                     if (message.StartsWith(BRICommands.EpcPrefix))
                     {
@@ -146,7 +150,7 @@ namespace RFIDComm.Droid.Bluetooth
                     Debug.WriteLine(line);
             }
             else
-                Debug.WriteLine("RFID Ok!\n");
+                Debug.WriteLine("RFID says Ok!\n");
 
             // os comandos são armazenados na ordem correta, mas ainda não são tratados
             commandQueue.Clear();
