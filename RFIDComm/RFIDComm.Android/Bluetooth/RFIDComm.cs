@@ -24,7 +24,6 @@ namespace RFIDComm.Droid.Bluetooth
 
         public void HandleResponse(string response)
         {
-            Debug.WriteLine("NEW RESPONSE---------------------\n" + response);
             try
             {
                 foreach (string line in response.Split(BRICommands.Crlf, StringSplitOptions.RemoveEmptyEntries))
@@ -88,10 +87,8 @@ namespace RFIDComm.Droid.Bluetooth
                         if (epc.Length > _epcLength) // throws exception otherwise
                             epc = epc.Remove(_epcLength); // retira qualquer coisa que possa ter vindo extra por engano
 
-                        if (epc.Length == _epcLength)
+                        if (epc.Length == _epcLength) // validação do tamanho do resultado
                             BroadcastEPC(epc);
-                        else
-                            Debug.WriteLine("Invalid EPC: " + epc);
                     }
                     // evento = trigger pressed
                     else if (message.Contains(BRICommands.TriggerPressEvent))
@@ -129,7 +126,6 @@ namespace RFIDComm.Droid.Bluetooth
 
         private void BroadcastEPC(string epc)
         {
-            Debug.WriteLine("---EPC: " + epc);
             MessagingCenter.Send((App)Application.Current, "EPC", epc);
         }
 
