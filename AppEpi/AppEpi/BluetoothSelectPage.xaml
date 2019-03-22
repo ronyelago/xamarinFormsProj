@@ -4,11 +4,12 @@
              x:Class="AppEpi.BluetoothSelectPage">
     <ContentPage.Content>
         <ScrollView x:Name="scrolly">
-            <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">
+            <StackLayout Margin="10,10" Spacing="10">
                 <StackLayout Padding="5,10" HeightRequest="200">
-                    <Label >Escaneando dispositivos</Label>
+                    <Label >Dispositivos Pareados</Label>
+                    <ListView x:Name="deviceList" HeightRequest="200"></ListView>
                 </StackLayout>
-                <Button Text="Parear" FontSize="18" x:Name="btnParear" Clicked="btnParear_Clicked" Style="{StaticResource BotaoAzul1}" />
+                <Button Text="Conectar" IsVisible="False" FontSize="18" x:Name="btnConectar" Clicked="btnConectar_Clicked" Style="{StaticResource BotaoAzul1}" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
