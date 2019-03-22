@@ -9,26 +9,19 @@ namespace RFIDComm.Droid
         // retorna BluetoothDevice pareado buscando por nome
         public static BluetoothDevice FindDevice(string name)
         {
+            Debug.WriteLine("Try to connect to " + name);
+
             BluetoothAdapter adapter = BluetoothAdapter.DefaultAdapter;
             #region adapter debug
             if (adapter == null)
-            {
-                Debug.WriteLine("No Bluetooth adapter found.");
-            }
+                Debug.WriteLine("No adapter found.");
             else
-            {
                 Debug.WriteLine("Adapter found!");
-            }
 
             if (!adapter.IsEnabled)
-            {
                 Debug.WriteLine("Bluetooth adapter is not enabled.");
-            }
             else
-            {
                 Debug.WriteLine("Adapter enabled!");
-            }
-            Debug.WriteLine("Try to connect to " + name);
             #endregion
 
             BluetoothDevice device = null;
@@ -44,9 +37,7 @@ namespace RFIDComm.Droid
                 }
             }
             if (device == null)
-            {
                 Debug.WriteLine("Named device not found.");
-            }
 
             return device;
         }
@@ -58,9 +49,8 @@ namespace RFIDComm.Droid
             ObservableCollection<string> devices = new ObservableCollection<string>();
 
             foreach (var bd in adapter.BondedDevices)
-            {
                 devices.Add(bd.Name);
-            }
+
             return devices;
         }
     }

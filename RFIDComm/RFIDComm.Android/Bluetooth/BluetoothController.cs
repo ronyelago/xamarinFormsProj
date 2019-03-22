@@ -157,10 +157,9 @@ namespace RFIDComm.Droid
                             }
                         }
                         #endregion
+
                         else
-                        {
                             response = await buffer.ReadLineAsync();
-                        }
 
                         if (response.Length > 0) // se a leitura foi válida
                         {
@@ -170,9 +169,7 @@ namespace RFIDComm.Droid
                             reconnectTimer = 0;
                         }
                         else
-                        {
                             Debug.WriteLine("No data");
-                        }
                     }
                     else if (pingTimer >= _pingIfIdleFor)
                     {
@@ -214,9 +211,7 @@ namespace RFIDComm.Droid
                 finally
                 {
                     if (_bthSocket != null)
-                    {
                         _bthSocket.Close();
-                    }
                 }
             }
             Debug.WriteLine("Reading loop exit");
@@ -241,11 +236,14 @@ namespace RFIDComm.Droid
                     {
                         Debug.WriteLine("Connected!");
                     }
-                    else throw new UnauthorizedAccessException();
+                    else
+                        throw new UnauthorizedAccessException();
                 }
-                else throw new NullReferenceException();
+                else
+                    throw new NullReferenceException();
             }
-            else throw new ArgumentException();
+            else
+                throw new ArgumentException();
 
             // Initialize RFIDReader
             await SendCommandAsync(BRICommands.ResetFactoryDefaults);

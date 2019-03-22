@@ -32,9 +32,7 @@ namespace RFIDComm.Droid.Bluetooth
                             );
                     }
                     else
-                    {
                         ProcessCommand(line);
-                    }
                 }
             }
             catch (Exception e)
@@ -53,7 +51,8 @@ namespace RFIDComm.Droid.Bluetooth
 
             try
             {
-                if (eventMessage.StartsWith(BRICommands.EpcPrefix)) // evento = novo EPC
+                // evento = novo EPC
+                if (eventMessage.StartsWith(BRICommands.EpcPrefix))
                 {
                     string epc = eventMessage
                         .Remove(0, BRICommands.EpcPrefix.Length); // retira prefixo
@@ -62,36 +61,35 @@ namespace RFIDComm.Droid.Bluetooth
                         epc = epc.Remove(_epcLength); // retira qualquer coisa que possa ter vindo extra por engano
 
                     if (epc.Length == _epcLength)
-                    {
                         BroadcastEPC(epc);
-                    }
                     else
-                    {
                         Debug.WriteLine("Invalid EPC: " + epc);
-                    }
                 }
-                else if (eventMessage.Contains(BRICommands.TriggerPressEvent)) // evento = trigger pressed
+                // evento = trigger pressed
+                else if (eventMessage.Contains(BRICommands.TriggerPressEvent))
                 {
                     _bluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Fast);
                     _bluetoothController.SendCommand(BRICommands.ReadContinuously);
                 }
-                else if (eventMessage.Contains(BRICommands.TriggerReleaseEvent)) // evento = trigger released
+                // evento = trigger released
+                else if (eventMessage.Contains(BRICommands.TriggerReleaseEvent))
                 {
                     _bluetoothController.SetPollingSpeed(BluetoothController.PollingSpeed.Slow);
                     _bluetoothController.SendCommand(BRICommands.ReadStop);
                 }
-                else if (eventMessage.Contains(BRICommands.LowBatteryEvent)) // evento = low battery warning
+                // evento = low battery warning
+                else if (eventMessage.Contains(BRICommands.LowBatteryEvent))
                 {
                     throw new NotImplementedException();
                 }
-                else if (eventMessage.Contains(BRICommands.OverheatEvent)) // evento = overheating
+                // evento = overheating
+                else if (eventMessage.Contains(BRICommands.OverheatEvent))
                 {
                     throw new NotImplementedException();
                 }
                 else
-                {
                     Debug.WriteLine("Handle other incoming event. Input: " + eventMessage);
-                }
+
             }
             catch (Exception e)
             {
