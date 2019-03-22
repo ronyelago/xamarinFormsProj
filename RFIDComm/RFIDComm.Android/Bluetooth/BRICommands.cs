@@ -2,8 +2,7 @@
 {
     public class BRICommands
     {
-        ///
-        // output
+        #region output
         internal const string ReadContinuously = "READ REPORT=EVENT";
         internal const string ReadStop = "READ STOP";
         internal const string ResetFactoryDefaults = "FACDFLT";
@@ -20,14 +19,20 @@
             Sixteenth = 40,
             Min = 25
         }
+        #endregion
 
-        /// 
-        // input
+        #region input
         internal const string EpcPrefix = "TAG H";
         internal const string EventPrefix = "EVT:";
         internal const string LowBatteryEvent = "BATTERY LOW";
         internal const string OverheatEvent = "THERMAL OVERTEMP";
         internal const string TriggerReleaseEvent = "TRIGGER TRIGRELEASE";
         internal const string TriggerPressEvent = "TRIGGER TRIGPULL";
+        internal const string Ok = "OK>";
+        #endregion
+
+        #region general
+        internal const string Crlf = "\r\n";
+        #endregion
     }
 }

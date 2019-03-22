@@ -22,7 +22,6 @@ namespace RFIDComm.Droid
         private const int _connectionTimeout = 10000; // se não houver mensagem do leitor durante esse intervalo (em ms), inicia-se reconexão
 
         private const string _uuid = "00001101-0000-1000-8000-00805f9b34fb";
-        private const string _crlf = "\r\n";
 
         private int _pollingInterval = _slowPollingInterval;
         private CancellationTokenSource _ct;
@@ -43,7 +42,7 @@ namespace RFIDComm.Droid
 
         #region IBth implementation
         // Start the Reading loop 
-        /// <param name="name">Name of the paired bluetooth device (also a part of the name)</param>
+        /// <param name="name"> Name of the paired bluetooth device </param>
         public void Start(string name, bool readAsCharArray = true)
         {
             Task.Run(async () =>
@@ -261,7 +260,7 @@ namespace RFIDComm.Droid
 
         private string AppendEOL(string input)
         {
-            return string.Concat(input, _crlf);
+            return string.Concat(input, BRICommands.Crlf);
         }
         #endregion
     }
