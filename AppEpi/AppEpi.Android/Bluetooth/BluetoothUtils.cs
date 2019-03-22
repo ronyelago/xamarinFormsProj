@@ -1,8 +1,7 @@
 ﻿using Android.Bluetooth;
 using System.Collections.ObjectModel;
-using AppEpi.Droid.Bluetooth;
 
-namespace AppEpi.Droid
+namespace AppEpi.Droid.Bluetooth
 {
     public class BluetoothUtils
     {
