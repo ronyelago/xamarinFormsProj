@@ -9,7 +9,7 @@
         internal const string Ping = "PING";
 
         // input
-        internal const string EpcPrefix = "TAG ";
+        internal const string EpcPrefix = "TAG H";
         internal const string EventPrefix = "EVT:";
         internal const string LowBatteryEvent = "BATTERY LOW";
         internal const string OverheatEvent = "THERMAL OVERTEMP";

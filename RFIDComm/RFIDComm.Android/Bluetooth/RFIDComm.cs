@@ -8,6 +8,8 @@ namespace RFIDComm.Droid.Bluetooth
     {
         private BluetoothController _bluetoothController = null;
 
+        private const int _epcLength = 24;
+
         // Constructor
         public RFIDComm(BluetoothController bluetoothController)
         {
@@ -48,7 +50,18 @@ namespace RFIDComm.Droid.Bluetooth
 
             if (eventMessage.StartsWith(BRICommands.EpcPrefix)) // evento = novo EPC
             {
-                BroadcastEPC(eventMessage.Remove(0, BRICommands.EpcPrefix.Length));
+                string epc = eventMessage
+                    .Remove(0, BRICommands.EpcPrefix.Length) // retira prefixo
+                    .Remove(_epcLength);    // retira <CRLF> + qualquer coisa que tenha vindo junto
+
+                if (epc.Length == _epcLength)
+                {
+                    BroadcastEPC(epc);
+                }
+                else
+                {
+                    Debug.WriteLine("Invalid EPC: " + epc);
+                }
             }
             else if (eventMessage.Contains(BRICommands.TriggerPressEvent)) // evento = trigger pressed
             {
