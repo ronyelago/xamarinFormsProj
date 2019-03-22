@@ -3,7 +3,6 @@ using Android.Bluetooth;
 using Java.Util;
 using System.Threading.Tasks;
 using Java.IO;
-using AppEpi.Droid;
 using System.Threading;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
@@ -13,7 +12,7 @@ using System.Text;
 [assembly: Dependency(typeof(AppEpi.Droid.Bluetooth.BluetoothController))]
 namespace AppEpi.Droid.Bluetooth
 {
-    public class BluetoothController : IBth
+    public class BluetoothController : IBluetoothController
     {
         private const int _fastPollingInterval = 250; // intervalo entre polls (em ms) quando trigger pressed
         private const int _slowPollingInterval = 500; // intervalo entre polls (em ms) quando trigger released

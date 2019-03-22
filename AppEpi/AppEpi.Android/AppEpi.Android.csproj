@@ -65,7 +65,6 @@
     <Compile Include="Bluetooth\BRICommands.cs" />
     <Compile Include="Bluetooth\Debug.cs" />
     <Compile Include="Bluetooth\RFIDComm.cs" />
-    <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
