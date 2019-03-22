@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -9,6 +10,8 @@ namespace RFIDComm.Droid.Bluetooth
         private BluetoothController _bluetoothController = null;
 
         private const int _epcLength = 24;
+
+        private Queue<string> commandQueue = new Queue<string>();
 
         // Constructor
         public RFIDComm(BluetoothController bluetoothController)
@@ -108,8 +111,18 @@ namespace RFIDComm.Droid.Bluetooth
         // Command Processor. Vide BRI Manual
         private void ProcessCommand(string command)
         {
-            Debug.WriteLine("COMMAND: " + command);
-            throw new NotImplementedException();
+            if (command != BRICommands.Ok)
+            {
+                commandQueue.Enqueue(command);
+                return;
+            }
+
+            Debug.WriteLine("Command:\n");
+            foreach (string line in commandQueue)
+                Debug.WriteLine(line);
+
+            // os comandos são armazenados na ordem correta, mas ainda não são tratados
+            commandQueue.Clear();
         }
     }
 }
