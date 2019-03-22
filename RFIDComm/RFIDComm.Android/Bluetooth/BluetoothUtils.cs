@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics;
-using Android.Bluetooth;
+﻿using Android.Bluetooth;
 using System.Collections.ObjectModel;
+using RFIDComm.Droid.Bluetooth;
 
 namespace RFIDComm.Droid
 {

@@ -5,27 +5,26 @@ using System.Threading.Tasks;
 using Java.IO;
 using RFIDComm.Droid;
 using System.Threading;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using System.IO;
 using System.Text;
+using RFIDComm.Droid.Bluetooth;
 
 [assembly: Dependency(typeof(BluetoothController))]
 namespace RFIDComm.Droid
 {
     public class BluetoothController : IBth
     {
-        private const int _fastPolling = 100;
-        private const int _slowPolling = 250;
+        private const int _fastPollingInterval = 100; // intervalo entre polls (em ms) quando trigger pressed
+        private const int _slowPollingInterval = 250; // intervalo entre polls (em ms) quando trigger released
         private const int _reconnectTime = 30000;
+        private const string _uuid = "00001101-0000-1000-8000-00805f9b34fb";
         private const string _crlf = "\r\n";
 
-        private int _pollingInterval = _slowPolling;
+        private int _pollingInterval = _slowPollingInterval;
         private CancellationTokenSource _ct;
         private BluetoothSocket _bthSocket;
-
         private Bluetooth.RFIDComm _rfidComm;
 
         public enum PollingSpeed
@@ -33,12 +32,8 @@ namespace RFIDComm.Droid
             Fast,
             Slow
         }
-        public enum ReadingMode
-        {
-            Continuous,
-            Disabled
-        }
 
+        // Constructor
         public BluetoothController()
         {
             _rfidComm = new Bluetooth.RFIDComm(this);
@@ -88,31 +83,14 @@ namespace RFIDComm.Droid
             {
                 case PollingSpeed.Fast:
                     _pollingInterval = 100;
-                    Debug.WriteLine("Bluetooth: Fast polling mode");
+                    Debug.WriteLine("Fast polling mode");
                     break;
                 case PollingSpeed.Slow:
                     _pollingInterval = 250;
-                    Debug.WriteLine("Bluetooth: Slow polling mode");
+                    Debug.WriteLine("Slow polling mode");
                     break;
                 default:
-                    Debug.WriteLine("Bluetooth: Invalid polling mode setup");
-                    break;
-            }
-        }
-
-
-        public void SetReadingMode(ReadingMode readingMode)
-        {
-            switch (readingMode)
-            {
-                case ReadingMode.Continuous:
-                    SendCommand("READ REPORT=EVENT");
-                    break;
-                case ReadingMode.Disabled:
-                    SendCommand("READ STOP");
-                    break;
-                default:
-                    Debug.WriteLine("Bluetooth: Invalid reading mode setup");
+                    Debug.WriteLine("Invalid polling mode setup");
                     break;
             }
         }
@@ -240,7 +218,7 @@ namespace RFIDComm.Droid
 
             if (device != null)
             {
-                UUID uuid = UUID.FromString("00001101-0000-1000-8000-00805f9b34fb");
+                UUID uuid = UUID.FromString(_uuid);
                 _bthSocket = device.CreateInsecureRfcommSocketToServiceRecord(uuid);
 
                 if (_bthSocket != null)
@@ -249,7 +227,7 @@ namespace RFIDComm.Droid
 
                     if (_bthSocket.IsConnected)
                     {
-                        Debug.WriteLine("Bluetooth: connected!");
+                        Debug.WriteLine("Connected!");
                     }
                     else throw new UnauthorizedAccessException();
                 }
@@ -258,7 +236,7 @@ namespace RFIDComm.Droid
             else throw new ArgumentException();
 
             // Initialize RFIDReader
-            await SendCommandAsync("FACDFLT");
+            await SendCommandAsync(BRICommands.ResetFactoryDefaults);
         }
 
 
@@ -266,6 +244,7 @@ namespace RFIDComm.Droid
         {
             await StreamMessage(AppendEOL(command));
         }
+
 
         private string AppendEOL(string input)
         {
