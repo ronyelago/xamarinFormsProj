@@ -9,10 +9,9 @@ using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using System.IO;
 using System.Text;
-using AppEpi.Droid.Bluetooth;
 
-[assembly: Dependency(typeof(BluetoothController))]
-namespace AppEpi.Droid
+[assembly: Dependency(typeof(AppEpi.Droid.Bluetooth.BluetoothController))]
+namespace AppEpi.Droid.Bluetooth
 {
     public class BluetoothController : IBth
     {
@@ -27,7 +26,7 @@ namespace AppEpi.Droid
         private int _pollingInterval = _slowPollingInterval;
         private CancellationTokenSource _ct;
         private BluetoothSocket _bthSocket;
-        private Bluetooth.RFIDComm _rfidComm;
+        private RFIDComm _rfidComm;
 
         public enum PollingSpeed
         {

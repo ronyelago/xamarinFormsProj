@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace RFIDComm.Droid.Bluetooth
+namespace AppEpi.Droid.Bluetooth
 {
     class RFIDComm
     {

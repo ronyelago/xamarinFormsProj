@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.220655" />
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.264807" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.1" />
@@ -100,8 +100,8 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RFIDComm\AppEpi.csproj">
-      <Project>{F549071C-359B-43F3-8980-6553D037AF1F}</Project>
+    <ProjectReference Include="..\AppEpi\AppEpi.csproj">
+      <Project>{52d460d0-af6f-474c-af1d-2e940cb701ef}</Project>
       <Name>AppEpi</Name>
     </ProjectReference>
   </ItemGroup>
