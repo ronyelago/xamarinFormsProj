@@ -16,10 +16,11 @@ namespace RFIDComm.Droid
 {
     public class BluetoothController : IBth
     {
-        private const int _fastPollingInterval = 100; // intervalo entre polls (em ms) quando trigger pressed
-        private const int _slowPollingInterval = 250; // intervalo entre polls (em ms) quando trigger released
+        private const int _fastPollingInterval = 250; // intervalo entre polls (em ms) quando trigger pressed
+        private const int _slowPollingInterval = 500; // intervalo entre polls (em ms) quando trigger released
         private const int _pingIfIdleFor = 5000; // se não houver mensagem do leitor durante esse intervalo (em ms), envia-se um ping
         private const int _connectionTimeout = 10000; // se não houver mensagem do leitor durante esse intervalo (em ms), inicia-se reconexão
+
         private const string _uuid = "00001101-0000-1000-8000-00805f9b34fb";
         private const string _crlf = "\r\n";
 
@@ -159,7 +160,7 @@ namespace RFIDComm.Droid
                         #endregion
                         else
                         {
-                            response = buffer.ReadLine();
+                            response = await buffer.ReadLineAsync();
                         }
 
                         if (response.Length > 0) // se a leitura foi válida
@@ -179,7 +180,6 @@ namespace RFIDComm.Droid
                         SendCommand(BRICommands.Ping);
                         pingTimer = 0;
                     }
-
                 }
                 else
                 { 
