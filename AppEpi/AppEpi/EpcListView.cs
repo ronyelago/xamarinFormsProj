@@ -11,6 +11,7 @@ namespace AppEpi
 
         public EpcListView()
         {
+            HeightRequest = 200;
             ItemsSource = _epcList;
 
             MessagingCenter.Subscribe<App, string>(this, "EPC", (sender, arg) =>
@@ -33,17 +34,17 @@ namespace AppEpi
         {
             if (_epcList.Count > 0)
             {
-                string WbsFormattedEpcList = "";
+                string wbsFormattedEpcList = "";
 
                 string[] epcList = new string[_epcList.Count];
                 _epcList.CopyTo(epcList, 0);
 
                 foreach (string epc in epcList)
                 {
-                    WbsFormattedEpcList += "|" + epc;
+                    wbsFormattedEpcList += "|" + epc;
                 }
 
-                return WbsFormattedEpcList;
+                return wbsFormattedEpcList;
             }
             else
                 return null;

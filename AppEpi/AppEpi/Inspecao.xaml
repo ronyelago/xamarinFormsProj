@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              Title="Fiscalização"
+             xmlns:appepi="clr-namespace:AppEpi"
+             Title="Fiscalização"
              x:Class="AppEpi.Inspecao">
     <ContentPage.Content>
         <ScrollView x:Name="scrolly">
             <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">
                 <StackLayout Padding="5,10" HeightRequest="200">
                     <Label>Cracha/EPI</Label>
-                    <Editor x:Name="epis" HeightRequest="200"  />
+                    <appepi:EpcListView x:Name="epcList"/>
                 </StackLayout>
                 <Button Text="Confirmar" FontSize="18" x:Name="btnConfirmar" Clicked="btnConfirmar_Clicked" Style="{StaticResource BotaoAzul1}" />
             </StackLayout>

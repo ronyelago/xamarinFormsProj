@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
@@ -19,21 +15,9 @@ namespace AppEpi
         async private void Button_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
-            string listEPCS = "";
-            int count = 0;
             string localEstoque = "";
 
-            string[] lines = epis.Text.Split('\n');
-            foreach (string line in lines)
-            {
-                if (line != "")
-                {
-                    count++;
-                    listEPCS = listEPCS + "|" + line;
-                }
-            }
-
-            if (count > 0)
+            if (epcList.Count > 0)
             {
                 if (pckLocalEstoque.SelectedIndex.ToString() == "-1")
                 {
@@ -45,16 +29,13 @@ namespace AppEpi
                     localEstoque = localEstoque.Split('-')[0];
                 }
                 
-                var answer = await DisplayAlert("Devolução", "Confirmar Devolução?\nTotal de Itens:" + count, "Sim", "Não");
+                var answer = await DisplayAlert("Devolução", "Confirmar Devolução?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
                 if (answer)
                 {
 
-                    var result = wbs.devEPI(listEPCS, localEstoque);
-                    //await DisplayAlert("Recebimento", result.Count.ToString(), "OK");
+                    var result = wbs.devEPI(epcList.GetFormattedEpcList(), localEstoque);
                     var detailPage = new ResultadoTrn(result);
                     await Navigation.PushAsync(detailPage);
-                    //await Navigation.PushModalAsync(detailPage);
-                    //PushModalAsync(detailPage);
                 }
             }
             else
@@ -68,7 +49,7 @@ namespace AppEpi
         {
             base.OnAppearing();
             var wbs = DependencyService.Get<IWEBClient>();
-            epis.Text = "";
+            epcList.Clear();
             try
             {
                 var result = wbs.retornaLocalEstoque().Where(x => x.FK_CLIENTE == UsuarioLogado.FkCliente).ToList();

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
@@ -26,31 +20,17 @@ namespace AppEpi
         async private void btnEnvioTeste_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
-            string listEPCS = "";
-            int count = 0;
 
-            string[] lines = epis.Text.Split('\n');
-            foreach (string line in lines)
+            if (epcList.Count > 0)
             {
-                if (line != "")
-                {
-                    count++;
-                    listEPCS = listEPCS + "|" + line;
-                }
-            }
-
-            if (count > 0)
-            {
-                var answer = await DisplayAlert("Recebimento", "Confirmar Recebimento?\nTotal de Itens:" + count, "Sim", "Não");
+                var answer = await DisplayAlert("Recebimento", "Confirmar Recebimento?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
                 if (answer)
                 {
                     var data = dtProximtoTeste.Date.Day + "-" + dtProximtoTeste.Date.Month + "-" + dtProximtoTeste.Date.Year;
-                    //var result = wbs.recebimentoDoTeste(listEPCS, data, entART.Text);
-                    var result = wbs.retornarDadosEpiValidar(listEPCS, UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
+                    var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "5";
                     UsuarioLogado.DataTeste = data;
                     UsuarioLogado.ART = entART.Text;
-                    //await DisplayAlert("Recebimento", result.Count.ToString(), "OK");
                     var detailPage = new Page4(result);
                     await Navigation.PushAsync(detailPage);
                 }
@@ -65,7 +45,7 @@ namespace AppEpi
         async protected override void OnAppearing()
         {
             base.OnAppearing();
-            epis.Text = "";
+            epcList.Clear();
         }
     }
 }

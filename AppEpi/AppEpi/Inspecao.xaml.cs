@@ -1,12 +1,6 @@
 ﻿using Plugin.Geolocator;
-using Rg.Plugins.Popup.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
@@ -21,31 +15,18 @@ namespace AppEpi
         async private void btnConfirmar_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
-            string listEPCS = "";
-            int count = 0;
 
             var locator = CrossGeolocator.Current;
             var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
             UsuarioLogado.Latitude = position.Latitude.ToString();
             UsuarioLogado.Longitude = position.Longitude.ToString();
 
-            string[] lines = epis.Text.Split('\n');
-            foreach (string line in lines)
+            if (epcList.Count > 0)
             {
-                if (line != "")
-                {
-                    count++;
-                    listEPCS = listEPCS + "|" + line;
-                }
-            }
-
-
-            if (count > 0)
-            {
-                var answer = await DisplayAlert("Fiscalização", "Confirmar Fiscalização?\nTotal de Itens:" + count, "Sim", "Não");
+                var answer = await DisplayAlert("Fiscalização", "Confirmar Fiscalização?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
                 if (answer)
                 {
-                    var result = wbs.retornarDadosEpiValidar(listEPCS, UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
+                    var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "6";
                     var detailPage = new Page4(result);
 
@@ -63,7 +44,7 @@ namespace AppEpi
         async protected override void OnAppearing()
         {
             base.OnAppearing();
-            epis.Text = "";
+            epcList.Clear();
         }
     }
 }
