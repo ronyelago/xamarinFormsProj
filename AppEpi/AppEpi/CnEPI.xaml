@@ -7,8 +7,8 @@
         <ScrollView x:Name="scrolly">
             <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">
                 <StackLayout Padding="5,10" HeightRequest="200">
-                    <Label >EPI´S</Label>
-                    <Editor x:Name="epis" HeightRequest="200" Text="0E8D4A5AC1200001033303DC"  />
+                    <Label >EPIs</Label>
+                    <ListView x:Name="epcList" HeightRequest="200"></ListView>
                 </StackLayout>
                 <Button Text="Consultar" FontSize="18" x:Name="btnConfirmar" Clicked="btnConfirmar_Clicked" Style="{StaticResource BotaoAzul1}" />
             </StackLayout>

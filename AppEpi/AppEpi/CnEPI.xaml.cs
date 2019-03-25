@@ -1,34 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace AppEpi
 {
     public partial class CnEPI : ContentPage
     {
+        private ObservableCollection<string> _epcList = new ObservableCollection<string>();
+
         public CnEPI()
         {
             InitializeComponent();
+
+            epcList.ItemsSource = _epcList;
+
+            MessagingCenter.Subscribe<App, string>(this, "EPC", (sender, arg) =>
+            {
+                _epcList.Add(arg);
+            });
         }
 
 
         async private void btnConfirmar_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
-            string listEPCS = "";
+            string WbsFormattedEpcList = "";
             int count = 0;
+
             
-            string[] lines = epis.Text.Split('\n');
-            foreach (string line in lines)
+
+            //string[] lines = epis.Text.Split('\n');
+            string[] epcList = new string[_epcList.Count];
+            _epcList.CopyTo(epcList, 0);
+
+            foreach (string epc in epcList)
             {
-                if (line != "")
+                if (epc != "")
                 {
                     count++;
-                    listEPCS = listEPCS + "|" + line;
+                    WbsFormattedEpcList += "|" + epc;
                 }
             }
 
@@ -37,24 +48,12 @@ namespace AppEpi
                 var answer = await DisplayAlert("Consulta de Epi", "Confirmar Consulta?\nTotal de Itens:" + count, "Sim", "Não");
                 if (answer)
                 {
-
-                    //var result = wbs.inspecaoEPIFUNC(listEPCS);
-                    var result = wbs.consultEPI(listEPCS);
+                    var result = wbs.consultEPI(WbsFormattedEpcList);
                     UsuarioLogado.Operacao = "7";
-                    //await DisplayAlert("Recebimento", result.Count.ToString(), "OK");
                     var detailPage = new ResultadoTrn(result);
-                    //await Navigation.PushModalAsync(detailPage);
 
                     NavigationPage.SetBackButtonTitle(this, "Voltar");
-                    //await Navigation.PushModalAsync(detailPage);
                     await Navigation.PushAsync(detailPage);
-
-
-
-                    //await DisplayAlert("Recebimento", result.Count.ToString(), "OK");
-                    //var detailPage = new NaoConforme(result);
-                    //await Navigation.PushPopupAsync(detailPage);
-                    //PushModalAsync(detailPage);
                 }
             }
             else
@@ -62,12 +61,12 @@ namespace AppEpi
                 await DisplayAlert("Consulta de Epi", "Verifique os Campos!", "OK");
             }
         }
+        
 
         async protected override void OnAppearing()
         {
             base.OnAppearing();
-            epis.Text = "";
-
+            _epcList.Clear();
         }
     }
 }
