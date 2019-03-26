@@ -10,27 +10,25 @@
             <OnPlatform x:Key="boxSize"
                   x:TypeArguments="x:Double"
                   iOS="50"
-                  Android="50"
-                  WinPhone="75" />
+                  Android="50"/>
             <!-- This is only an issue on the iPhone; Android and 
            WinPhone auto size the row height to the contents. -->
             <OnPlatform x:Key="rowHeight"
                   x:TypeArguments="x:Int32"
                   iOS="52"
-                  Android="52"
-                  WinPhone="52" />
+                  Android="52"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <Grid BackgroundColor="Transparent">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid>
                     <StackLayout  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                        <Label Text="" x:Name="nameUsuario" TextColor="White" FontSize="Large" />
+                        <Label Text="" x:Name="nameUsuario" TextColor="White" FontSize="Large"/>
                     </StackLayout>
                 </Grid>
             </Grid>
@@ -42,7 +40,7 @@
                  SeparatorVisibility="Default">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ImageCell  Text="{Binding Title}" TextColor="White"  ImageSource="{Binding IconSource}" >
+                            <ImageCell Text="{Binding Title}" TextColor="White">
                             </ImageCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

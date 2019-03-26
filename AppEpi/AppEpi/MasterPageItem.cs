@@ -1,18 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace AppEpi
 {
-    public class MasterPageItem
+    public class MasterPageItem : INotifyPropertyChanged
     {
-        public string Title;
-        public string IconSource;
-        public Type TargetType;
-    }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-    public class PersonList : List<MasterPageItem>
-    {
-        public string Heading;
-        public List<MasterPageItem> Persons => this;
+        public string Title
+        {
+            get
+            {
+                return _title;
+            }
+            set
+            {
+                _title = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public Type TargetType
+        {
+            get
+            {
+                return _targetType;
+            }
+            set
+            {
+                _targetType = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _title;
+        private Type _targetType;
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
