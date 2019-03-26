@@ -6,5 +6,10 @@
         {
             System.Diagnostics.Debug.WriteLine(string.Concat("Bluetooth: ", message));
         }
+
+        public static void Write(string message)
+        {
+            System.Diagnostics.Debug.Write(string.Concat("Bluetooth: ", message));
+        }
     }
 }

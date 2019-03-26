@@ -110,7 +110,7 @@ namespace AppEpi.Droid.Bluetooth
                     await outStream.WriteAsync(msgBuffer, 0, msgBuffer.Length);
                     outStream.Flush();
 
-                    Debug.WriteLine("Sent message: \"" + message + "\"");
+                    Debug.Write("Sent message: " + message);
                 }
                 catch (Exception e)
                 {
