@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppEpi.Views.Login">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="PlaceholderColor" Value="#124284"/>
+                <Setter Property="TextColor" Value="#7dbbe6"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView
+HorizontalOptions="Center"
+VerticalOptions="Center">
+            <AbsoluteLayout>
+                <Frame
+x:Name="FrameContainer"
+Margin="15"
+HorizontalOptions="Center"
+BackgroundColor="White">
+                    <StackLayout
+  IsClippedToBounds="True"
+  Padding="10, 5"
+  Spacing="3">
+                        <Image
+  HorizontalOptions="Center"
+  Margin="10"
+  HeightRequest="100"
+  WidthRequest="100"
+  Source="icon.png"
+                        />
+                        <Entry
+  HorizontalOptions="Center"
+  x:Name="entMatricula" WidthRequest="200"
+  Style="{StaticResource EntryStyle}"
+  Placeholder="Login" />
+                        <Entry
+  HorizontalOptions="Center"
+  x:Name="entSenha" WidthRequest="200"
+  Style="{StaticResource EntryStyle}"
+  Placeholder="Senha"
+  IsPassword="True"/>
+                        <Button
+Margin="10, 5"
+BackgroundColor="#124284"
+TextColor="White"
+HorizontalOptions="Fill"
+Clicked="LoginButton_Clicked"
+x:Name="LoginButton"
+Text="Login">
+                            <Button.HeightRequest>
+                                <OnPlatform x:TypeArguments="x:Double" Android="50" iOS="30" WinPhone="30"/>
+                            </Button.HeightRequest>
+                        </Button>
+                    </StackLayout>
+                </Frame>
+            </AbsoluteLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

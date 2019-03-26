@@ -12,7 +12,7 @@ namespace AppEpi
             //MainPage = new AppEpi.MainPage();
 
             NavigationPage.SetHasNavigationBar(this, false);
-            MainPage = new NavigationPage(new Login());
+            MainPage = new NavigationPage(new Views.Login());
         }
 
         protected override void OnStart()

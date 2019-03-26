@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppEpi.Views.BluetoothSelectPage">
+    <ContentPage.Content>
+        <ScrollView x:Name="scrolly">
+            <StackLayout Margin="10,10" Spacing="10">
+                <StackLayout Padding="5,10" HeightRequest="200">
+                    <Label >Dispositivos Pareados</Label>
+                    <ListView x:Name="deviceList" HeightRequest="200"></ListView>
+                </StackLayout>
+                <Button Text="Conectar" IsVisible="False" FontSize="18" x:Name="btnConectar" Clicked="btnConectar_Clicked" Style="{StaticResource BotaoAzul1}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

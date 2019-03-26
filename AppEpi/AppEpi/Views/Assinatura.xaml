@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Assinatura"
+             x:Class="AppEpi.Views.Assinatura">
+    <ContentPage.Content>
+        
+            <!--<WebView x:Name="Browser" WidthRequest="1000" HeightRequest="1000" />-->
+        <WebView x:Name="websrc"  Source="http://www.xamarin.com/" WidthRequest="1000" HeightRequest="1000"></WebView>
+        
+        
+    </ContentPage.Content>
+</ContentPage>

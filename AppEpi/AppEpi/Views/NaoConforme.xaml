@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             x:Class="AppEpi.Views.NaoConforme">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+      PositionIn="Center"
+      PositionOut="Center"/>
+    </pages:PopupPage.Animation>
+    <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="5, 5, 5, 5">
+        <StackLayout BackgroundColor="White" Padding="0, 10, 0, 0">
+            <Label Text="Resultado" TextColor="Gray" FontSize="20" HorizontalOptions="Center"></Label>
+            <ListView Margin="5" ItemSelected="listResultado_ItemSelected"  SeparatorVisibility="None" HasUnevenRows="true"
+                   x:Name="listResultado" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="{Binding corAviso}"
+                Orientation="Vertical">
+                                <StackLayout Orientation="Vertical">
+                                    <StackLayout Margin="10,10" Orientation="Vertical">
+                                        <Label Text="{Binding EPC}" />
+                                        <Label Text="{Binding Produto}" />
+                                        <Label Text="{Binding Resultado}" />
+                                        <Label Text="{Binding DataMovimentacao}" />
+                                    </StackLayout>
+                                    <StackLayout HeightRequest="3" BackgroundColor="#9A9B9C">
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </StackLayout>
+</pages:PopupPage>

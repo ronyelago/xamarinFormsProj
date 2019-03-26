@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:appepi="clr-namespace:AppEpi"
+             Title="Manutenção de EPI"
+             x:Class="AppEpi.Views.ManEpi">
+    <ContentPage.Content>
+        <ScrollView x:Name="scrolly">
+            <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">
+                <StackLayout Padding="5,10" HeightRequest="200">
+                    <Label>EPIs</Label>
+                    <appepi:EpcListView x:Name="epcList"/>
+                </StackLayout>
+                <StackLayout Margin="0,50,0,0">
+                    <Picker x:Name="pckLocalEstoque" HorizontalOptions="FillAndExpand" Title="Selecione o Estoque:">
+                        
+                    </Picker>
+                </StackLayout>
+                <Button Text="Confirmar" FontSize="18" Clicked="Button_Clicked" Style="{StaticResource BotaoAzul1}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
