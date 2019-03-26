@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Registrar Senha"
-             x:Class="AppEpi.Views.RegistrarSenha">
+             x:Class="AppEpi.Views.RegistroSenha">
     <ContentPage.Content>
         <ScrollView x:Name="scrolly">
             <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">

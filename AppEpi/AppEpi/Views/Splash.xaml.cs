@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class Tel_Apresentacao : ContentPage
+    public partial class Splash : ContentPage
     {
-        public Tel_Apresentacao()
+        public Splash()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

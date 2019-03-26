@@ -16,7 +16,7 @@ namespace AppEpi.Views
 
             NavigationPage.SetHasNavigationBar(this, false);
 
-            masterPage.MasterListView.ItemSelected += OnItemSelected;
+            menuLateral.MasterListView.ItemSelected += OnItemSelected;
             CorThema = Color.FromHex("#124284");
             //INICIAR A PRIMEIRA TELA E ADICIONA COR NA BARRA DE TITULO
 
@@ -41,7 +41,7 @@ namespace AppEpi.Views
                     BarTextColor = Color.White,
                     Icon = "mnH.png"
                 };
-                masterPage.MasterListView.SelectedItem = null;
+                menuLateral.MasterListView.SelectedItem = null;
                 IsPresented = false;
             }
         }

@@ -24,7 +24,7 @@ namespace AppEpi.Views
                 if (contadorErroSenha == 3)
                 {
                     CloseAllPopup();
-                    var detailPage = new RegistrarSenha();
+                    var detailPage = new RegistroSenha();
                     await Navigation.PushModalAsync(detailPage);
                 }
 

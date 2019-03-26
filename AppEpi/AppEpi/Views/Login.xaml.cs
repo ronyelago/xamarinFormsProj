@@ -20,7 +20,7 @@ namespace AppEpi.Views
                 LoginButton.Clicked -= LoginButton_Clicked;
                 if (contadorErroSenha == 3)
                 {
-                    var detailPage = new RegistrarSenha();
+                    var detailPage = new RegistroSenha();
                     await Navigation.PushModalAsync(detailPage);
                 }
 
@@ -38,7 +38,7 @@ namespace AppEpi.Views
                         UsuarioLogado.MatriculaDistribuicao = entMatricula.Text;
                         UsuarioLogado.SenhaConfirmada = true;
                         NavigationPage.SetHasNavigationBar(this, false);
-                        var navPage = new NavigationPage(new Tel_Apresentacao());
+                        var navPage = new NavigationPage(new Splash());
                         Application.Current.MainPage = navPage;
                     }
                     else

@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class MasterPage : ContentPage
+    public partial class MenuLateral : ContentPage
     {
         public ListView MasterListView { get { return listView; } }
 
-        public MasterPage()
+        public MenuLateral()
         {
             InitializeComponent();
 
@@ -98,7 +98,7 @@ namespace AppEpi.Views
                 new MasterPageItem
                 {
                     Title = "Registrar Senha",
-                    TargetType = typeof(RegistrarSenha)
+                    TargetType = typeof(RegistroSenha)
                 },
 
                 new MasterPageItem

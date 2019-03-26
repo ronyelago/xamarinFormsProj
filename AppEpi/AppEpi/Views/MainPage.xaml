@@ -3,7 +3,7 @@
              xmlns:local="clr-namespace:AppEpi.Views"
              x:Class="AppEpi.Views.MainPage">
     <MasterDetailPage.Master>
-        <local:MasterPage x:Name="masterPage" />
+      <local:MenuLateral x:Name="menuLateral" />
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
         <NavigationPage>

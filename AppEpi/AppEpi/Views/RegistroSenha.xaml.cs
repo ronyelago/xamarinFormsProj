@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class RegistrarSenha : ContentPage
+    public partial class RegistroSenha : ContentPage
     {
-        public RegistrarSenha()
+        public RegistroSenha()
         {
             InitializeComponent();
         }
@@ -25,7 +25,7 @@ namespace AppEpi.Views
                 {
                     if (result[0].Resultado == "OK")
                     {
-                        var detailPage = new CadSenha(result);
+                        var detailPage = new CadastroSenha(result);
                         await Navigation.PushPopupAsync(detailPage);
                     }
                     else

@@ -6,11 +6,11 @@ using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class CadSenha : PopupPage
+    public partial class CadastroSenha : PopupPage
     {
         List<RESULTADOMOV> resultEnter;
 
-        public CadSenha(List<RESULTADOMOV> result)
+        public CadastroSenha(List<RESULTADOMOV> result)
         {
             InitializeComponent();
             resultEnter = result;

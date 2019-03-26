@@ -185,7 +185,7 @@ namespace AppEpi.Views
             }
             else
             {
-                var detailPage = new RegistrarSenha();
+                var detailPage = new RegistroSenha();
                 await Navigation.PushModalAsync(detailPage);
             }
         }

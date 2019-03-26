@@ -16,11 +16,11 @@
     <PackageReference Include="Xamarin.Forms" Version="3.6.0.264807" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Bluetooth\" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Views\Bluetooth.xaml.cs">
       <DependentUpon>Bluetooth.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CadastroSenha.xaml.cs">
+      <DependentUpon>CadastroSenha.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
@@ -43,6 +43,9 @@
     <Compile Update="Views\Manutencao.xaml.cs">
       <DependentUpon>Manutencao.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\MenuLateral.xaml.cs">
+      <DependentUpon>MenuLateral.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MovimentacaoEstoque.xaml.cs">
       <DependentUpon>MovimentacaoEstoque.xaml</DependentUpon>
     </Compile>
@@ -51,6 +54,12 @@
     </Compile>
     <Compile Update="Views\RecebimentoHigienizacao.xaml.cs">
       <DependentUpon>RecebimentoHigienizacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RegistroSenha.xaml.cs">
+      <DependentUpon>RegistroSenha.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Splash.xaml.cs">
+      <DependentUpon>Splash.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

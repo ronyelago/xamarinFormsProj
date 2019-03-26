@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="#1976D2"
-             x:Class="AppEpi.Views.Tel_Apresentacao">
+             x:Class="AppEpi.Views.Splash">
     <ContentPage.Content>
         <StackLayout Spacing="10" Padding="10">
             <Label x:Name="lblEmpresa" Margin="0,90,0,0" TextColor="White" FontAttributes="Bold" FontSize="38" HorizontalOptions="Center"></Label>
