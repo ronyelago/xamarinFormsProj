@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
@@ -17,6 +12,7 @@ namespace AppEpi
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
+
         async private void LoginButton_Clicked(object sender, EventArgs e)
         {
             try
@@ -24,7 +20,6 @@ namespace AppEpi
                 LoginButton.Clicked -= LoginButton_Clicked;
                 if (contadorErroSenha == 3)
                 {
-                    //CloseAllPopup();
                     var detailPage = new RegistrarSenha();
                     await Navigation.PushModalAsync(detailPage);
                 }
@@ -42,7 +37,6 @@ namespace AppEpi
                         UsuarioLogado.FkCliente = result[0].FkCliente;
                         UsuarioLogado.MatriculaDistribuicao = entMatricula.Text;
                         UsuarioLogado.SenhaConfirmada = true;
-                        //CloseAllPopup();
                         NavigationPage.SetHasNavigationBar(this, false);
                         var navPage = new NavigationPage(new Tel_Apresentacao());
                         Application.Current.MainPage = navPage;

@@ -40,16 +40,8 @@
                  Style="{StaticResource ListDetail}"
                  IsGroupingEnabled="False"
                  SeparatorVisibility="Default">
-                    <!--<ListView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Label Text="{Binding Heading}" />
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.GroupHeaderTemplate>-->
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <!--<control:CustomImageCell ImageSource="{Binding IconSource}" Text="{Binding Title}" />-->
                             <ImageCell  Text="{Binding Title}" TextColor="White"  ImageSource="{Binding IconSource}" >
                             </ImageCell>
                         </DataTemplate>

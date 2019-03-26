@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace AppEpi
 {
     public class MasterPageCS : ContentPage
     {
-        private ListView listView;
+        private ListView _listView;
 
         public MasterPageCS()
         {
             var masterPageItems = new List<MasterPageItem>();
 
-            listView = new ListView
+            _listView = new ListView
             {
                 ItemsSource = masterPageItems,
                 ItemTemplate = new DataTemplate(() =>
@@ -35,7 +31,7 @@ namespace AppEpi
             {
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 Children = {
-                    listView
+                    _listView
                 }
             };
         }

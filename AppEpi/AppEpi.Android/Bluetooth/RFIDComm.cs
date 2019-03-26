@@ -7,13 +7,12 @@ namespace AppEpi.Droid.Bluetooth
 {
     class RFIDComm
     {
-        private BluetoothController _bluetoothController = null;
-
         private const int _epcLength = 24;
 
-        private Queue<string> commandQueue = new Queue<string>();
-        private Queue<string> eventQueue = new Queue<string>();
-        private Task eventHandlingTask;
+        private BluetoothController _bluetoothController = null;
+        private Queue<string> _commandQueue = new Queue<string>();
+        private Queue<string> _eventQueue = new Queue<string>();
+        private Task _eventHandlingTask;
 
         // Constructor
         public RFIDComm(BluetoothController bluetoothController)
@@ -30,17 +29,18 @@ namespace AppEpi.Droid.Bluetooth
                 {
                     if (line.Contains(BRICommands.EventPrefix))
                     {
-                        eventQueue.Enqueue(line); // guarda os eventos em uma queue
+                        _eventQueue.Enqueue(line); // guarda os eventos em uma queue
                     }
                     else
                         ProcessCommand(line);
                 }
 
-                if (eventQueue.Count > 0) // se houver eventos em espera
+                if (_eventQueue.Count > 0) // se houver eventos em espera
                 {
-                    if (eventHandlingTask == null || eventHandlingTask.IsCompleted) // que não estejam sendo tratados
+                    // que não estejam sendo tratados
+                    if (_eventHandlingTask == null || _eventHandlingTask.IsCompleted || _eventHandlingTask.IsCanceled)
                     {
-                        eventHandlingTask = Task.Run(async () =>
+                        _eventHandlingTask = Task.Run(async () =>
                            HandleEventQueue()
                             );
                     }
@@ -56,9 +56,9 @@ namespace AppEpi.Droid.Bluetooth
         // Event Handler. Vide BRI Manual
         private async Task HandleEventQueue()
         {
-            while (eventQueue.Count > 0)
+            while (_eventQueue.Count > 0)
             {
-                string message = eventQueue.Dequeue();
+                string message = _eventQueue.Dequeue();
 
                 try
                 {
@@ -131,21 +131,21 @@ namespace AppEpi.Droid.Bluetooth
         {
             if (command != BRICommands.Ok)
             {
-                commandQueue.Enqueue(command);
+                _commandQueue.Enqueue(command);
                 return;
             }
 
-            if (commandQueue.Count > 0)
+            if (_commandQueue.Count > 0)
             {
                 Debug.WriteLine("Command:\n");
-                foreach (string line in commandQueue)
+                foreach (string line in _commandQueue)
                     Debug.WriteLine(line);
             }
             else
                 Debug.WriteLine("RFID says Ok!\n");
 
             // os comandos são armazenados na ordem correta, mas ainda não são tratados
-            commandQueue.Clear();
+            _commandQueue.Clear();
         }
     }
 }

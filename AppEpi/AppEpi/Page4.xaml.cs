@@ -3,10 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
@@ -61,7 +58,7 @@ namespace AppEpi
 
         async private void Button_Clicked(object sender, EventArgs e)
         {
-            var item = (Xamarin.Forms.Button)sender;
+            var item = (Button)sender;
             var codigo = item.CommandParameter.ToString();
             countConfirmacao++;
             item.IsEnabled = false;
@@ -70,7 +67,7 @@ namespace AppEpi
 
         async private void Button_ClickedRemove(object sender, EventArgs e)
         {
-            var item = (Xamarin.Forms.Button)sender;
+            var item = (Button)sender;
             var codigo = item.CommandParameter.ToString();
             var rst = it.Where(x => x.EPC == codigo).ToList();
             it.Remove(rst[0]);

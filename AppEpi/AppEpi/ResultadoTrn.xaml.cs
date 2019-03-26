@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
     public partial class ResultadoTrn : ContentPage
     {
-        private List<RESULTADOMOV> chave;
-        private List<RESULTADOMOV> it;
-        private List<RESULTADOMOV> temChave;
+        private List<RESULTADOMOV> _chave;
+        private List<RESULTADOMOV> _it;
+        private List<RESULTADOMOV> _temChave;
 
 
         public ResultadoTrn(List<RESULTADOMOV> result)
         {
             InitializeComponent();
             
-            temChave = result.Where(x => x.Produto == "chave").ToList();
+            _temChave = result.Where(x => x.Produto == "chave").ToList();
             List<RESULTADOMOV> l = new List<RESULTADOMOV>();
 
             foreach(var i in result)
@@ -38,14 +35,14 @@ namespace AppEpi
             }
 
             listResultado.ItemsSource = l;
-            it = result;
+            _it = result;
         }
 
 
         async protected override void OnAppearing()
         {
             base.OnAppearing();
-            var result = it.Where(x => x.corAviso == "#ff7f7f").ToList();
+            var result = _it.Where(x => x.corAviso == "#ff7f7f").ToList();
             bool erro = false;
             if (result != null)
             {
@@ -56,7 +53,7 @@ namespace AppEpi
                 }
             }
 
-            chave = temChave;
+            _chave = _temChave;
 
             if(UsuarioLogado.Operacao == "3")
             {
@@ -78,11 +75,10 @@ namespace AppEpi
 
         async private void btnAssinar_Clicked(object sender, EventArgs e)
         {
-            string key = chave[0].EPC;
+            string key = _chave[0].EPC;
             UsuarioLogado.ChaveDocumento = key;
-            UsuarioLogado.emailAssinatura = chave[0].Resultado.Split('|')[1];
+            UsuarioLogado.emailAssinatura = _chave[0].Resultado.Split('|')[1];
             UsuarioLogado.FuncionarioAssinatura = "Funcionario";
-            //App.Current.MainPage = new NavigationPage(new MAssinar());
             var detailPage = new MAssinar();
             NavigationPage.SetBackButtonTitle(this, "Voltar");
             await Navigation.PushAsync(detailPage);

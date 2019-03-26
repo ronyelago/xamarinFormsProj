@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace AppEpi
 {
@@ -25,13 +20,11 @@ namespace AppEpi
                 var answer = await DisplayAlert("Atribuição de Cracha", "Deseja Confirmar Atribuição?", "Sim", "Não");
                 if (answer)
                 {
-                    
                     var result = wbs.atribuicaoCrachar(entMatricula.Text, entCracha.Text);
                     btnAtribuir.Clicked += btnAtribuir_Clicked;
                     UsuarioLogado.Operacao = "0";
                     var detailPage = new ResultadoTrn(result);
                     await Navigation.PushAsync(detailPage);
-                    //await Navigation.PushModalAsync(detailPage);
                 }
                 else
                 {

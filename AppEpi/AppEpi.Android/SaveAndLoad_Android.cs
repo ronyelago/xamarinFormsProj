@@ -1,13 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Xamarin.Forms;
 using AppEpi.Droid;
 using System.IO;
@@ -21,9 +12,9 @@ namespace AppEpi.Droid
 
         public void SaveText(string filename, string text)
         {
-            var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var filePath = Path.Combine(documentsPath, filename);
-            System.IO.File.WriteAllText(filePath, text);
+            File.WriteAllText(filePath, text);
         }
 
 
@@ -31,9 +22,9 @@ namespace AppEpi.Droid
         {
             try
             {
-                var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                 var filePath = Path.Combine(documentsPath, filename);
-                return System.IO.File.ReadAllText(filePath);
+                return File.ReadAllText(filePath);
             }
             catch
             {

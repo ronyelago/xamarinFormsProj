@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AppEpi
 {
@@ -14,9 +10,9 @@ namespace AppEpi
         public static string Operacao { get; set; }
         public static string DataTeste { get; internal set; }
         public static string ART { get; internal set; }
-        public static string Latitude { get;  set; }
-        public static string Longitude { get;  set; }
-        public static string MatriculaDistribuicao { get;  set; }
+        public static string Latitude { get; set; }
+        public static string Longitude { get; set; }
+        public static string MatriculaDistribuicao { get; set; }
         public static string ChaveDocumento { get; internal set; }
         public static string FuncionarioAssinatura { get; internal set; }
         public static List<DADOSLOGIN> DadosUsuario { get; internal set; }
@@ -28,10 +24,14 @@ namespace AppEpi
         public static string Cnpj { get; set; }
         public static int FkCliente { get; set; }
 
-        public static string[] categoriaInspecao = new string[] { "Cinto Paraquedista", "Talabarte", "Talabarte de Posicionamento",
-        "Fita de Ancoragem",
-        "Trava Quedas",
-        "Conectores",
-        "Cordas"};
+        public static string[] categoriaInspecao = new string[] {
+            "Cinto Paraquedista",
+            "Talabarte",
+            "Talabarte de Posicionamento",
+            "Fita de Ancoragem",
+            "Trava Quedas",
+            "Conectores",
+            "Cordas"
+        };
     }
 }

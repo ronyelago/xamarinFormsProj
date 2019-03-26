@@ -41,6 +41,7 @@ namespace AppEpi
             }
         }
 
+
         async protected override void OnAppearing()
         {
             base.OnAppearing();

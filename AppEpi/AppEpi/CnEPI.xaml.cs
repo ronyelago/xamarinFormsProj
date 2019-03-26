@@ -1,6 +1,5 @@
 ﻿using System;
 using Xamarin.Forms;
-using System.Collections.ObjectModel;
 
 namespace AppEpi
 {
@@ -35,6 +34,7 @@ namespace AppEpi
                 await DisplayAlert("Consulta de Epi", "Verifique os Campos!", "OK");
             }
         }
+
 
         protected override void OnAppearing()
         {

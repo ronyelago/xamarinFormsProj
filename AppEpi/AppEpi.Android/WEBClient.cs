@@ -21,12 +21,12 @@ namespace AppEpi.Droid
         {
             try
             {
-                List<L_LOCALESTOQUE> Lpd = new List<L_LOCALESTOQUE>();
+                List<L_LOCALESTOQUE> lpd = new List<L_LOCALESTOQUE>();
                 WBSClient.Client cl = new WBSClient.Client();
                 var result = cl.retornaLocalEstoque();
                 foreach (var item in result)
                 {
-                    Lpd.Add(new L_LOCALESTOQUE
+                    lpd.Add(new L_LOCALESTOQUE
                     {
                         CODIGO = item.CODIGO,
                         DATA_CADASTRO = item.DATA_CADASTRO,
@@ -37,7 +37,7 @@ namespace AppEpi.Droid
                     });
                 }
 
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -52,10 +52,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.movimentacaoEstoque(listaEPCS, estoque, entSaida);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -64,7 +64,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -79,14 +79,14 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.recebimentoEstoque(listaEPCS);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 string estoque = "";
                 foreach (var item in rest)
                 {
                     if(estoque == "")
                     {
                         estoque = item.EPC;
-                        Lpd.Add(new RESULTADOMOV
+                        lpd.Add(new RESULTADOMOV
                         {
                             DataMovimentacao = item.DataMovimentacao,
                             EPC = item.EPC,
@@ -100,7 +100,7 @@ namespace AppEpi.Droid
                         if(estoque!=item.EPC)
                         {
                             estoque = item.EPC;
-                            Lpd.Add(new RESULTADOMOV
+                            lpd.Add(new RESULTADOMOV
                             {
                                 DataMovimentacao = item.DataMovimentacao,
                                 EPC = item.EPC,
@@ -111,7 +111,7 @@ namespace AppEpi.Droid
                         }
                     }
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -126,14 +126,14 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.recebimentoEstoqueCnpj(listaEPCS, cnpj);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 string estoque = "";
                 foreach (var item in rest)
                 {
                     if (estoque == "")
                     {
                         estoque = item.EPC;
-                        Lpd.Add(new RESULTADOMOV
+                        lpd.Add(new RESULTADOMOV
                         {
                             DataMovimentacao = item.DataMovimentacao,
                             EPC = item.EPC,
@@ -147,7 +147,7 @@ namespace AppEpi.Droid
                         if (estoque != item.EPC)
                         {
                             estoque = item.EPC;
-                            Lpd.Add(new RESULTADOMOV
+                            lpd.Add(new RESULTADOMOV
                             {
                                 DataMovimentacao = item.DataMovimentacao,
                                 EPC = item.EPC,
@@ -158,7 +158,7 @@ namespace AppEpi.Droid
                         }
                     }
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -173,10 +173,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.atribuicaoCracha(matricula, cracha);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -185,7 +185,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -200,10 +200,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.distribuicaoEPI(listaEPCS, matricula);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -212,7 +212,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -227,10 +227,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.envioParaTeste(listaEPCS, codEstoque);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -239,7 +239,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -254,10 +254,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.recebimentoTeste(listaEPCS, dataTeste, art);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -266,7 +266,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -281,10 +281,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.inspecaoEPIFuncionario(listaEPCS, latitude, longitude);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -293,7 +293,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -308,10 +308,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.itemNaoConforme(epc, motivo);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -320,7 +320,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -335,11 +335,11 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.manutencaoEPI(epc, estoque);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
 
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -348,7 +348,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -363,10 +363,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.funcionarioCracha(cracha);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -375,7 +375,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -390,10 +390,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.cadastrarSenha(senha, matricula);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -402,7 +402,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -417,10 +417,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.loginFuncionario(matricula, senha);
-                List<DADOSLOGIN> Lpd = new List<DADOSLOGIN>();
+                List<DADOSLOGIN> lpd = new List<DADOSLOGIN>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new DADOSLOGIN
+                    lpd.Add(new DADOSLOGIN
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -433,7 +433,7 @@ namespace AppEpi.Droid
                         Cnpj = item.Cnpj
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -448,10 +448,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.devolucaoEPI(epc, estoque);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -460,7 +460,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -475,10 +475,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.descartarItem(epc, estoque);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -487,7 +487,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -502,10 +502,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.consultaEPI(listaEPCS, UsuarioLogado.Cnpj);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -514,7 +514,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -529,10 +529,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.retornarDadosEpi(listaEPCS);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -541,7 +541,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -556,12 +556,12 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.retornarDadosEpiValidar(listaEPCS, cnpj, fkCliente);
-                ObservableCollection<DADOSEPI> Lpd = new ObservableCollection<DADOSEPI>();
+                ObservableCollection<DADOSEPI> lpd = new ObservableCollection<DADOSEPI>();
                 foreach (var item in rest)
                 {
                     if (item.Qtd != 0)
                     {
-                        Lpd.Add(new DADOSEPI
+                        lpd.Add(new DADOSEPI
                         {
                             CodProduto = item.CodProduto,
                             CodFornecedor = item.CodFornecedor,
@@ -571,7 +571,7 @@ namespace AppEpi.Droid
                         });
                     }
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -615,10 +615,10 @@ namespace AppEpi.Droid
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.envioParaHigienizacao(listaEPCS, codEstoque);
                 
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -627,7 +627,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {
@@ -642,10 +642,10 @@ namespace AppEpi.Droid
             {
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.recebimentoHigienizacao(listaEPCS);
-                List<RESULTADOMOV> Lpd = new List<RESULTADOMOV>();
+                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
-                    Lpd.Add(new RESULTADOMOV
+                    lpd.Add(new RESULTADOMOV
                     {
                         DataMovimentacao = item.DataMovimentacao,
                         EPC = item.EPC,
@@ -654,7 +654,7 @@ namespace AppEpi.Droid
                         corAviso = isnullCor(item.corAviso)
                     });
                 }
-                return Lpd;
+                return lpd;
             }
             catch
             {

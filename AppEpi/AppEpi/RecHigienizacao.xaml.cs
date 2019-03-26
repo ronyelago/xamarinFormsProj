@@ -16,12 +16,9 @@ namespace AppEpi
 
             if (epcList.Count > 0)
             {
-
                 var answer = await DisplayAlert("Recebimento da Higienização", "Confirmar Recebimento?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
                 if (answer)
                 {
-                    
-                    //var result = wbs.recebimentoDoTeste(listEPCS, data, entART.Text);
                     var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "9";
                     var detailPage = new Page4(result);
@@ -38,7 +35,6 @@ namespace AppEpi
         {
             base.OnAppearing();
             epcList.Clear();
-
         }
     }
 }
