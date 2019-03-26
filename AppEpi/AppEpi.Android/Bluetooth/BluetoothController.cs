@@ -132,54 +132,56 @@ namespace AppEpi.Droid.Bluetooth
             while (_ct.IsCancellationRequested == false)
             {
                 Thread.Sleep(_pollingInterval);
-
-                pingTimer += _pollingInterval;
-                reconnectTimer += _pollingInterval;
-
-                if (reconnectTimer < _connectionTimeout)
+                if (_ct.IsCancellationRequested == false)
                 {
-                    if (buffer.Ready()) // se houver o que ler
+                    pingTimer += _pollingInterval;
+                    reconnectTimer += _pollingInterval;
+
+                    if (reconnectTimer < _connectionTimeout)
                     {
-                        string response = "";
-
-                        if (readAsCharArray)
-                        #region read as char array
+                        if (buffer.Ready()) // se houver o que ler
                         {
-                            char[] chr = new char[100];
+                            string response = "";
 
-                            await buffer.ReadAsync(chr);
-                            foreach (char c in chr)
+                            if (readAsCharArray)
+                            #region read as char array
                             {
-                                if (c == '\0')
-                                    break;
-                                response += c;
+                                char[] chr = new char[100];
+
+                                await buffer.ReadAsync(chr);
+                                foreach (char c in chr)
+                                {
+                                    if (c == '\0')
+                                        break;
+                                    response += c;
+                                }
                             }
+                            #endregion
+
+                            else
+                                response = await buffer.ReadLineAsync();
+
+                            if (response.Length > 0) // se a leitura foi válida
+                            {
+                                _rfidComm.HandleResponse(response);
+
+                                pingTimer = 0; // timers são reiniciados
+                                reconnectTimer = 0;
+                            }
+                            else
+                                Debug.WriteLine("No data");
                         }
-                        #endregion
-
-                        else
-                            response = await buffer.ReadLineAsync();
-
-                        if (response.Length > 0) // se a leitura foi válida
+                        else if (pingTimer >= _pingIfIdleFor)
                         {
-                            _rfidComm.HandleResponse(response);
-
-                            pingTimer = 0; // timers são reiniciados
-                            reconnectTimer = 0;
+                            SendCommand(BRICommands.Ping);
+                            pingTimer = 0;
                         }
-                        else
-                            Debug.WriteLine("No data");
                     }
-                    else if (pingTimer >= _pingIfIdleFor)
+                    else
                     {
-                        SendCommand(BRICommands.Ping);
-                        pingTimer = 0;
+                        Debug.WriteLine("Connection Timeout. Retrying...");
+                        break;
                     }
-                }
-                else
-                { 
-                    Debug.WriteLine("Connection Timeout. Retrying...");
-                    break;
                 }
             }
             Debug.WriteLine("ScanInput loop exit");
