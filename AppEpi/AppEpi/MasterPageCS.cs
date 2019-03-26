@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AppEpi.ViewModels;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace AppEpi

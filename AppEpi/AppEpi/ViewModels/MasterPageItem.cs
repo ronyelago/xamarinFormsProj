@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace AppEpi
+namespace AppEpi.ViewModels
 {
     public class MasterPageItem : INotifyPropertyChanged
     {

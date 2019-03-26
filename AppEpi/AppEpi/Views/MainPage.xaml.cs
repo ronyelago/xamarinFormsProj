@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Plugin.Geolocator;
+using AppEpi.ViewModels;
 
 namespace AppEpi.Views
 {
