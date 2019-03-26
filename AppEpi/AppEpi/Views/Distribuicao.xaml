@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:appepi="clr-namespace:AppEpi"
              Title="Distribuição de EPI"
-             x:Class="AppEpi.Views.DistriEpi">
+             x:Class="AppEpi.Views.Distribuicao">
     <ContentPage.Content>
         <ScrollView x:Name="scrolly">
             <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">

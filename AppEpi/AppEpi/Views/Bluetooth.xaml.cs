@@ -5,13 +5,13 @@ using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class BluetoothSelectPage : ContentPage
+    public partial class Bluetooth : ContentPage
     {
         private ObservableCollection<string> _listOfDevices = new ObservableCollection<string>();
 
         private string _selectedDeviceName = null;
 
-        public BluetoothSelectPage()
+        public Bluetooth()
         {
             InitializeComponent();
 

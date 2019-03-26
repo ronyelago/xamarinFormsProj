@@ -3,10 +3,10 @@ using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class CnEPI : ContentPage
+    public partial class Consulta : ContentPage
     {
 
-        public CnEPI()
+        public Consulta()
         {
             InitializeComponent();
         }

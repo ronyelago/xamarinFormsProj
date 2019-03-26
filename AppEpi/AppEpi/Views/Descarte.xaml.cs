@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class DescrtItem : ContentPage
+    public partial class Descarte : ContentPage
     {
-        public DescrtItem()
+        public Descarte()
         {
             InitializeComponent();
         }

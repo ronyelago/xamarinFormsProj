@@ -2,16 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:appepi="clr-namespace:AppEpi"
-             Title="Recebimento da Higienização"
-             x:Class="AppEpi.Views.RecHigienizacao">
+             Title="Recebimento"
+             x:Class="AppEpi.Views.Recebimento">
     <ContentPage.Content>
         <ScrollView x:Name="scrolly">
             <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">
-                <StackLayout Padding="5,10" HeightRequest="150">
+                <StackLayout Padding="5,10" HeightRequest="200">
                     <Label>EPIs</Label>
                     <appepi:EpcListView x:Name="epcList"/>
                 </StackLayout>
-                <Button Text="Confirmar" FontSize="18" x:Name="btnEnvioTeste" Clicked="btnEnvioTeste_Clicked" Style="{StaticResource BotaoAzul1}"/>
+                <Button Text="Confirmar" FontSize="18" x:Name="btnConfirmar" Clicked="btnConfirmar_Clicked" Style="{StaticResource BotaoAzul1}" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

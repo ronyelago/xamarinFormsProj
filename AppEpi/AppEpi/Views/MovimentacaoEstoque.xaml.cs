@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class Page2 : ContentPage
+    public partial class MovimentacaoEstoque : ContentPage
     {
-        public Page2()
+        public MovimentacaoEstoque()
         {
             InitializeComponent();
         }

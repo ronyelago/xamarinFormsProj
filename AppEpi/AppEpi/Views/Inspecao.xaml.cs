@@ -1,5 +1,5 @@
-﻿using Plugin.Geolocator;
-using System;
+﻿using System;
+using Plugin.Geolocator;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
@@ -23,12 +23,13 @@ namespace AppEpi.Views
 
             if (epcList.Count > 0)
             {
-                var answer = await DisplayAlert("Fiscalização", "Confirmar Fiscalização?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
+                var answer = await DisplayAlert("Inspeção", "Confirmar Inspeção?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
+
                 if (answer)
                 {
                     var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
-                    UsuarioLogado.Operacao = "6";
-                    var detailPage = new Page4(result);
+                    UsuarioLogado.Operacao = "10";
+                    var detailPage = new EPIparaInspecionar(result);
 
                     NavigationPage.SetBackButtonTitle(this, "Voltar");
                     await Navigation.PushAsync(detailPage);
@@ -36,7 +37,7 @@ namespace AppEpi.Views
             }
             else
             {
-                await DisplayAlert("Fiscalização", "Verifique os Campos!", "OK");
+                await DisplayAlert("Inspeção", "Verifique os Campos!", "OK");
             }
         }
 

@@ -2,13 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Movimentação de Estoque"
-             x:Class="AppEpi.Views.Page2">
+             x:Class="AppEpi.Views.MovimentacaoEstoque">
 
     <ContentPage.Content>
         <ScrollView x:Name="scrolly">
             <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">
                 <StackLayout Padding="5,10" HeightRequest="200">
-                    <Label >EPI´S</Label>
+                    <Label>EPIs</Label>
                     <Editor x:Name="epis" HeightRequest="200" TextChanged="EditorTextChanged" Completed="EditorCompleted" />
                 </StackLayout>
                 <StackLayout Margin="0,50,0,0">

@@ -15,100 +15,42 @@
     <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
     <PackageReference Include="Xamarin.Forms" Version="3.6.0.264807" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Assinatura.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="AtribuicaoCracha.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="BluetoothSelectPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="CadSenha.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="CnEPI.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="DescrtItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="DevolucaoEpi.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="DistriEpi.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="EnviarNaoConforme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="EnvioHigienizacao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="EnvioTeste.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="EPIparaInspecionar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Inspecao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="InspFiscalizacao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="InspVisual.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Login.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="LoginPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="ManEpi.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="MAssinar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="MasterPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="NaoConforme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Page2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Page4.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Principal.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="RecebimentoItens.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="RecebimentoTeste.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="RecHigienizacao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="RegistrarSenha.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="ResultadoTrn.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Tel_Apresentacao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-  </ItemGroup>
   <ItemGroup>
     <Folder Include="Bluetooth\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\Bluetooth.xaml.cs">
+      <DependentUpon>Bluetooth.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Consulta.xaml.cs">
+      <DependentUpon>Consulta.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Descarte.xaml.cs">
+      <DependentUpon>Descarte.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Devolucao.xaml.cs">
+      <DependentUpon>Devolucao.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Distribuicao.xaml.cs">
+      <DependentUpon>Distribuicao.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Fiscalizacao.xaml.cs">
+      <DependentUpon>Fiscalizacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Inspecao.xaml.cs">
+      <DependentUpon>Inspecao.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Manutencao.xaml.cs">
+      <DependentUpon>Manutencao.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MovimentacaoEstoque.xaml.cs">
+      <DependentUpon>MovimentacaoEstoque.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Recebimento.xaml.cs">
+      <DependentUpon>Recebimento.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RecebimentoHigienizacao.xaml.cs">
+      <DependentUpon>RecebimentoHigienizacao.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -4,13 +4,12 @@ using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class DevolucaoEpi : ContentPage
+    public partial class Manutencao : ContentPage
     {
-        public DevolucaoEpi()
+        public Manutencao()
         {
             InitializeComponent();
         }
-
 
         async private void Button_Clicked(object sender, EventArgs e)
         {
@@ -28,19 +27,19 @@ namespace AppEpi.Views
                     localEstoque = pckLocalEstoque.Items[pckLocalEstoque.SelectedIndex];
                     localEstoque = localEstoque.Split('-')[0];
                 }
-                
-                var answer = await DisplayAlert("Devolução", "Confirmar Devolução?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
+
+                var answer = await DisplayAlert("Manutenção", "Confirmar Manutenção?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
                 if (answer)
                 {
 
-                    var result = wbs.devEPI(epcList.GetFormattedEpcList(), localEstoque);
+                    var result = wbs.manutencaoEPIS(epcList.GetFormattedEpcList(), localEstoque);
                     var detailPage = new ResultadoTrn(result);
                     await Navigation.PushAsync(detailPage);
                 }
             }
             else
             {
-                await DisplayAlert("Devolução", "Verifique os Campos!", "OK");
+                await DisplayAlert("Manutenção", "Verifique os Campos!", "OK");
             }
         }
 
@@ -50,6 +49,7 @@ namespace AppEpi.Views
             base.OnAppearing();
             var wbs = DependencyService.Get<IWEBClient>();
             epcList.Clear();
+
             try
             {
                 var result = wbs.retornaLocalEstoque().Where(x => x.FK_CLIENTE == UsuarioLogado.FkCliente).ToList();

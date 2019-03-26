@@ -24,19 +24,19 @@ namespace AppEpi.Views
                 new MasterPageItem
                 {
                     Title = "Movimentação de Estoque",
-                    TargetType = typeof(Page2)
+                    TargetType = typeof(MovimentacaoEstoque)
                 },
 
                 new MasterPageItem
                 {
                     Title = "Recebimento",
-                    TargetType = typeof(RecebimentoItens)
+                    TargetType = typeof(Recebimento)
                 },
 
                 new MasterPageItem
                 {
                     Title = "Distribuição de EPI",
-                    TargetType = typeof(DistriEpi)
+                    TargetType = typeof(Distribuicao)
                 },
 
                 new MasterPageItem
@@ -60,38 +60,38 @@ namespace AppEpi.Views
                 new MasterPageItem
                 {
                     Title = "Recebimento da Higienização",
-                    TargetType = typeof(RecHigienizacao)
+                    TargetType = typeof(RecebimentoHigienizacao)
                 },
 
 
                 new MasterPageItem
                 {
                     Title = "Fiscalização",
-                    TargetType = typeof(Inspecao)
+                    TargetType = typeof(Fiscalizacao)
                 },
 
                 //new MasterPageItem
                 //{
                 //    Title = "Inspeção",
-                //    TargetType = typeof(InspVisual)
+                //    TargetType = typeof(Inspecao)
                 //},
 
                 new MasterPageItem
                 {
                     Title = "Manutenção de EPI",
-                    TargetType = typeof(ManEpi)
+                    TargetType = typeof(Manutencao)
                 },
 
                 new MasterPageItem
                 {
                     Title = "Devolução de EPI",
-                    TargetType = typeof(DevolucaoEpi)
+                    TargetType = typeof(Devolucao)
                 },
 
                 new MasterPageItem
                 {
                     Title = "Descarte de EPI",
-                    TargetType = typeof(DescrtItem)
+                    TargetType = typeof(Descarte)
                 },
 
                 new MasterPageItem
@@ -103,13 +103,13 @@ namespace AppEpi.Views
                 new MasterPageItem
                 {
                     Title = "Consultar EPI",
-                    TargetType = typeof(CnEPI)
+                    TargetType = typeof(Consulta)
                 },
 
                 new MasterPageItem
                 {
                     Title = "Leitor Bluetooth",
-                    TargetType = typeof(BluetoothSelectPage)
+                    TargetType = typeof(Bluetooth)
                 }
             };
 

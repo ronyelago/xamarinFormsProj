@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class DistriEpi : ContentPage
+    public partial class Distribuicao : ContentPage
     {
-        public DistriEpi()
+        public Distribuicao()
         {
             InitializeComponent();
         }
