@@ -62,6 +62,22 @@ namespace AppEpi.Droid.Bluetooth
         }
 
 
+        // O leitor RFID só aceita valores de potência multiplos de 5, de 25 a 100. Vide BRI Manual
+        public int SetReaderPower(int power)
+        {
+            if (power > 100)
+                power = 100;
+            else if (power < 25)
+                power = 25;
+            else // segundo o manual, só são aceitos múltiplos de 5, que seriam automaticamente rounded down
+                power -= power % 5; 
+
+            SendCommand(BRICommands.SetReaderPower + power);
+
+            return power;
+        }
+
+
         public ObservableCollection<string> GetPairedDevices()
         {
             return BluetoothUtils.GetPairedDevices();
