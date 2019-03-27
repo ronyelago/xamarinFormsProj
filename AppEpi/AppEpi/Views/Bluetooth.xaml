@@ -6,10 +6,34 @@
         <ScrollView x:Name="scrolly">
             <StackLayout Margin="10,10" Spacing="10">
                 <StackLayout Padding="5,10" HeightRequest="200">
-                    <Label >Dispositivos Pareados</Label>
-                    <ListView x:Name="deviceList" HeightRequest="200"></ListView>
+                    
+                    <Label>Dispositivos Pareados</Label>
+                    <ListView 
+                        x:Name="deviceList" 
+                        HeightRequest="200" />
                 </StackLayout>
-                <Button Text="Conectar" IsVisible="False" FontSize="18" x:Name="btnConectar" Clicked="btnConectar_Clicked" Style="{StaticResource BotaoAzul1}" />
+                
+                <Button 
+                    Text="Conectar"
+                    IsVisible="False"
+                    FontSize="18"
+                    x:Name="btnConectar"
+                    Clicked="btnConectar_Clicked"
+                    Style="{StaticResource BotaoAzul1}" />
+                
+                <Label  
+                    x:Name="potenciaLabel"
+                    Text="Potência leitor"
+                    HorizontalOptions="Center" />
+
+                <Slider
+                    x:Name="potenciaSlider"
+                    Maximum="100"
+                    Minimum="25"
+                    MinimumTrackColor="Blue"
+                    MaximumTrackColor="Gray"
+                    DragCompleted="OnSliderDragCompleted" />
+                
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

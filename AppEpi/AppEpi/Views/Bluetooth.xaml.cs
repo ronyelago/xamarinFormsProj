@@ -15,6 +15,7 @@ namespace AppEpi.Views
         {
             InitializeComponent();
 
+            // povoa lista de dispositivos pareados
             try
             {
                 _listOfDevices = DependencyService.Get<IBluetoothController>().GetPairedDevices();
@@ -25,18 +26,28 @@ namespace AppEpi.Views
                     _selectedDeviceName = deviceList.SelectedItem.ToString();
                     btnConectar.IsVisible = true;
                 };
-
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Exception no povoamento de dispositivos Bluetooth: " + e.Message);    
+                Debug.WriteLine("Exceção no povoamento de dispositivos Bluetooth: " + e.Message);    
             }
         }
 
 
-        async private void btnConectar_Clicked(object sender, EventArgs e)
+        private void btnConectar_Clicked(object sender, EventArgs e)
         {
             DependencyService.Get<IBluetoothController>().Start(_selectedDeviceName);
         }
+
+
+        void OnSliderDragCompleted(object sender , EventArgs e)
+        {
+            float novaPotencia =
+                DependencyService.Get<IBluetoothController>().SetReaderPower((int)potenciaSlider.Value);
+
+            potenciaSlider.Value = novaPotencia;
+
+            Debug.WriteLine("NEW VALUE = " + potenciaSlider.Value);
+        } 
     }
 }
