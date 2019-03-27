@@ -24,7 +24,7 @@ namespace AppEpi.Views
                 deviceList.ItemSelected += (object sender, SelectedItemChangedEventArgs e) =>
                 {
                     _selectedDeviceName = deviceList.SelectedItem.ToString();
-                    btnConectar.IsVisible = true;
+                    btnConectar.IsEnabled = true;
                 };
             }
             catch (Exception e)
