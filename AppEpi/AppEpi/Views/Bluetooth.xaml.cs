@@ -14,12 +14,18 @@ namespace AppEpi.Views
         public Bluetooth()
         {
             InitializeComponent();
+
+            MessagingCenter.Subscribe<App, string>(this, "BLUETOOTH_STATE", (sender, arg) =>
+            {
+                Debug.WriteLine("Novo estado Bluetooth:" + arg);
+            });
         }
 
 
         private void btnConectar_Clicked(object sender, EventArgs e)
         {
             DependencyService.Get<IBluetoothController>().Start(_selectedDeviceName);
+            btnConectar.IsEnabled = false;
         }
 
 
