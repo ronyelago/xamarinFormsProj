@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -13,11 +14,13 @@ namespace AppEpi.Droid.Bluetooth
         private Queue<string> _commandQueue = new Queue<string>();
         private Queue<string> _eventQueue = new Queue<string>();
         private Task _eventHandlingTask;
+        private CancellationTokenSource _cts;
 
         // Constructor
-        public RFIDComm(BluetoothController bluetoothController)
+        public RFIDComm(BluetoothController bluetoothController, CancellationTokenSource cts)
         {
             _bluetoothController = bluetoothController;
+            _cts = cts;
         }
 
 
@@ -28,9 +31,7 @@ namespace AppEpi.Droid.Bluetooth
                 foreach (string line in response.Split(BRICommands.Crlf, StringSplitOptions.RemoveEmptyEntries))
                 {
                     if (line.Contains(BRICommands.EventPrefix))
-                    {
                         _eventQueue.Enqueue(line); // guarda os eventos em uma queue
-                    }
                     else
                         ProcessCommand(line);
                 }
@@ -38,7 +39,13 @@ namespace AppEpi.Droid.Bluetooth
                 if (_eventQueue.Count > 0) // se houver eventos em espera
                 {
                     // que não estejam sendo tratados
-                    if (_eventHandlingTask == null || _eventHandlingTask.IsCompleted || _eventHandlingTask.IsCanceled)
+                    if (_eventHandlingTask == null)
+                    {
+                        _eventHandlingTask = Task.Run(async () =>
+                           HandleEventQueue()
+                            );
+                    }
+                    else if (_eventHandlingTask.IsCompleted || _eventHandlingTask.IsCanceled)
                     {
                         _eventHandlingTask = Task.Run(async () =>
                            HandleEventQueue()
@@ -56,7 +63,7 @@ namespace AppEpi.Droid.Bluetooth
         // Event Handler. Vide BRI Manual
         private async Task HandleEventQueue()
         {
-            while (_eventQueue.Count > 0)
+            while (_eventQueue.Count > 0 && _cts.IsCancellationRequested == false)
             {
                 string message = _eventQueue.Dequeue();
 
@@ -65,6 +72,7 @@ namespace AppEpi.Droid.Bluetooth
                     // validação e preparação da mensagem para tratamento
                     if (message.Contains(BRICommands.EventPrefix))
                     {
+                        // message = parte da string que vem depois de EventPrefix
                         message = message.Split(BRICommands.EventPrefix, StringSplitOptions.RemoveEmptyEntries)[1];
                     }
                     else
@@ -72,7 +80,6 @@ namespace AppEpi.Droid.Bluetooth
                         Debug.WriteLine("Invalid event: " + message);
                         break;
                     }
-
 
                     // evento = novo EPC
                     if (message.StartsWith(BRICommands.EpcPrefix))

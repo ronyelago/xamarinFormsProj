@@ -24,7 +24,7 @@ namespace AppEpi.Droid.Bluetooth
 
         private ConnectionState _currentState = ConnectionState.Closed;
         private int _pollingInterval = _slowPollingInterval;
-        private CancellationTokenSource _ct;
+        private CancellationTokenSource _cts;
         private BluetoothSocket _bthSocket;
         private RFIDComm _rfidComm;
 
@@ -37,7 +37,7 @@ namespace AppEpi.Droid.Bluetooth
         // Constructor
         public BluetoothController()
         {
-            _rfidComm = new RFIDComm(this);
+            _rfidComm = new RFIDComm(this, _cts);
         }
 
         #region IBth implementation
@@ -57,10 +57,10 @@ namespace AppEpi.Droid.Bluetooth
         // Cancel the Reading loop
         public void Cancel()
         {
-            if (_ct != null)
+            if (_cts != null)
             {
                 Debug.WriteLine("Send a cancel to task!");
-                _ct.Cancel();
+                _cts.Cancel();
             }
         }
 
@@ -124,7 +124,7 @@ namespace AppEpi.Droid.Bluetooth
         // Envia mensagem através do BT, sem manipular message
         private async Task StreamMessage(string message)
         {
-            if (_ct.IsCancellationRequested == false)
+            if (_cts.IsCancellationRequested == false)
             {
                 try
                 {
@@ -153,10 +153,10 @@ namespace AppEpi.Droid.Bluetooth
 
             int pingTimer = 0;
             int reconnectTimer = 0;
-            while (_ct.IsCancellationRequested == false)
+            while (_cts.IsCancellationRequested == false)
             {
                 Thread.Sleep(_pollingInterval);
-                if (_ct.IsCancellationRequested == false)
+                if (_cts.IsCancellationRequested == false)
                 {
                     pingTimer += _pollingInterval;
                     reconnectTimer += _pollingInterval;
@@ -217,8 +217,8 @@ namespace AppEpi.Droid.Bluetooth
         {
             _bthSocket = null;
 
-            _ct = new CancellationTokenSource();
-            while (_ct.IsCancellationRequested == false)
+            _cts = new CancellationTokenSource();
+            while (_cts.IsCancellationRequested == false)
             {
                 try
                 {
