@@ -13,6 +13,22 @@
                         x:Name="deviceList" 
                         VerticalOptions="StartAndExpand" />
 
+                <StackLayout
+                    VerticalOptions="FillAndExpand"
+                    x:Name="avisoNaoHaDispositivos">
+
+                    <!-- Essa label não está devidamente centralizada -->
+                    <Label
+                        Text="Não há dispositivos pareados!"
+                        TextColor="Red"
+                        VerticalOptions="FillAndExpand" 
+                        VerticalTextAlignment="Center"
+                        HorizontalOptions="Center" />
+
+                    <!-- Inserir botão para as opções de Bluetooth do aparelho aqui -->
+
+                </StackLayout>
+
             </StackLayout>
 
             <Button 
@@ -24,7 +40,7 @@
                     Style="{StaticResource BotaoAzul1}" />
 
             <StackLayout 
-                    x:Name="potenciaLayout"
+                    x:Name="controlePotencia"
                     Margin="10,10"
                     Spacing="10"
                     IsVisible="True">

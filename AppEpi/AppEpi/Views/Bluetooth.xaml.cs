@@ -14,23 +14,6 @@ namespace AppEpi.Views
         public Bluetooth()
         {
             InitializeComponent();
-
-            // povoa lista de dispositivos pareados
-            try
-            {
-                _listOfDevices = DependencyService.Get<IBluetoothController>().GetPairedDevices();
-                deviceList.ItemsSource = _listOfDevices;
-
-                deviceList.ItemSelected += (object sender, SelectedItemChangedEventArgs e) =>
-                {
-                    _selectedDeviceName = deviceList.SelectedItem.ToString();
-                    btnConectar.IsEnabled = true;
-                };
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Exceção no povoamento de dispositivos Bluetooth: " + e.Message);    
-            }
         }
 
 
@@ -46,8 +29,42 @@ namespace AppEpi.Views
                 DependencyService.Get<IBluetoothController>().SetReaderPower((int)potenciaSlider.Value);
 
             potenciaSlider.Value = novaPotencia;
+        }
 
-            Debug.WriteLine("NEW VALUE = " + potenciaSlider.Value);
-        } 
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // povoa lista de dispositivos pareados
+            try
+            {
+                _listOfDevices = DependencyService.Get<IBluetoothController>().GetPairedDevices();
+
+                // se houver dispositivos pareados, apresenta-se uma lista com os mesmos
+                if (_listOfDevices.Count > 0)
+                {
+                    avisoNaoHaDispositivos.IsVisible = false;
+                    deviceList.IsVisible = true;
+
+                    deviceList.ItemsSource = _listOfDevices;
+
+                    deviceList.ItemSelected += (object sender, SelectedItemChangedEventArgs e) =>
+                    {
+                        _selectedDeviceName = deviceList.SelectedItem.ToString();
+                        btnConectar.IsEnabled = true;
+                    };
+                }
+                else
+                {
+                    avisoNaoHaDispositivos.IsVisible = true;
+                    deviceList.IsVisible = false;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Exceção no povoamento de dispositivos Bluetooth: " + e.Message);
+            }
+        }
     }
 }
