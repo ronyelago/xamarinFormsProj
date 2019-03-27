@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+﻿using System.Collections.Generic;
 using Xamarin.Forms;
 using AppEpi.Droid;
 using System.Collections.ObjectModel;
+using AppEpi.Models;
 
 [assembly: Dependency(typeof(WEBClient))]
 namespace AppEpi.Droid

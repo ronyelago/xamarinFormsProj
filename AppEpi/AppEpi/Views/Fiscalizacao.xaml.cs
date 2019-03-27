@@ -1,4 +1,5 @@
-﻿using Plugin.Geolocator;
+﻿using AppEpi.Models;
+using Plugin.Geolocator;
 using System;
 using Xamarin.Forms;
 

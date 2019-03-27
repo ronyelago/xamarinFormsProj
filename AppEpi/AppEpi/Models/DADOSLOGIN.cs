@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AppEpi
+namespace AppEpi.Models
 {
     public class DADOSLOGIN
     {

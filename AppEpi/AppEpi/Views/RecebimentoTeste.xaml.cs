@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppEpi.Models;
+using System;
 using Xamarin.Forms;
 
 namespace AppEpi.Views

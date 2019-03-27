@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AppEpi
+namespace AppEpi.Models
 {
     public class UsuarioLogado
     {
