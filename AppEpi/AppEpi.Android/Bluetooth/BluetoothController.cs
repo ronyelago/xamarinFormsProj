@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using System.IO;
 using System.Text;
+using System.Data;
 
 [assembly: Dependency(typeof(AppEpi.Droid.Bluetooth.BluetoothController))]
 namespace AppEpi.Droid.Bluetooth
@@ -19,9 +20,9 @@ namespace AppEpi.Droid.Bluetooth
         private const int _pingIfIdleFor = 5000; // se não houver mensagem do leitor durante esse intervalo (em ms), envia-se um ping
         private const int _connectionTimeout = 10000; // se não houver mensagem do leitor durante esse intervalo (em ms), inicia-se reconexão
         private const int _connectionAwait = 1000; // tempo aguardado para confirmar conexão
-
         private const string _uuid = "00001101-0000-1000-8000-00805f9b34fb";
 
+        private ConnectionState _currentState = ConnectionState.Closed;
         private int _pollingInterval = _slowPollingInterval;
         private CancellationTokenSource _ct;
         private BluetoothSocket _bthSocket;
@@ -40,6 +41,8 @@ namespace AppEpi.Droid.Bluetooth
         }
 
         #region IBth implementation
+
+        public ConnectionState CurrentState { get => _currentState; }
 
         // Start the Reading loop 
         /// <param name="deviceName"> Name of the paired bluetooth device </param>
@@ -70,7 +73,7 @@ namespace AppEpi.Droid.Bluetooth
             else if (power < 25)
                 power = 25;
             else // segundo o manual, só são aceitos múltiplos de 5, que seriam automaticamente rounded down
-                power -= power % 5; 
+                power -= power % 5;
 
             SendCommand(BRICommands.SetReaderPower + power);
 
@@ -162,6 +165,7 @@ namespace AppEpi.Droid.Bluetooth
                     {
                         if (buffer.Ready()) // se houver o que ler
                         {
+                            _currentState = ConnectionState.Open;
                             string response = "";
 
                             if (readAsCharArray)
@@ -220,6 +224,7 @@ namespace AppEpi.Droid.Bluetooth
                 {
                     Thread.Sleep(_pollingInterval);
 
+                    _currentState = ConnectionState.Connecting;
                     await ConnectDevice(name);
 
                     // Escaneia continuamente até que seja solicitado cancelamento de _ct
@@ -228,15 +233,18 @@ namespace AppEpi.Droid.Bluetooth
                 }
                 catch (Exception e)
                 {
+                    _currentState = ConnectionState.Broken;
                     Debug.WriteLine("EXCEPTION: " + e.Message);
                 }
                 finally
                 {
                     if (_bthSocket != null)
                         _bthSocket.Close();
+
+                    _currentState = ConnectionState.Closed;
                 }
             }
-            Debug.WriteLine("Reading loop exit");
+            Debug.WriteLine("Connection loop exit");
         }
 
 
@@ -256,6 +264,7 @@ namespace AppEpi.Droid.Bluetooth
 
                     if (_bthSocket.IsConnected)
                     {
+                        _currentState = ConnectionState.Open;
                         Debug.WriteLine("Connected!");
                     }
                     else

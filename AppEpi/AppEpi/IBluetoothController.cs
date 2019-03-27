@@ -1,9 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Data;
 
 namespace AppEpi
 {
     public interface IBluetoothController
     {
+        ConnectionState CurrentState { get; }
         void Start(string deviceName, bool readAsCharArray = true);
         void Cancel();
         /*
