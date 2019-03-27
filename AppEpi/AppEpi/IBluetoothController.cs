@@ -4,9 +4,8 @@ namespace AppEpi
 {
     public interface IBluetoothController
     {
-        void Start(string name, bool readAsCharArray = true);
+        void Start(string deviceName, bool readAsCharArray = true);
         void Cancel();
-        void SendCommand(string command);
         ObservableCollection<string> GetPairedDevices();
     }
 }

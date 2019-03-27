@@ -36,16 +36,17 @@ namespace AppEpi.Droid.Bluetooth
         // Constructor
         public BluetoothController()
         {
-            _rfidComm = new Bluetooth.RFIDComm(this);
+            _rfidComm = new RFIDComm(this);
         }
 
         #region IBth implementation
+
         // Start the Reading loop 
-        /// <param name="name"> Name of the paired bluetooth device </param>
-        public void Start(string name, bool readAsCharArray = true)
+        /// <param name="deviceName"> Name of the paired bluetooth device </param>
+        public void Start(string deviceName, bool readAsCharArray = true)
         {
             Task.Run(async () =>
-                Loop(name, readAsCharArray)
+                Loop(deviceName, readAsCharArray)
                 );
         }
 
@@ -61,22 +62,15 @@ namespace AppEpi.Droid.Bluetooth
         }
 
 
-        // Envia um comando ao leitor RFID conectado
-        public void SendCommand(string command)
-        {
-            Task.Run(async () =>
-                SendCommandAsync(command)
-            );
-        }
-
-
         public ObservableCollection<string> GetPairedDevices()
         {
             return BluetoothUtils.GetPairedDevices();
         }
+
         #endregion
 
         #region public methods
+
         public void SetPollingSpeed(PollingSpeed speed)
         {
             switch (speed)
@@ -94,9 +88,20 @@ namespace AppEpi.Droid.Bluetooth
                     break;
             }
         }
+
+
+        // Envia um comando ao leitor RFID conectado
+        public void SendCommand(string command)
+        {
+            Task.Run(async () =>
+                SendCommandAsync(command)
+            );
+        }
+
         #endregion
 
         #region private methods
+
         // Envia mensagem através do BT, sem manipular message
         private async Task StreamMessage(string message)
         {
@@ -261,6 +266,7 @@ namespace AppEpi.Droid.Bluetooth
         {
             return string.Concat(input, BRICommands.Crlf);
         }
+
         #endregion
     }
 }
