@@ -21,6 +21,7 @@
                     <Label
                         Text="Não há dispositivos pareados!"
                         TextColor="Red"
+                        IsVisible="False"
                         VerticalOptions="FillAndExpand" 
                         VerticalTextAlignment="Center"
                         HorizontalOptions="Center" />

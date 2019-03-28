@@ -3,12 +3,12 @@ using Xamarin.Forms;
 using AppEpi.Droid;
 using System.IO;
 
-[assembly: Dependency(typeof(SaveAndLoad_Android))]
+[assembly: Dependency(typeof(StorageController))]
 namespace AppEpi.Droid
 {
-    public class SaveAndLoad_Android : ISaveAndLoad
+    public class StorageController : IStorageController
     {
-        #region ISaveAndLoad implementation
+        #region IStorageController implementation
 
         public void SaveText(string filename, string text)
         {
