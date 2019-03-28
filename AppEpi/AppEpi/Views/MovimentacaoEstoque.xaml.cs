@@ -16,16 +16,15 @@ namespace AppEpi.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            var wbs = DependencyService.Get<IWEBClient>();
+            epcList.Clear();
+
             try
             {
-                epis.Text = "";
+                var wbs = DependencyService.Get<IWEBClient>();
                 var result = wbs.retornaLocalEstoque().Where(x => x.FK_CLIENTE == UsuarioLogado.FkCliente).ToList();
 
                 foreach (var rs in result)
-                {
                     pckLocalEstoque.Items.Add(rs.CODIGO + "-" + rs.NOME);
-                }
             }
             catch
             {
@@ -33,75 +32,33 @@ namespace AppEpi.Views
         }
 
 
-        void EditorCompleted(object sender, EventArgs e)
-        {
-            // sender is cast to an Editor to enable reading the `Text` property of the view.
-            var text = ((Editor)sender).Text;
-        }
-
-
-        void EditorTextChanged(object sender, TextChangedEventArgs e)
-        {
-        }
-
-
         private async void Button_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
-            bool confirmarMovimentacao = true;
             string localEstoque = "";
             string entradaSaida = "";
-            string listEPCS = "";
-            int coun = 0;
-            if (epis.Text == "")
+
+            if (epcList.Count < 1 ||
+                pckLocalEstoque.SelectedIndex == -1 ||
+                pckEntradaSaida.SelectedIndex == -1)
             {
-                confirmarMovimentacao = false;
-            }
-            
-            if (pckLocalEstoque.SelectedIndex.ToString() == "-1")
-            {
-                confirmarMovimentacao = false;
+                await DisplayAlert("Easy Epi", "Verifique os Campos!", "OK");
             }
             else
             {
                 localEstoque = pckLocalEstoque.Items[pckLocalEstoque.SelectedIndex];
-            }
-            
-            if (pckEntradaSaida.SelectedIndex.ToString() == "-1")
-            {
-                confirmarMovimentacao = false;
-            }
-            else
-            {
                 entradaSaida = pckEntradaSaida.Items[pckEntradaSaida.SelectedIndex];
-            }
 
-            string[] lines = epis.Text.Split('\n');
-            foreach (string line in lines)
-            {
-                if (line != "")
-                {
-                    coun++;
-                    listEPCS = listEPCS + "|" + line;
-                }
-            }
-
-            if (confirmarMovimentacao)
-            {
-                var answer = await DisplayAlert("Movimentação de Estoque", "Confirmar Transação?\nTotal de Itens:" + coun, "Sim", "Não");
+                var answer = await DisplayAlert("Movimentação de Estoque", "Confirmar Transação?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
                 if (answer)
                 {
-                    var result = wbs.retornarDadosEpiValidar(listEPCS, UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
+                    var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "2";
                     UsuarioLogado.LocalEstoque = localEstoque.Split('-')[0];
                     UsuarioLogado.StatusEstoque = AbreviarStatus(entradaSaida);
                     var detailPage = new Page4(result);
                     await Navigation.PushAsync(detailPage);
                 }
-            }
-            else
-            {
-                await DisplayAlert("Easy Epi", "Verifique os Campos!", "OK");
             }
         }
 
