@@ -36,7 +36,7 @@ namespace AppEpi.Droid.Bluetooth
         // Constructor
         public BluetoothController()
         {
-            _rfidComm = new RFIDComm(this, _cts);
+            _rfidComm = new RFIDComm(this);
         }
 
         #region IBth implementation

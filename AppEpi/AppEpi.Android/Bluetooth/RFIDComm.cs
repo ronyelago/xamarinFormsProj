@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -14,13 +13,11 @@ namespace AppEpi.Droid.Bluetooth
         private Queue<string> _commandQueue = new Queue<string>();
         private Queue<string> _eventQueue = new Queue<string>();
         private Task _eventHandlingTask;
-        private CancellationTokenSource _cts;
 
         // Constructor
-        public RFIDComm(BluetoothController bluetoothController, CancellationTokenSource cts)
+        public RFIDComm(BluetoothController bluetoothController)
         {
             _bluetoothController = bluetoothController;
-            _cts = cts;
         }
 
 
@@ -63,7 +60,7 @@ namespace AppEpi.Droid.Bluetooth
         // Event Handler. Vide BRI Manual
         private async Task HandleEventQueue()
         {
-            while (_eventQueue.Count > 0 && _cts.IsCancellationRequested == false)
+            while (_eventQueue.Count > 0)
             {
                 string message = _eventQueue.Dequeue();
 
