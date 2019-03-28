@@ -19,6 +19,14 @@ namespace AppEpi.Views
             {
                 Debug.WriteLine("Novo estado Bluetooth:" + arg);
             });
+            MessagingCenter.Subscribe<App>(this, "RFID_LOWBATT", (sender) =>
+            {
+                Debug.WriteLine("LOW BATTERY EVENT");
+            });
+            MessagingCenter.Subscribe<App>(this, "RFID_OVERHEAT", (sender) =>
+            {
+                Debug.WriteLine("OVERHEAT EVENT");
+            });
         }
 
 
