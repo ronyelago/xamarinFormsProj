@@ -17,10 +17,9 @@ namespace AppEpi.Views
         {
             var wbs = DependencyService.Get<IWEBClient>();
 
-            var locator = CrossGeolocator.Current;
-            var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-            UsuarioLogado.Latitude = position.Latitude.ToString();
-            UsuarioLogado.Longitude = position.Longitude.ToString();
+            var location = await CrossGeolocator.Current.GetPositionAsync(TimeSpan.FromSeconds(10));
+            UsuarioLogado.Latitude = location.Latitude.ToString();
+            UsuarioLogado.Longitude = location.Longitude.ToString();
 
             if (epcList.Count > 0)
             {
