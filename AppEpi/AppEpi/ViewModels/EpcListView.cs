@@ -11,7 +11,7 @@ namespace AppEpi.ViewModels
 
         public EpcListView()
         {
-            HeightRequest = 200;
+            VerticalOptions = LayoutOptions.StartAndExpand;
             ItemsSource = _epcList;
 
             MessagingCenter.Subscribe<App, string>(this, "EPC", (sender, arg) =>

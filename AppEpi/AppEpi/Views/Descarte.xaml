@@ -4,19 +4,23 @@
              xmlns:appepi="clr-namespace:AppEpi.ViewModels"
              Title="Descarte de EPI"
              x:Class="AppEpi.Views.Descarte">
-    <ContentPage.Content>
-        <ScrollView x:Name="scrolly">
-            <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">
-                <StackLayout Padding="5,10" HeightRequest="200">
-                    <Label >EPIs</Label>
-                    <appepi:EpcListView x:Name="epcList"/>
-                </StackLayout>
-                <StackLayout Margin="0,50,0,0">
-                    <Label >Motivo</Label>
-                    <Editor x:Name="edtMotivo" HeightRequest="50"  />
-                </StackLayout>
-                <Button Text="Confirmar" FontSize="18" Clicked="Button_Clicked" Style="{StaticResource BotaoAzul1}" />
-            </StackLayout>
-        </ScrollView>
-    </ContentPage.Content>
+  <ContentPage.Content>
+    <StackLayout Margin="10,10" Spacing="10">
+
+      <Label>EPIs</Label>
+      
+      <appepi:EpcListView x:Name="epcList" />
+      
+      <Label>Motivo</Label>
+      
+      <Editor x:Name="edtMotivo" HeightRequest="50" />
+      
+      <Button
+        Text="Confirmar"
+        FontSize="18"
+        Clicked="Button_Clicked" 
+        Style="{StaticResource BotaoAzul1}" />
+
+    </StackLayout>
+  </ContentPage.Content>
 </ContentPage>

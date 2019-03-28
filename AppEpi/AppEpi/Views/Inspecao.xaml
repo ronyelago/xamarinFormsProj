@@ -4,15 +4,20 @@
              xmlns:appepi="clr-namespace:AppEpi.ViewModels"
              Title="Inspeção"
              x:Class="AppEpi.Views.Inspecao">
-    <ContentPage.Content>
-        <ScrollView x:Name="scrolly">
-            <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">
-                <StackLayout Padding="5,10" HeightRequest="200">
-                    <Label>EPI</Label>
-                    <appepi:EpcListView x:Name="epcList"/>
-                </StackLayout>
-                <Button Text="Confirmar" FontSize="18" x:Name="btnConfirmar" Clicked="btnConfirmar_Clicked" Style="{StaticResource BotaoAzul1}" />
-            </StackLayout>
-        </ScrollView>
-    </ContentPage.Content>
+  <ContentPage.Content>
+    <StackLayout Margin="10,10" Spacing="10">
+
+      <Label>EPCs</Label>
+
+      <appepi:EpcListView x:Name="epcList" />
+
+      <Button
+        x:Name="btnConfirmar"
+        Text="Confirmar"
+        FontSize="18"
+        Clicked="btnConfirmar_Clicked"
+        Style="{StaticResource BotaoAzul1}" />
+
+    </StackLayout>
+  </ContentPage.Content>
 </ContentPage>
