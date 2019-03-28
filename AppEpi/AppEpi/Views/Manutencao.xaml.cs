@@ -15,33 +15,23 @@ namespace AppEpi.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            var wbs = DependencyService.Get<IWEBClient>();
-            string localEstoque = "";
-
-            if (epcList.Count > 0)
+            if (pckLocalEstoque.SelectedIndex < 0 || epcList.Count < 1)
             {
-                if (pckLocalEstoque.SelectedIndex.ToString() == "-1")
-                {
-                    localEstoque = "";
-                }
-                else
-                {
-                    localEstoque = pckLocalEstoque.Items[pckLocalEstoque.SelectedIndex];
-                    localEstoque = localEstoque.Split('-')[0];
-                }
+                await DisplayAlert("Manutenção", "Verifique os Campos!", "OK");
+            }
+            else
+            {
+                string localEstoque = pckLocalEstoque.Items[pckLocalEstoque.SelectedIndex];
+                localEstoque = localEstoque.Split('-')[0];
 
                 var answer = await DisplayAlert("Manutenção", "Confirmar Manutenção?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
                 if (answer)
                 {
-
+                    var wbs = DependencyService.Get<IWEBClient>();
                     var result = wbs.manutencaoEPIS(epcList.GetFormattedEpcList(), localEstoque);
                     var detailPage = new ResultadoTrn(result);
                     await Navigation.PushAsync(detailPage);
                 }
-            }
-            else
-            {
-                await DisplayAlert("Manutenção", "Verifique os Campos!", "OK");
             }
         }
 
