@@ -14,7 +14,7 @@
             <Picker 
                 x:Name="pckEntradaSaida" 
                 HorizontalOptions="FillAndExpand" 
-                Title="Entrada\Saida">
+                Title="Entrada/Saida">
                 <Picker.Items>
                     <x:String>Entrada</x:String>
                     <x:String>Saida</x:String>
@@ -26,12 +26,9 @@
                 HorizontalOptions="FillAndExpand" 
                 Title="Selecione o Estoque:" />
 
-            <Button 
-                Text="Confirmar"
-                FontSize="18"
-                Clicked="Button_Clicked" 
-                Style="{StaticResource BotaoAzul1}" />
-            
+            <appepi:ConfirmarButton
+                Clicked="Button_Clicked" />
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

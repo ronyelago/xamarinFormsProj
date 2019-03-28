@@ -4,20 +4,17 @@
              xmlns:appepi="clr-namespace:AppEpi.ViewModels"
              Title="Distribuição de EPI"
              x:Class="AppEpi.Views.Distribuicao">
-  <ContentPage.Content>
-    <StackLayout Margin="10,10" Spacing="10">
+    <ContentPage.Content>
+        <StackLayout Margin="10,10" Spacing="10">
 
-      <Label>Cracha/EPI</Label>
+            <Label>Cracha/EPI</Label>
 
-      <appepi:EpcListView x:Name="epcList" />
+            <appepi:EpcListView x:Name="epcList" />
 
-      <Button
-        Text="Confirmar"
-        x:Name="btnConfirmar"
-        Clicked="btnConfirmar_Clicked"
-        FontSize="18"
-        Style="{StaticResource BotaoAzul1}" />
+            <appepi:ConfirmarButton
+                x:Name="btnConfirmar"
+                Clicked="btnConfirmar_Clicked" />
 
-    </StackLayout>
-  </ContentPage.Content>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

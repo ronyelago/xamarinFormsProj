@@ -4,32 +4,28 @@
              xmlns:appepi="clr-namespace:AppEpi.ViewModels"
              Title="Recebimento de Itens Testado"
              x:Class="AppEpi.Views.RecebimentoTeste">
-  <ContentPage.Content>
-    <StackLayout Margin="10,10" Spacing="10">
-      
-      <Label>EPIs</Label>
-      
-      <appepi:EpcListView x:Name="epcList" />
-      
-      <Label>Data Proximo Teste</Label>
-      
-      <DatePicker 
-        x:Name="dtProximtoTeste"
-        MaximumDate="01/01/2100"
-        Format="dd/MM/yyyy"
-        DateSelected="DatePicker_DateSelected" />
-      
-      <Label>ART</Label>
-      
-      <Entry x:Name="entART"/>
-      
-      <Button 
-        Text="Confirmar" 
-        FontSize="18" 
-        x:Name="btnEnvioTeste" 
-        Clicked="btnEnvioTeste_Clicked" 
-        Style="{StaticResource BotaoAzul1}" />
-      
-    </StackLayout>
-  </ContentPage.Content>
+    <ContentPage.Content>
+        <StackLayout Margin="10,10" Spacing="10">
+
+            <Label>EPIs</Label>
+
+            <appepi:EpcListView x:Name="epcList" />
+
+            <Label>Data Proximo Teste</Label>
+
+            <DatePicker 
+                x:Name="dtProximtoTeste"
+                MaximumDate="01/01/2100"
+                Format="dd/MM/yyyy"
+                DateSelected="DatePicker_DateSelected" />
+
+            <Label>ART</Label>
+
+            <Entry x:Name="entART"/>
+
+            <appepi:ConfirmarButton
+                Clicked="btnEnvioTeste_Clicked" />
+
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

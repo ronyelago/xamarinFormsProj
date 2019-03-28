@@ -4,25 +4,21 @@
              xmlns:appepi="clr-namespace:AppEpi.ViewModels"
              Title="Higienização"
              x:Class="AppEpi.Views.EnvioHigienizacao">
-  <ContentPage.Content>
-    <StackLayout Margin="10,10" Spacing="10">
-      
-      <Label >EPIs</Label>
-      
-      <appepi:EpcListView x:Name="epcList"/>
-      
-      <Picker 
-        x:Name="pckLocalEstoque" 
-        HorizontalOptions="FillAndExpand" 
-        Title="Selecione o Estoque:" />
-      
-      <Button 
-        Text="Confirmar" 
-        FontSize="18" 
-        x:Name="btnEnvioTeste"
-        Clicked="btnEnvioTeste_Clicked"
-        Style="{StaticResource BotaoAzul1}" />
-      
-    </StackLayout>
-  </ContentPage.Content>
+    <ContentPage.Content>
+        <StackLayout Margin="10,10" Spacing="10">
+
+            <Label >EPIs</Label>
+
+            <appepi:EpcListView x:Name="epcList"/>
+
+            <Picker 
+                x:Name="pckLocalEstoque" 
+                HorizontalOptions="FillAndExpand" 
+                Title="Selecione o Estoque:" />
+
+            <appepi:ConfirmarButton
+                Clicked="btnEnvioTeste_Clicked" />
+
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

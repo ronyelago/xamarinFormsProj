@@ -4,25 +4,21 @@
              xmlns:appepi="clr-namespace:AppEpi.ViewModels"
              Title="Envio para Teste"
              x:Class="AppEpi.Views.EnvioTeste">
-  <ContentPage.Content>
-    <StackLayout Margin="10,10" Spacing="10">
-      
-      <Label >EPIs</Label>
-      
-      <appepi:EpcListView x:Name="epcList" />
-      
-      <Picker
-        x:Name="pckLocalEstoque"
-        HorizontalOptions="FillAndExpand"
-        Title="Selecione o Estoque:" />
+    <ContentPage.Content>
+        <StackLayout Margin="10,10" Spacing="10">
 
-      <Button
-        x:Name="btnEnvioTeste"
-        Text="Confirmar"
-        FontSize="18"
-        Clicked="btnEnvioTeste_Clicked"
-        Style="{StaticResource BotaoAzul1}" />
+            <Label >EPIs</Label>
 
-    </StackLayout>
-  </ContentPage.Content>
+            <appepi:EpcListView x:Name="epcList" />
+
+            <Picker
+                x:Name="pckLocalEstoque"
+                HorizontalOptions="FillAndExpand"
+                Title="Selecione o Estoque:" />
+
+            <appepi:ConfirmarButton
+                Clicked="btnEnvioTeste_Clicked" />
+
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

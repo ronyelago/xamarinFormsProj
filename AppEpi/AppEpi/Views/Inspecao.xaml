@@ -4,20 +4,16 @@
              xmlns:appepi="clr-namespace:AppEpi.ViewModels"
              Title="Inspeção"
              x:Class="AppEpi.Views.Inspecao">
-  <ContentPage.Content>
-    <StackLayout Margin="10,10" Spacing="10">
+    <ContentPage.Content>
+        <StackLayout Margin="10,10" Spacing="10">
 
-      <Label>EPCs</Label>
+            <Label>EPCs</Label>
 
-      <appepi:EpcListView x:Name="epcList" />
+            <appepi:EpcListView x:Name="epcList" />
 
-      <Button
-        x:Name="btnConfirmar"
-        Text="Confirmar"
-        FontSize="18"
-        Clicked="btnConfirmar_Clicked"
-        Style="{StaticResource BotaoAzul1}" />
+            <appepi:ConfirmarButton
+                Clicked="btnConfirmar_Clicked" />
 
-    </StackLayout>
-  </ContentPage.Content>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
