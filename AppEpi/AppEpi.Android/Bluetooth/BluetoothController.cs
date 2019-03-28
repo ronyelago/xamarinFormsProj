@@ -65,10 +65,10 @@ namespace AppEpi.Droid.Bluetooth
         /// <param name="deviceName"> Name of the paired bluetooth device </param>
         public void Start(string deviceName, bool readAsCharArray = true)
         {
-            Task.Run(async () =>
+            Task.Run(() =>
                 Loop(deviceName, readAsCharArray)
                 );
-                }
+        }
 
 
         // Cancel the Reading loop
@@ -129,7 +129,7 @@ namespace AppEpi.Droid.Bluetooth
         // Envia um comando ao leitor RFID conectado
         public void SendCommand(string command)
         {
-            Task.Run(async () =>
+            Task.Run(() =>
                 SendCommandAsync(command)
             );
         }

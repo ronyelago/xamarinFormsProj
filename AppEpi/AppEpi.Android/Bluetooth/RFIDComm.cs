@@ -38,13 +38,13 @@ namespace AppEpi.Droid.Bluetooth
                     // que não estejam sendo tratados
                     if (_eventHandlingTask == null)
                     {
-                        _eventHandlingTask = Task.Run(async () =>
+                        _eventHandlingTask = Task.Run(() =>
                            HandleEventQueue()
                             );
                     }
                     else if (_eventHandlingTask.IsCompleted || _eventHandlingTask.IsCanceled)
                     {
-                        _eventHandlingTask = Task.Run(async () =>
+                        _eventHandlingTask = Task.Run(() =>
                            HandleEventQueue()
                             );
                     }
@@ -58,7 +58,7 @@ namespace AppEpi.Droid.Bluetooth
 
 
         // Event Handler. Vide BRI Manual
-        private async Task HandleEventQueue()
+        private void HandleEventQueue()
         {
             while (_eventQueue.Count > 0)
             {
