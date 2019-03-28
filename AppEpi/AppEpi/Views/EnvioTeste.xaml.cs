@@ -32,7 +32,7 @@ namespace AppEpi.Views
             var wbs = DependencyService.Get<IWEBClient>();
             string localEstoque = "";
 
-            if (pckLocalEstoque.SelectedIndex.ToString() == "-1")
+            if (pckLocalEstoque.SelectedIndex == -1)
             {
                 localEstoque = "";
             }

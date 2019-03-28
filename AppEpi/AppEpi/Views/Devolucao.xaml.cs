@@ -20,7 +20,7 @@ namespace AppEpi.Views
 
             if (epcList.Count > 0)
             {
-                if (pckLocalEstoque.SelectedIndex.ToString() == "-1")
+                if (pckLocalEstoque.SelectedIndex == -1)
                 {
                     localEstoque = "";
                 }
