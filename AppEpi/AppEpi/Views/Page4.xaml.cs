@@ -22,7 +22,7 @@ namespace AppEpi.Views
         }
 
 
-        async protected override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
 
@@ -30,8 +30,8 @@ namespace AppEpi.Views
 
             if (UsuarioLogado.Operacao == "3")
             {
-                    btnSenha.IsVisible = false;
-                    btnConfirmar.IsVisible = true;
+                btnSenha.IsVisible = false;
+                btnConfirmar.IsVisible = true;
             }
             else
             {
@@ -57,7 +57,7 @@ namespace AppEpi.Views
         }
 
 
-        async private void Button_Clicked(object sender, EventArgs e)
+        private void Button_Clicked(object sender, EventArgs e)
         {
             var item = (Button)sender;
             var codigo = item.CommandParameter.ToString();
@@ -66,7 +66,7 @@ namespace AppEpi.Views
         }
 
 
-        async private void Button_ClickedRemove(object sender, EventArgs e)
+        private async void Button_ClickedRemove(object sender, EventArgs e)
         {
             var item = (Button)sender;
             var codigo = item.CommandParameter.ToString();

@@ -18,12 +18,8 @@ namespace AppEpi.Views
             matricula.Text = resultEnter[0].EPC;
         }
 
-        async protected override void OnAppearing()
-        {
-            base.OnAppearing();
-        }
 
-        async private void btnConfirmar_Clicked(object sender, EventArgs e)
+        private async void btnConfirmar_Clicked(object sender, EventArgs e)
         {
             if (entSenha.Text == entSenhaConf.Text)
             {
@@ -52,10 +48,12 @@ namespace AppEpi.Views
             PopupNavigation.PopAsync();
         }
 
+
         protected override void OnAppearingAnimationEnd()
         {
             return;// Content.FadeTo(1);
         }
+
 
         protected override void OnDisappearingAnimationBegin()
         {

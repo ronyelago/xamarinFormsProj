@@ -11,7 +11,7 @@ namespace AppEpi.Views
             InitializeComponent();
         }
 
-        async private void btnEnvioTeste_Clicked(object sender, EventArgs e)
+        private async void btnEnvioTeste_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
 
@@ -32,7 +32,7 @@ namespace AppEpi.Views
             }
         }
 
-        async protected override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             epcList.Clear();

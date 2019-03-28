@@ -17,7 +17,7 @@ namespace AppEpi.Views
         }
 
 
-       async private void Button_Clicked(object sender, EventArgs e)
+       private async void Button_Clicked(object sender, EventArgs e)
         {
             var item = (Button)sender;
             var codigo = item.CommandParameter.ToString();

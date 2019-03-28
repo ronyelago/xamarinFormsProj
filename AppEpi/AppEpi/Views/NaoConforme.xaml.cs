@@ -21,7 +21,7 @@ namespace AppEpi.Views
         }
 
 
-        async protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
             var result = it.Where(x => x.corAviso == "#ff7f7f").ToList();
@@ -35,7 +35,7 @@ namespace AppEpi.Views
         }
 
 
-        async private void listResultado_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void listResultado_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
             {

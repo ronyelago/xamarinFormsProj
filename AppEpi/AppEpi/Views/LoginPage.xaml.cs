@@ -17,7 +17,7 @@ namespace AppEpi.Views
         }
 
 
-        async private void LoginButton_Clicked(object sender, EventArgs e)
+        private async void LoginButton_Clicked(object sender, EventArgs e)
         {
             try
             {
@@ -64,10 +64,12 @@ namespace AppEpi.Views
         }
 
 
-        async private void OnCloseButtonTapped(object sender, EventArgs e)
+        private void OnCloseButtonTapped(object sender, EventArgs e)
         {
             CloseAllPopup();
         }
+
+
         private async void CloseAllPopup()
         {
             await Navigation.PopAllPopupAsync();

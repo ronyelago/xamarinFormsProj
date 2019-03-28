@@ -12,7 +12,7 @@ namespace AppEpi.Views
         }
 
 
-        async private void btnConfirmar_Clicked(object sender, EventArgs e)
+        private async void btnConfirmar_Clicked(object sender, EventArgs e)
         {
             await DisplayAlert("", "Inspeção realizado com sucesso!", "OK");
         }

@@ -14,7 +14,7 @@ namespace AppEpi.Views
         }
 
 
-        async private void btnConfirmar_Clicked(object sender, EventArgs e)
+        private async void btnConfirmar_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
             if (epis.Text != "")

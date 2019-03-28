@@ -27,7 +27,7 @@ namespace AppEpi.Views
         }
 
 
-        async private void btnEnvioTeste_Clicked(object sender, EventArgs e)
+        private async void btnEnvioTeste_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string localEstoque = "";

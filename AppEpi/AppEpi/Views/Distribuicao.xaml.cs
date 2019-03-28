@@ -12,7 +12,7 @@ namespace AppEpi.Views
         }
 
 
-        async private void btnConfirmar_Clicked(object sender, EventArgs e)
+        private async void btnConfirmar_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
             btnConfirmar.Clicked -= btnConfirmar_Clicked;
@@ -42,7 +42,7 @@ namespace AppEpi.Views
         }
 
 
-        async protected override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             epcList.Clear();

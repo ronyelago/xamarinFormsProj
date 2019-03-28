@@ -47,7 +47,7 @@ namespace AppEpi.Views
         }
 
 
-        async private void btnLocalizacao_Clicked(object sender, EventArgs e)
+        private async void btnLocalizacao_Clicked(object sender, EventArgs e)
         {
             var locator = CrossGeolocator.Current;
             var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));

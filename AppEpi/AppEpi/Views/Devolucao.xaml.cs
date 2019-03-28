@@ -13,7 +13,7 @@ namespace AppEpi.Views
         }
 
 
-        async private void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
             var wbs = DependencyService.Get<IWEBClient>();
             string localEstoque = "";
@@ -46,7 +46,7 @@ namespace AppEpi.Views
         }
 
 
-        async protected override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             var wbs = DependencyService.Get<IWEBClient>();

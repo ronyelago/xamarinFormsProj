@@ -24,7 +24,7 @@ namespace AppEpi.Views
         }
 
 
-        async private void fechaSplash()
+        private void fechaSplash()
         {
             var navPage = new NavigationPage(new MainPage());
             Application.Current.MainPage = navPage;

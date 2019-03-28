@@ -13,7 +13,7 @@ namespace AppEpi.Views
         }
 
 
-        async protected override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             var wbs = DependencyService.Get<IWEBClient>();
@@ -40,7 +40,7 @@ namespace AppEpi.Views
         }
 
 
-        async void EditorTextChanged(object sender, TextChangedEventArgs e)
+        void EditorTextChanged(object sender, TextChangedEventArgs e)
         {
         }
 
@@ -94,7 +94,7 @@ namespace AppEpi.Views
                     var result = wbs.retornarDadosEpiValidar(listEPCS, UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "2";
                     UsuarioLogado.LocalEstoque = localEstoque.Split('-')[0];
-                    UsuarioLogado.StatusEstoque = abreviarStatus(entradaSaida);
+                    UsuarioLogado.StatusEstoque = AbreviarStatus(entradaSaida);
                     var detailPage = new Page4(result);
                     await Navigation.PushAsync(detailPage);
                 }
@@ -106,7 +106,7 @@ namespace AppEpi.Views
         }
 
 
-        private string abreviarStatus(string entradaSaida)
+        private string AbreviarStatus(string entradaSaida)
         {
             switch (entradaSaida)
             {

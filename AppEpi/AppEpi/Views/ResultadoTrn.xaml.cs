@@ -40,7 +40,7 @@ namespace AppEpi.Views
         }
 
 
-        async protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
             var result = _it.Where(x => x.corAviso == "#ff7f7f").ToList();
@@ -74,7 +74,7 @@ namespace AppEpi.Views
         }
 
 
-        async private void btnAssinar_Clicked(object sender, EventArgs e)
+        private async void btnAssinar_Clicked(object sender, EventArgs e)
         {
             string key = _chave[0].EPC;
             UsuarioLogado.ChaveDocumento = key;
