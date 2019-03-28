@@ -15,24 +15,23 @@ namespace AppEpi.Views
 
         private async void btnConfirmar_Clicked(object sender, EventArgs e)
         {
-            var wbs = DependencyService.Get<IWEBClient>();
-
-            if (epcList.Count > 0)
+            if (epcList.Count <= 0)
+            {
+                await DisplayAlert("Consulta de Epi", "Verifique os Campos!", "OK");
+            }
+            else
             {
                 var answer = await DisplayAlert("Consulta de Epi", "Confirmar Consulta?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
                 if (answer)
                 {
+                    var wbs = DependencyService.Get<IWEBClient>();
                     var result = wbs.consultEPI(epcList.GetFormattedEpcList());
                     UsuarioLogado.Operacao = "7";
                     var detailPage = new ResultadoTrn(result);
-
                     NavigationPage.SetBackButtonTitle(this, "Voltar");
+
                     await Navigation.PushAsync(detailPage);
                 }
-            }
-            else
-            {
-                await DisplayAlert("Consulta de Epi", "Verifique os Campos!", "OK");
             }
         }
 

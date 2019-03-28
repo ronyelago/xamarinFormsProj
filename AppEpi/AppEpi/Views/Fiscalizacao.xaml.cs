@@ -48,28 +48,28 @@ namespace AppEpi.Views
         {
             try
             {
-                var wbs = DependencyService.Get<IWEBClient>();
-
-                var location = await CrossGeolocator.Current.GetPositionAsync(TimeSpan.FromSeconds(10));
-                UsuarioLogado.Latitude = location.Latitude.ToString();
-                UsuarioLogado.Longitude = location.Longitude.ToString();
-
-                if (epcList.Count > 0)
+                if (epcList.Count <= 0)
                 {
-                    var answer = await DisplayAlert("Fiscalização", "Confirmar Fiscalização?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
-                    if (answer)
-                    {
-                        var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
-                        UsuarioLogado.Operacao = "6";
-                        var detailPage = new Page4(result);
-
-                        NavigationPage.SetBackButtonTitle(this, "Voltar");
-                        await Navigation.PushAsync(detailPage);
-                    }
+                    await DisplayAlert("Fiscalização", "Verifique os Campos!", "OK");
                 }
                 else
                 {
-                    await DisplayAlert("Fiscalização", "Verifique os Campos!", "OK");
+                    var location = await CrossGeolocator.Current.GetPositionAsync(TimeSpan.FromSeconds(10));
+                    UsuarioLogado.Latitude = location.Latitude.ToString();
+                    UsuarioLogado.Longitude = location.Longitude.ToString();
+
+                    var answer = await DisplayAlert("Fiscalização", "Confirmar Fiscalização?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
+                    if (answer)
+                    {
+                        var wbs = DependencyService.Get<IWEBClient>();
+                        var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
+                        UsuarioLogado.Operacao = "6";
+                        var detailPage = new Page4(result);
+                        NavigationPage.SetBackButtonTitle(this, "Voltar");
+
+                        await Navigation.PushAsync(detailPage);
+
+                    }
                 }
             }
             catch (Plugin.Geolocator.Abstractions.GeolocationException ex)

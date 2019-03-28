@@ -36,6 +36,11 @@ namespace AppEpi.ViewModels
 
         protected void OnClicked(object sender, EventArgs e)
         {
+            // usar para evitar duplos cliques:
+            // btnConfirmar.Clicked -= btnConfirmar_Clicked;
+            // Parent.Confirmar();
+            // btnConfirmar.Clicked += btnConfirmar_Clicked;
+
             Debug.WriteLine("REGISTREI UM CLICAO!");
         }
     }

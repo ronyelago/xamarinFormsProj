@@ -29,35 +29,26 @@ namespace AppEpi.Views
 
         private async void btnEnvioTeste_Clicked(object sender, EventArgs e)
         {
-            var wbs = DependencyService.Get<IWEBClient>();
-            string localEstoque = "";
-
-            if (pckLocalEstoque.SelectedIndex == -1)
+            if (epcList.Count <= 0 || pckLocalEstoque.SelectedIndex < 0)
             {
-                localEstoque = "";
+                await DisplayAlert("Envio Para Higienização", "Verifique os Campos!", "OK");
             }
             else
             {
-                localEstoque = pckLocalEstoque.Items[pckLocalEstoque.SelectedIndex];
+                string localEstoque = pckLocalEstoque.Items[pckLocalEstoque.SelectedIndex];
                 localEstoque = localEstoque.Split('-')[0];
-            }
 
-            if (epcList.Count > 0)
-            {
                 var answer = await DisplayAlert("Envio Para Higienização", "Confirmar Envio para Higienização?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
                 if (answer)
                 {
+                    var wbs = DependencyService.Get<IWEBClient>();
                     var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     UsuarioLogado.Operacao = "8";
                     UsuarioLogado.LocalEstoque = localEstoque;
-
                     var detailPage = new Page4(result);
+
                     await Navigation.PushAsync(detailPage);
                 }
-            }
-            else
-            {
-                await DisplayAlert("Envio Para Higienização", "Verifique os Campos!", "OK");
             }
         }
 

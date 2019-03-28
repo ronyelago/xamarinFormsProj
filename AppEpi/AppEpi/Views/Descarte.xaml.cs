@@ -13,28 +13,21 @@ namespace AppEpi.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            var wbs = DependencyService.Get<IWEBClient>();
-
-            if (epcList.Count > 0)
+            if (epcList.Count <= 0 || edtMotivo.Text == "")
             {
-                if (edtMotivo.Text != "")
-                {
-                    var answer = await DisplayAlert("Descarte", "Confirmar Descarte?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
-                    if (answer)
-                    {
-                        var result = wbs.descartItem(epcList.GetFormattedEpcList(), edtMotivo.Text);
-                        var detailPage = new ResultadoTrn(result);
-                        await Navigation.PushAsync(detailPage);
-                    }
-                }
-                else
-                {
-                    await DisplayAlert("Descarte", "Verifique os Campos!", "OK");
-                }
+                await DisplayAlert("Descarte", "Verifique os Campos!", "OK");
             }
             else
             {
-                await DisplayAlert("Descarte", "Verifique os Campos!", "OK");
+                var answer = await DisplayAlert("Descarte", "Confirmar Descarte?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
+                if (answer)
+                {
+                    var wbs = DependencyService.Get<IWEBClient>();
+                    var result = wbs.descartItem(epcList.GetFormattedEpcList(), edtMotivo.Text);
+                    var detailPage = new ResultadoTrn(result);
+
+                    await Navigation.PushAsync(detailPage);
+                }
             }
         }
 

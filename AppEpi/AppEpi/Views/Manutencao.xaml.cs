@@ -15,7 +15,7 @@ namespace AppEpi.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            if (pckLocalEstoque.SelectedIndex < 0 || epcList.Count < 1)
+            if (epcList.Count <= 0 || pckLocalEstoque.SelectedIndex < 0)
             {
                 await DisplayAlert("Manutenção", "Verifique os Campos!", "OK");
             }
@@ -30,6 +30,7 @@ namespace AppEpi.Views
                     var wbs = DependencyService.Get<IWEBClient>();
                     var result = wbs.manutencaoEPIS(epcList.GetFormattedEpcList(), localEstoque);
                     var detailPage = new ResultadoTrn(result);
+
                     await Navigation.PushAsync(detailPage);
                 }
             }
