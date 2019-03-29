@@ -13,6 +13,7 @@ namespace AppEpi.ViewModels
             get
             {
                 var parent = Parent;
+                // Busca o pai dos pais até achar uma Page
                 while (parent != null)
                 {
                     if (parent is Page)
@@ -38,15 +39,30 @@ namespace AppEpi.ViewModels
 
         protected void OnClicked(object sender, EventArgs e)
         {
-            // partes comentadas foi uma tentativa de evitar duplo clique que deu efeito rebote
+            // tentativa de evitar duplo clique que deu efeito rebote
+            // não sei pq a TwoS usava estrutura semelhante em algumas das páginas
             //Clicked -= _clickedEHandler;
-            if (ParentPage is IConfirmacao)
-            {
-                ((IConfirmacao)ParentPage).OnConfirmarClicked();
-            }
-            else
-                Debug.WriteLine("Page " + ParentPage.ToString() + "não implementa interface de confirmacao.");
             //Clicked += _clickedEHandler;
+
+            try
+            {
+                if (ParentPage is IConfirmacao)
+                {
+                    ((IConfirmacao)ParentPage).OnConfirmarClicked();
+                }
+                else
+                {
+                    Debug.WriteLine(
+                        "Page " + ParentPage.ToString() + " não implementa interface de confirmacao."
+                        );
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(
+                    "Exceção durante tentativa de confirmação na página " + ParentPage.ToString() + ":" + ex.Message
+                    );
+            }
         }
     }
 }
