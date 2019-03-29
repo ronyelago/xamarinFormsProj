@@ -12,13 +12,15 @@
 
                 <Button 
                     x:Name="btnSenha" 
+                    IsVisible="False"
                     Text="Registrar Senha"
                     FontSize="18"
                     Style="{StaticResource BotaoAzul1}"
                     Clicked="btnSenha_Clicked" />
 
-                <appepi:EpcListView 
-                    x:Name="btnConfirmar" />
+                <appepi:ConfirmarButton
+                    x:Name="btnConfirmar"
+                    IsVisible="False" />
 
             </StackLayout>
 

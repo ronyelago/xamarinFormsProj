@@ -18,8 +18,8 @@ namespace AppEpi.Views
         {
             InitializeComponent();
 
-            listResultado.ItemsSource = result;
             items = result;
+            listResultado.ItemsSource = items;
         }
 
 
@@ -28,17 +28,6 @@ namespace AppEpi.Views
             base.OnAppearing();
 
             Device.StartTimer(new TimeSpan(0, 0, 0, 0, 300), TimerElapsed);
-
-            if (UsuarioLogado.Operacao == "3")
-            {
-                btnSenha.IsVisible = false;
-                btnConfirmar.IsVisible = true;
-            }
-            else
-            {
-                btnSenha.IsVisible = false;
-                btnConfirmar.IsVisible = true;
-            }
         }
 
 
@@ -58,36 +47,38 @@ namespace AppEpi.Views
         }
 
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private void Button_Clicked(object sender, EventArgs args)
         {
-            var item = (Button)sender;
-            var codigo = item.CommandParameter.ToString();
+            var codigo = ((Button)sender).CommandParameter.ToString();
             countConfirmacao++;
-            item.IsEnabled = false;
+            ((Button)sender).IsEnabled = false;
         }
 
 
-        private async void Button_ClickedRemove(object sender, EventArgs e)
+        private async void Button_ClickedRemove(object sender, EventArgs args)
         {
-            var item = (Button)sender;
-            var codigo = item.CommandParameter.ToString();
+            var codigo = ((Button)sender).CommandParameter.ToString();
             var rst = items.Where(x => x.EPC == codigo).ToList();
-            items.Remove(rst[0]);
-            listResultado.ItemsSource = items;
-            if (items.Count == 0)
+
+            items.Remove(rst.FirstOrDefault());
+
+            if (items.Count <= 0)
             {
-                await Navigation.PopModalAsync();
+                await Navigation.PopAsync();
             }
         }
 
 
         async void IConfirmacao.OnConfirmarClicked()
         {
-            string listEPCS = "";
-            int count = 0;
-
-            if (countConfirmacao == items.Count)
+            if (countConfirmacao != items.Count)
             {
+                await DisplayAlert("", "Confirme Todos os Itens!", "OK");
+            }
+            else
+            {
+                int count = 0;
+                string listEPCS = "";
 
                 foreach (var item in items)
                 {
@@ -98,7 +89,11 @@ namespace AppEpi.Views
                     }
                 }
 
-                if (count > 0)
+                if (count <= 0)
+                {
+                    await DisplayAlert("", "Verifique os Campos!", "OK");
+                }
+                else
                 {
                     var wbs = DependencyService.Get<IWEBClient>();
                     List<RESULTADOMOV> result = new List<RESULTADOMOV>();
@@ -124,11 +119,9 @@ namespace AppEpi.Views
                             result = wbs.inspecaoEPIFUNC(listEPCS, UsuarioLogado.Latitude, UsuarioLogado.Longitude);
                             break;
                         case "8":
-                            //HIGIENIZACAO
                             result = wbs.envioParaHigienizacao(listEPCS, UsuarioLogado.LocalEstoque);
                             break;
                         case "9":
-                            //HIGIENIZACAO
                             result = wbs.recebimentoDaHigienizacao(listEPCS);
                             break;
                         case "10":
@@ -139,8 +132,6 @@ namespace AppEpi.Views
                             break;
                     }
 
-                    //var result = wbs.retornarDadosEpiValidar(listEPCS);
-                    //await DisplayAlert("Recebimento", result.Count.ToString(), "OK");
                     if (UsuarioLogado.Operacao != "6")
                     {
                         var detailPage = new ResultadoTrn(result);
@@ -156,14 +147,6 @@ namespace AppEpi.Views
                         await Navigation.PushAsync(detailPage);
                     }
                 }
-                else
-                {
-                    await DisplayAlert("", "Verifique os Campos!", "OK");
-                }
-            }
-            else
-            {
-                await DisplayAlert("", "Confirme Todos os Itens!", "OK");
             }
         }
 
@@ -180,7 +163,8 @@ namespace AppEpi.Views
                     listEPCS = listEPCS + "|" + item.EPC;
                 }
             }
-            var ret = validarMatriculaSenha(listEPCS);
+
+            var ret = ValidarMatriculaSenha(listEPCS);
             if (ret)
             {
                 var detailPage = new LoginPage();
@@ -194,7 +178,7 @@ namespace AppEpi.Views
         }
 
 
-        private bool validarMatriculaSenha(string listEPCS)
+        private bool ValidarMatriculaSenha(string listEPCS)
         {
             try
             {
