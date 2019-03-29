@@ -8,7 +8,6 @@ namespace AppEpi.ViewModels
     {
         private int? _itemsLimit = null;
         public int ItemsLimit { get => Math.Abs((int)_itemsLimit); set => _itemsLimit = value; }
-
         public int Count { get => _epcList.Count; }
 
         private ObservableCollection<string> _epcList = new ObservableCollection<string>();
@@ -18,28 +17,11 @@ namespace AppEpi.ViewModels
         {
             ItemsSource = _epcList;
 
-            // Definição da altura da lista
-            if (_itemsLimit != null)
-            {
-                // exatamente o necessário caso haja limite de itens
-                HeightRequest = RowHeight * (double)ItemsLimit;
-            }
-            else
-                // expansível até onde possível caso não haja
-                VerticalOptions = LayoutOptions.StartAndExpand;
+            SetBasicLayout();
 
             MessagingCenter.Subscribe<App, string>(this, "EPC", (sender, arg) =>
-            {
-                if (_itemsLimit != null)
-                {
-                    if (_epcList.Count >= ItemsLimit)
-                    {
-                        // se houver limite de itens, retira-se o primeiro item da lista para inserir o novo
-                        _epcList.RemoveAt(0);
-                    }
-                }
-                _epcList.Add(arg);
-            });
+                HandleIncoming(arg)
+            );
         }
 
 
@@ -75,6 +57,38 @@ namespace AppEpi.ViewModels
             }
             else
                 return null;
+        }
+
+
+        private void SetBasicLayout()
+        {
+            // Definição da altura da lista
+            if (_itemsLimit != null)
+            {
+                // exatamente o necessário caso haja limite de itens
+                HeightRequest = RowHeight * (double)ItemsLimit;
+            }
+            else
+                // expansível até onde possível caso não haja
+                VerticalOptions = LayoutOptions.StartAndExpand;
+        }
+
+
+        private void HandleIncoming(string epc)
+        {
+            // itens duplicados são ignorados
+            if (_epcList.Contains(epc))
+                return;
+
+            else if (_itemsLimit != null)
+            {
+                if (_epcList.Count >= ItemsLimit)
+                {
+                    // se houver limite de itens, retira-se o primeiro item da lista para inserir o novo
+                    _epcList.RemoveAt(0);
+                }
+            }
+            _epcList.Add(epc);
         }
     }
 }
