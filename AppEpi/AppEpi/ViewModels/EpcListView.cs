@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
 namespace AppEpi.ViewModels
@@ -6,18 +7,19 @@ namespace AppEpi.ViewModels
     public class EpcListView : ListView
     {
         private int? _itemsLimit = null;
-        public int? ItemsLimit { get => _itemsLimit; set => _itemsLimit = value; }
+        public int ItemsLimit { get => Math.Abs((int)_itemsLimit); set => _itemsLimit = value; }
 
         public int Count { get => _epcList.Count; }
 
         private ObservableCollection<string> _epcList = new ObservableCollection<string>();
 
+        // Constructor
         public EpcListView()
         {
             ItemsSource = _epcList;
 
             // Definição da altura da lista
-            if (ItemsLimit != null)
+            if (_itemsLimit != null)
             {
                 // exatamente o necessário caso haja limite de itens
                 HeightRequest = RowHeight * (double)ItemsLimit;
@@ -28,7 +30,7 @@ namespace AppEpi.ViewModels
 
             MessagingCenter.Subscribe<App, string>(this, "EPC", (sender, arg) =>
             {
-                if (ItemsLimit != null)
+                if (_itemsLimit != null)
                 {
                     if (_epcList.Count >= ItemsLimit)
                     {
