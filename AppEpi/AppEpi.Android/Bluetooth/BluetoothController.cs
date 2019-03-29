@@ -54,7 +54,7 @@ namespace AppEpi.Droid.Bluetooth
                 if (!(value.Equals(_currentState)))
                 {
                     // envia mensagem a toda aplicação com o novo estado
-                    MessagingCenter.Send((App)Application.Current, "BLUETOOTH_STATE", value.ToString());
+                    MessagingCenter.Send((App)Application.Current, "BLUETOOTH_STATE", value);
                 }
                 _currentState = value;
             }

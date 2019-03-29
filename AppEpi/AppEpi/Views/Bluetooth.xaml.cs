@@ -10,15 +10,12 @@ namespace AppEpi.Views
         private ObservableCollection<string> _listOfDevices = new ObservableCollection<string>();
 
         private string _selectedDeviceName = null;
+        public string SelectedDeviceName { get => deviceList.SelectedItem.ToString(); }
 
         public Bluetooth()
         {
             InitializeComponent();
 
-            MessagingCenter.Subscribe<App, string>(this, "BLUETOOTH_STATE", (sender, arg) =>
-            {
-                Debug.WriteLine("Novo estado Bluetooth:" + arg);
-            });
             MessagingCenter.Subscribe<App>(this, "RFID_LOWBATT", (sender) =>
             {
                 Debug.WriteLine("LOW BATTERY EVENT");
@@ -28,14 +25,7 @@ namespace AppEpi.Views
                 Debug.WriteLine("OVERHEAT EVENT");
             });
         }
-
-
-        private void btnConectar_Clicked(object sender, EventArgs e)
-        {
-            DependencyService.Get<IBluetoothController>().Start(_selectedDeviceName);
-            btnConectar.IsEnabled = false;
-        }
-
+        
 
         void OnSliderDragCompleted(object sender , EventArgs e)
         {
@@ -65,7 +55,6 @@ namespace AppEpi.Views
 
                     deviceList.ItemSelected += (object sender, SelectedItemChangedEventArgs e) =>
                     {
-                        _selectedDeviceName = deviceList.SelectedItem.ToString();
                         btnConectar.IsEnabled = true;
                     };
                 }

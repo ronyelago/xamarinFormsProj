@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AppEpi.ViewModels"
              x:Class="AppEpi.Views.Bluetooth">
     <ContentPage.Content>
         <StackLayout Margin="10,10" Spacing="10">
@@ -10,12 +11,12 @@
                 <Label>Dispositivos Pareados</Label>
 
                 <ListView 
-                        x:Name="deviceList" 
-                        VerticalOptions="StartAndExpand" />
+                    x:Name="deviceList" 
+                    VerticalOptions="StartAndExpand" />
 
                 <StackLayout
-                    VerticalOptions="FillAndExpand"
-                    x:Name="avisoNaoHaDispositivos">
+                    x:Name="avisoNaoHaDispositivos"
+                    VerticalOptions="FillAndExpand">
 
                     <!-- Essa label não está devidamente centralizada -->
                     <Label
@@ -32,32 +33,28 @@
 
             </StackLayout>
 
-            <Button 
-                    Text="Conectar"
-                    IsEnabled="False"
-                    FontSize="18"
-                    x:Name="btnConectar"
-                    Clicked="btnConectar_Clicked"
-                    Style="{StaticResource BotaoAzul1}" />
+            <viewmodels:BluetoothConnectionButton 
+                x:Name="btnConectar"
+                Text="Conectar" />
 
-            <StackLayout 
-                    x:Name="controlePotencia"
-                    Margin="10,10"
-                    Spacing="10"
-                    IsVisible="True">
+            <StackLayout
+                x:Name="controlePotencia"
+                Margin="10,10"
+                Spacing="10"
+                IsVisible="True">
 
-                <Label  
-                        x:Name="potenciaLabel"
-                        Text="Potência leitor"
-                        HorizontalOptions="Center" />
+                <Label
+                    x:Name="potenciaLabel"
+                    Text="Potência leitor"
+                    HorizontalOptions="Center" />
 
                 <Slider
-                        x:Name="potenciaSlider"
-                        Maximum="100"
-                        Minimum="25"
-                        MinimumTrackColor="Blue"
-                        MaximumTrackColor="Gray"
-                        DragCompleted="OnSliderDragCompleted" />
+                    x:Name="potenciaSlider"
+                    Maximum="100"
+                    Minimum="25"
+                    MinimumTrackColor="Blue"
+                    MaximumTrackColor="Gray"
+                    DragCompleted="OnSliderDragCompleted" />
 
             </StackLayout>
 
