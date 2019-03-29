@@ -12,24 +12,24 @@ namespace AppEpi.Views
         }
 
 
-        async private void btnAtribuir_Clicked(object sender, EventArgs e)
+        async void btnAtribuir_Clicked(object sender, EventArgs e)
         {
-            var wbs = DependencyService.Get<IWEBClient>();
-            btnAtribuir.Clicked -= btnAtribuir_Clicked;
-            if (entMatricula.Text != "" && entCracha.Text != "")
+
+            if (epcList.Count <= 0 || entMatricula.Text == "")
+            {
+                await DisplayAlert("Atribuição", "Verifique os Campos!", "OK");
+            }
+            else
             {
                 var answer = await DisplayAlert("Atribuição de Cracha", "Deseja Confirmar Atribuição?", "Sim", "Não");
                 if (answer)
                 {
-                    var result = wbs.atribuicaoCrachar(entMatricula.Text, entCracha.Text);
-                    btnAtribuir.Clicked += btnAtribuir_Clicked;
+                    var wbs = DependencyService.Get<IWEBClient>();
+                    var result = wbs.atribuicaoCrachar(entMatricula.Text, epcList.GetFormattedEpcList());
                     UsuarioLogado.Operacao = "0";
                     var detailPage = new ResultadoTrn(result);
+
                     await Navigation.PushAsync(detailPage);
-                }
-                else
-                {
-                    btnAtribuir.Clicked += btnAtribuir_Clicked;
                 }
             }
         }
@@ -38,7 +38,7 @@ namespace AppEpi.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            entMatricula.Text = ""; entCracha.Text = "";
+            epcList.Clear();
         }
     }
 }

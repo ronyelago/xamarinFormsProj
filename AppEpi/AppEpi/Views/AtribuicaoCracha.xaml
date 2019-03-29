@@ -1,21 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:appepi="clr-namespace:AppEpi.ViewModels"
              Title="Atribuir Cracha"
              x:Class="AppEpi.Views.AtribuicaoCracha">
     <ContentPage.Content>
-        <ScrollView x:Name="scrolly">
-            <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">
-                <StackLayout>
-                    <Label >Matricula</Label>
-                    <Entry   x:Name="entMatricula"  />
-                </StackLayout>
-                <StackLayout Margin="0,50,0,0">
-                    <Label>Cracha</Label>
-                    <Entry   x:Name="entCracha"  />
-                </StackLayout>
-                <Button Text="Atribuir" x:Name="btnAtribuir" Clicked="btnAtribuir_Clicked" FontSize="18" Style="{StaticResource BotaoAzul1}" />
-            </StackLayout>
-        </ScrollView>
+        <StackLayout Margin="10,10" Spacing="10">
+            
+            <Label >Matricula</Label>
+
+            <Entry x:Name="entMatricula" />
+
+            <Label>Cracha</Label>
+
+            <appepi:EpcListView
+                x:Name="epcList"
+                ItemsLimit="1" />
+
+            <Button
+                Text="Atribuir"
+                x:Name="btnAtribuir"
+                Clicked="btnAtribuir_Clicked"
+                FontSize="18"
+                Style="{StaticResource BotaoAzul1}" />
+            
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
