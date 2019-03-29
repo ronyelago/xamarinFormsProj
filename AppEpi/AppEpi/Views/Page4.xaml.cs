@@ -1,4 +1,5 @@
 ﻿using AppEpi.Models;
+using AppEpi.ViewModels;
 using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
@@ -8,17 +9,17 @@ using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class Page4 : ContentPage
+    public partial class Page4 : ContentPage, IConfirmacao
     {
         private int countConfirmacao = 0;
-        private ObservableCollection<DADOSEPI> it;
+        private ObservableCollection<DADOSEPI> items;
 
         public Page4(ObservableCollection<DADOSEPI> result)
         {
             InitializeComponent();
 
             listResultado.ItemsSource = result;
-            it = result;
+            items = result;
         }
 
 
@@ -45,8 +46,8 @@ namespace AppEpi.Views
         {
             if (UsuarioLogado.Operacao == "3")
             {
-                    btnSenha.IsVisible = false;
-                    btnConfirmar.IsVisible = true;
+                btnSenha.IsVisible = false;
+                btnConfirmar.IsVisible = true;
             }
             else
             {
@@ -70,27 +71,25 @@ namespace AppEpi.Views
         {
             var item = (Button)sender;
             var codigo = item.CommandParameter.ToString();
-            var rst = it.Where(x => x.EPC == codigo).ToList();
-            it.Remove(rst[0]);
-            listResultado.ItemsSource = it;
-            if (it.Count == 0)
+            var rst = items.Where(x => x.EPC == codigo).ToList();
+            items.Remove(rst[0]);
+            listResultado.ItemsSource = items;
+            if (items.Count == 0)
             {
                 await Navigation.PopModalAsync();
             }
         }
 
 
-        private async void btnConfirmar_Clicked(object sender, EventArgs e)
+        async void IConfirmacao.OnConfirmarClicked()
         {
-            var wbs = DependencyService.Get<IWEBClient>();
             string listEPCS = "";
             int count = 0;
-            List<RESULTADOMOV> result = new List<RESULTADOMOV>();
 
-            if (countConfirmacao == it.Count)
+            if (countConfirmacao == items.Count)
             {
 
-                foreach (var item in it)
+                foreach (var item in items)
                 {
                     if (item.EPC != "")
                     {
@@ -101,6 +100,9 @@ namespace AppEpi.Views
 
                 if (count > 0)
                 {
+                    var wbs = DependencyService.Get<IWEBClient>();
+                    List<RESULTADOMOV> result = new List<RESULTADOMOV>();
+
                     switch (UsuarioLogado.Operacao)
                     {
                         case "1":
@@ -170,7 +172,7 @@ namespace AppEpi.Views
         {
             string listEPCS = "";
             int count = 0;
-            foreach (var item in it)
+            foreach (var item in items)
             {
                 if (item.EPC != "")
                 {

@@ -12,19 +12,21 @@ namespace AppEpi.Views
     public partial class NaoConforme : PopupPage
     {
         private RESULTADOMOV id;
-        private List<RESULTADOMOV> it;
+        private List<RESULTADOMOV> items;
+
+
         public NaoConforme(List<RESULTADOMOV> result)
         {
             InitializeComponent();
             listResultado.ItemsSource = result;
-            it = result;
+            items = result;
         }
 
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            var result = it.Where(x => x.corAviso == "#ff7f7f").ToList();
+            var result = items.Where(x => x.corAviso == "#ff7f7f").ToList();
             if (result != null)
             {
                 if (result.Count > 0)
@@ -52,7 +54,7 @@ namespace AppEpi.Views
 
         private void OnClose(object sender, EventArgs e)
         {
-            PopupNavigation.PopAsync();
+            Navigation.PopAsync();
         }
 
 

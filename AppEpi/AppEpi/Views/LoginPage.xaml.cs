@@ -78,7 +78,7 @@ namespace AppEpi.Views
 
         private void OnClose(object sender, EventArgs e)
         {
-            PopupNavigation.PopAsync();
+            Navigation.PopAsync();
         }
 
 

@@ -24,12 +24,12 @@ namespace AppEpi.Views
                 if (FND != null)
                 {
                     await DisplayAlert("Não Conforme", "Realizado com Sucesso", "OK");
-                    await PopupNavigation.PopAsync();
+                    await Navigation.PopAsync();
                 }
                 else
                 {
                     await DisplayAlert("Não Conforme", FND.Resultado, "OK");
-                    await PopupNavigation.PopAsync();
+                    await Navigation.PopAsync();
                 }
             }
         }
@@ -37,7 +37,7 @@ namespace AppEpi.Views
 
         private void OnClose(object sender, EventArgs e)
         {
-            PopupNavigation.PopAsync();
+            Navigation.PopAsync();
         }
 
         protected override void OnAppearingAnimationEnd()

@@ -8,12 +8,12 @@ namespace AppEpi.Views
 {
     public partial class EPIparaInspecionar : ContentPage
     {
-        private ObservableCollection<DADOSEPI> it;
+        private ObservableCollection<DADOSEPI> items;
         public EPIparaInspecionar(ObservableCollection<DADOSEPI> result)
         {
             InitializeComponent();
             listResultado.ItemsSource = result;
-            it = result;
+            items = result;
         }
 
 
@@ -22,7 +22,7 @@ namespace AppEpi.Views
             var item = (Button)sender;
             var codigo = item.CommandParameter.ToString();
             item.IsEnabled = false;
-            var result = it.Where(x => x.EPC == codigo).ToList();
+            var result = items.Where(x => x.EPC == codigo).ToList();
             string nomeProduto = result[0].Produto;
             foreach (var i in UsuarioLogado.categoriaInspecao)
             {
