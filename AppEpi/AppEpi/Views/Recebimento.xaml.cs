@@ -1,10 +1,10 @@
 ﻿using AppEpi.Models;
-using System;
+using AppEpi.ViewModels;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class Recebimento : ContentPage
+    public partial class Recebimento : ContentPage, IConfirmacao
     {
         public Recebimento()
         {
@@ -12,7 +12,7 @@ namespace AppEpi.Views
         }
 
 
-        private async void btnConfirmar_Clicked(object sender, EventArgs e)
+        async void IConfirmacao.OnConfirmarClicked()
         {
             if (epcList.Count <= 0)
             {

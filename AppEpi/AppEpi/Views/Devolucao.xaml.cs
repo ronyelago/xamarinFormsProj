@@ -1,11 +1,12 @@
 ﻿using AppEpi.Models;
+using AppEpi.ViewModels;
 using System;
 using System.Linq;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class Devolucao : ContentPage
+    public partial class Devolucao : ContentPage, IConfirmacao
     {
         public Devolucao()
         {
@@ -13,7 +14,7 @@ namespace AppEpi.Views
         }
 
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        async void IConfirmacao.OnConfirmarClicked()
         {
 
             if (epcList.Count <= 0 || pckLocalEstoque.SelectedIndex < 0)

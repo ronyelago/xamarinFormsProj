@@ -11,9 +11,7 @@
             
             <appepi:EpcListView x:Name="epcList" />
             
-            <appepi:ConfirmarButton
-                x:Name="btnConfirmar"
-                Clicked="btnConfirmar_Clicked" />
+            <appepi:ConfirmarButton/>
             
         </StackLayout>
     </ContentPage.Content>

@@ -1,11 +1,11 @@
 ﻿using AppEpi.Models;
-using System;
+using AppEpi.ViewModels;
 using System.Linq;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class MovimentacaoEstoque : ContentPage
+    public partial class MovimentacaoEstoque : ContentPage, IConfirmacao
     {
         public MovimentacaoEstoque()
         {
@@ -32,7 +32,7 @@ namespace AppEpi.Views
         }
 
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        async void IConfirmacao.OnConfirmarClicked()
         {
 
             if (epcList.Count <= 0 ||

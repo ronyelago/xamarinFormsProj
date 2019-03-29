@@ -1,10 +1,11 @@
 ﻿using AppEpi.Models;
+using AppEpi.ViewModels;
 using System;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class Distribuicao : ContentPage
+    public partial class Distribuicao : ContentPage, IConfirmacao
     {
         public Distribuicao()
         {
@@ -12,7 +13,7 @@ namespace AppEpi.Views
         }
 
 
-        private async void btnConfirmar_Clicked(object sender, EventArgs e)
+        async void IConfirmacao.OnConfirmarClicked()
         {
             if (epcList.Count <= 0)
             {

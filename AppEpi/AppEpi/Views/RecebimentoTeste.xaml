@@ -23,8 +23,7 @@
 
             <Entry x:Name="entART"/>
 
-            <appepi:ConfirmarButton
-                Clicked="btnEnvioTeste_Clicked" />
+            <appepi:ConfirmarButton/>
 
         </StackLayout>
     </ContentPage.Content>

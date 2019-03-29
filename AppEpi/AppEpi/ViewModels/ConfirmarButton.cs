@@ -6,22 +6,13 @@ namespace AppEpi.ViewModels
 {
     public class ConfirmarButton : Button
     {
-        public ConfirmarButton()
+        private EventHandler _clickedEHandler;
+
+        public Page ParentPage
         {
-            Text = "Confirmar";
-            FontSize = 18;
-            Style = (Style)Application.Current.Resources["BotaoAzul1"];
-            Clicked += new EventHandler(OnClicked);
-        }
-
-
-        private Page GetParentPage()
-        {
-            VisualElement element = this;
-
-            if (element != null)
+            get
             {
-                var parent = element.Parent;
+                var parent = Parent;
                 while (parent != null)
                 {
                     if (parent is Page)
@@ -30,18 +21,32 @@ namespace AppEpi.ViewModels
                     }
                     parent = parent.Parent;
                 }
+                return null;
             }
-            return null;
         }
+
+        // Constructor
+        public ConfirmarButton()
+        {
+            Text = "Confirmar";
+            FontSize = 18;
+            Style = (Style)Application.Current.Resources["BotaoAzul1"];
+            _clickedEHandler = new EventHandler(OnClicked);
+            Clicked += _clickedEHandler;
+        }
+
 
         protected void OnClicked(object sender, EventArgs e)
         {
-            // usar para evitar duplos cliques:
-            // btnConfirmar.Clicked -= btnConfirmar_Clicked;
-            // Parent.Confirmar();
-            // btnConfirmar.Clicked += btnConfirmar_Clicked;
-
-            Debug.WriteLine("REGISTREI UM CLICAO!");
+            // partes comentadas foi uma tentativa de evitar duplo clique que deu efeito rebote
+            //Clicked -= _clickedEHandler;
+            if (ParentPage is IConfirmacao)
+            {
+                ((IConfirmacao)ParentPage).OnConfirmarClicked();
+            }
+            else
+                Debug.WriteLine("Page " + ParentPage.ToString() + "não implementa interface de confirmacao.");
+            //Clicked += _clickedEHandler;
         }
     }
 }

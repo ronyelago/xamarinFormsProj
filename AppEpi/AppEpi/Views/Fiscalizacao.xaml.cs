@@ -6,10 +6,11 @@ using System;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Xamarin.Forms;
+using AppEpi.ViewModels;
 
 namespace AppEpi.Views
 {
-    public partial class Fiscalizacao : ContentPage
+    public partial class Fiscalizacao : ContentPage, IConfirmacao
     {
         public Fiscalizacao()
         {
@@ -44,7 +45,7 @@ namespace AppEpi.Views
         }
 
 
-        private async void btnConfirmar_Clicked(object sender, EventArgs e)
+        async void IConfirmacao.OnConfirmarClicked()
         {
             try
             {

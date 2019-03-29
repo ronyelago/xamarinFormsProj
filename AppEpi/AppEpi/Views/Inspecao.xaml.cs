@@ -1,11 +1,12 @@
 ﻿using System;
 using AppEpi.Models;
+using AppEpi.ViewModels;
 using Plugin.Geolocator;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class Inspecao : ContentPage
+    public partial class Inspecao : ContentPage, IConfirmacao
     {
         public Inspecao()
         {
@@ -13,7 +14,7 @@ namespace AppEpi.Views
         }
 
 
-        private async void btnConfirmar_Clicked(object sender, EventArgs e)
+        async void IConfirmacao.OnConfirmarClicked()
         {
             if (epcList.Count <= 0)
             {

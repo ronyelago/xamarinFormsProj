@@ -1,11 +1,11 @@
 ﻿using AppEpi.Models;
-using System;
+using AppEpi.ViewModels;
 using System.Linq;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class EnvioTeste : ContentPage
+    public partial class EnvioTeste : ContentPage, IConfirmacao
     {
         public EnvioTeste()
         {
@@ -27,7 +27,7 @@ namespace AppEpi.Views
         }
 
 
-        private async void btnEnvioTeste_Clicked(object sender, EventArgs e)
+        async void IConfirmacao.OnConfirmarClicked()
         {
             if (epcList.Count <= 0 || pckLocalEstoque.SelectedIndex < 0)
             {

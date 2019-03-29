@@ -1,17 +1,18 @@
 ﻿using AppEpi.Models;
+using AppEpi.ViewModels;
 using System;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class RecebimentoHigienizacao : ContentPage
+    public partial class RecebimentoHigienizacao : ContentPage, IConfirmacao
     {
         public RecebimentoHigienizacao()
         {
             InitializeComponent();
         }
 
-        private async void btnEnvioTeste_Clicked(object sender, EventArgs e)
+        async void IConfirmacao.OnConfirmarClicked()
         {
             if (epcList.Count <= 0)
             {

@@ -15,8 +15,7 @@
 
             <Editor x:Name="edtMotivo" HeightRequest="50" />
 
-            <appepi:ConfirmarButton
-                Clicked="Button_Clicked" />
+            <appepi:ConfirmarButton/>
 
         </StackLayout>
     </ContentPage.Content>
