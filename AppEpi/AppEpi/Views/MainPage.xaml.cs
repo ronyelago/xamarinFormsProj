@@ -23,7 +23,7 @@ namespace AppEpi.Views
             Detail = new NavigationPage(new Principal())
             {
                 BarBackgroundColor = CorThema,
-                Title = "Easy Epi",
+                Title = "EasyEPI",
                 BarTextColor = Color.White,
                 Icon = "mnH.png"
             };

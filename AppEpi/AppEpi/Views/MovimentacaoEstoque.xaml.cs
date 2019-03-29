@@ -39,7 +39,7 @@ namespace AppEpi.Views
                 pckLocalEstoque.SelectedIndex < 0 ||
                 pckEntradaSaida.SelectedIndex < 0)
             {
-                await DisplayAlert("Easy Epi", "Verifique os Campos!", "OK");
+                await DisplayAlert("Movimentação de Estoque", "Verifique os Campos!", "OK");
             }
             else
             {
