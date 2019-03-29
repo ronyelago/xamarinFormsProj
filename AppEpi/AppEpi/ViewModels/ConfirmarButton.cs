@@ -1,39 +1,18 @@
-﻿using Xamarin.Forms;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System;
 
 namespace AppEpi.ViewModels
 {
-    public class ConfirmarButton : Button
+    public class ConfirmarButton : AppEPIButton
     {
-        private EventHandler _clickedEHandler;
-
-        public Page ParentPage
-        {
-            get
-            {
-                var parent = Parent;
-                // Busca o pai dos pais até achar uma Page
-                while (parent != null)
-                {
-                    if (parent is Page)
-                    {
-                        return parent as Page;
-                    }
-                    parent = parent.Parent;
-                }
-                return null;
-            }
-        }
+        private EventHandler _clickedEventHandler;
 
         // Constructor
-        public ConfirmarButton()
+        public ConfirmarButton() : base()
         {
             Text = "Confirmar";
-            FontSize = 18;
-            Style = (Style)Application.Current.Resources["BotaoAzul1"];
-            _clickedEHandler = new EventHandler(OnClicked);
-            Clicked += _clickedEHandler;
+            _clickedEventHandler = new EventHandler(OnClicked);
+            Clicked += _clickedEventHandler;
         }
 
 
@@ -41,8 +20,8 @@ namespace AppEpi.ViewModels
         {
             // tentativa de evitar duplo clique que deu efeito rebote
             // não sei pq a TwoS usava estrutura semelhante em algumas das páginas
-            //Clicked -= _clickedEHandler;
-            //Clicked += _clickedEHandler;
+            //Clicked -= _clickedEventHandler;
+            //Clicked += _clickedEventHandler;
 
             try
             {
