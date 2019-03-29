@@ -1,10 +1,11 @@
 ﻿using AppEpi.Models;
+using AppEpi.ViewModels;
 using System;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class AtribuicaoCracha : ContentPage
+    public partial class AtribuicaoCracha : ContentPage, IConfirmacao
     {
         public AtribuicaoCracha()
         {
@@ -12,9 +13,8 @@ namespace AppEpi.Views
         }
 
 
-        async void btnAtribuir_Clicked(object sender, EventArgs e)
+        async void IConfirmacao.OnConfirmarClicked()
         {
-
             if (epcList.Count <= 0 || entMatricula.Text == "")
             {
                 await DisplayAlert("Atribuição", "Verifique os Campos!", "OK");

@@ -1,29 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-             x:Class="AppEpi.Views.CadastroSenha">
+<pages:PopupPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:appepi="clr-namespace:AppEpi.ViewModels"
+    x:Class="AppEpi.Views.CadastroSenha">
+    
     <pages:PopupPage.Animation>
-        <animations:ScaleAnimation 
-      PositionIn="Bottom"
-      PositionOut="Center"/>
+        
+        <animations:ScaleAnimation
+            PositionIn="Bottom"
+            PositionOut="Center" />
+        
     </pages:PopupPage.Animation>
+    
     <ScrollView
-    HorizontalOptions="Center"
-    VerticalOptions="Center">
-        <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="5, 5, 5, 5">
-            <StackLayout BackgroundColor="White" Padding="0, 10, 0, 0">
-                <Label Text="Registrar Senha" TextColor="Gray" FontSize="20" HorizontalOptions="Center"></Label>
-                <StackLayout Margin="10,10"  x:Name="formLayout"  Spacing="10">
-                    <Label Text="Registrar Senha" x:Name="matricula" TextColor="Gray" FontSize="20" HorizontalOptions="Center"></Label>
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+        
+        <StackLayout
+            VerticalOptions="Center"
+            HorizontalOptions="FillAndExpand"
+            Padding="5, 5, 5, 5">
+            
+            <StackLayout
+                BackgroundColor="White"
+                Padding="0, 10, 0, 0">
+
+                <Label
+                    Text="Registrar Senha"
+                    TextColor="Gray"
+                    FontSize="20"
+                    HorizontalOptions="Center" />
+                
+                <StackLayout 
+                    Margin="10,10" 
+                    Spacing="10">
+
+                    <Label
+                        x:Name="matricula"
+                        Text="Registrar Senha"
+                        TextColor="Gray"
+                        FontSize="20"
+                        HorizontalOptions="Center" />
+                    
                     <StackLayout Padding="5,10">
-                        <Label >Senha</Label>
-                        <Editor x:Name="entSenha"  WidthRequest="300"  />
-                        <Label >Confirmar Senha</Label>
-                        <Editor x:Name="entSenhaConf"  WidthRequest="300"  />
+                        
+                        <Label>Senha</Label>
+                        
+                        <Editor
+                            x:Name="entSenha"
+                            WidthRequest="300" />
+                        
+                        <Label>Confirmar Senha</Label>
+                        
+                        <Editor
+                            x:Name="entSenhaConf"
+                            WidthRequest="300" />
+                        
                     </StackLayout>
-                    <Button Text="Confirmar" FontSize="18" x:Name="btnConfirmar" Clicked="btnConfirmar_Clicked" Style="{StaticResource BotaoAzul1}" />
+
+                    <appepi:ConfirmarButton/>
+
                 </StackLayout>
             </StackLayout>
         </StackLayout>

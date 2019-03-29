@@ -1,13 +1,13 @@
 ﻿using AppEpi.Models;
+using AppEpi.ViewModels;
 using Rg.Plugins.Popup.Pages;
-using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class CadastroSenha : PopupPage
+    public partial class CadastroSenha : PopupPage, IConfirmacao
     {
         List<RESULTADOMOV> resultEnter;
 
@@ -19,33 +19,34 @@ namespace AppEpi.Views
         }
 
 
-        private async void btnConfirmar_Clicked(object sender, EventArgs e)
+        async void IConfirmacao.OnConfirmarClicked()
         {
-            if (entSenha.Text == entSenhaConf.Text)
+
+            if (entSenha.Text != entSenhaConf.Text)
             {
-                
+                await DisplayAlert("Senha", "Senhas Diferentes!", "OK");
+            }
+            else
+            {
                 var wbs = DependencyService.Get<IWEBClient>();
                 var result = wbs.cadastSenha(entSenha.Text, resultEnter[0].EPC);
-                if (result.Find(x => x.Resultado == "OK") != null)
+                var teste = result.Find(x => x.Resultado == "OK");
+                if (result.Find(x => x.Resultado == "OK") != null) // inner update error acontecendo nessa linha
                 {
-                    await DisplayAlert("Senha", "Senhas Registrada com Sucesso!", "OK");
-                    await PopupNavigation.PopAsync();
+                    await DisplayAlert("Senha", "Senha Registrada com Sucesso!", "OK");
+                    await Navigation.PopAsync();
                 }
                 else
                 {
                     await DisplayAlert("Senha", "Funcionario=" + resultEnter[0].EPC + "\n " + result[0].Resultado, "OK");
                 }
             }
-            else
-            {
-                await DisplayAlert("Senha", "Senhas Diferentes!", "OK");
-            }
         }
 
 
         private void OnClose(object sender, EventArgs e)
         {
-            PopupNavigation.PopAsync();
+            Navigation.PopAsync();
         }
 
 

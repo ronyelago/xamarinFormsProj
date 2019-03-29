@@ -1,10 +1,10 @@
-﻿using Rg.Plugins.Popup.Extensions;
-using System;
+﻿using AppEpi.ViewModels;
+using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
 {
-    public partial class RegistroSenha : ContentPage
+    public partial class RegistroSenha : ContentPage, IConfirmacao
     {
         public RegistroSenha()
         {
@@ -12,31 +12,35 @@ namespace AppEpi.Views
         }
 
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        async void IConfirmacao.OnConfirmarClicked()
         {
-            var wbs = DependencyService.Get<IWEBClient>();
-
-            string[] lines = entMatricula.Text.Split('\n');
-            
-            if (entMatricula.Text != "")
+            if (entMatricula.Text == "")
             {
+                await DisplayAlert("Registrar Senha", "Verifique os Campos!", "OK");
+            }
+            else
+            {
+                var wbs = DependencyService.Get<IWEBClient>();
                 var result = wbs.funcionarioCracha(entMatricula.Text);
                 if (result.Count > 0)
                 {
                     if (result[0].Resultado == "OK")
                     {
-                        var detailPage = new CadastroSenha(result);
-                        await Navigation.PushPopupAsync(detailPage);
+                        try
+                        {
+                            var detailPage = new CadastroSenha(result);
+                            await Navigation.PushPopupAsync(detailPage);
+                        }
+                        catch
+                        {
+                            await DisplayAlert("Registrar Senha", "ERRO", "OK");
+                        }
                     }
                     else
                     {
-                        await DisplayAlert("Senha", result[0].Resultado, "OK");
+                        await DisplayAlert("Registrar Senha", result[0].Resultado, "OK");
                     }
                 }
-            }
-            else
-            {
-                await DisplayAlert("Senha", "Verifique os Campos!", "OK");
             }
         }
     }

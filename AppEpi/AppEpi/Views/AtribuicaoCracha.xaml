@@ -6,7 +6,7 @@
              x:Class="AppEpi.Views.AtribuicaoCracha">
     <ContentPage.Content>
         <StackLayout Margin="10,10" Spacing="10">
-            
+
             <Label >Matricula</Label>
 
             <Entry x:Name="entMatricula" />
@@ -17,13 +17,8 @@
                 x:Name="epcList"
                 ItemsLimit="1" />
 
-            <Button
-                Text="Atribuir"
-                x:Name="btnAtribuir"
-                Clicked="btnAtribuir_Clicked"
-                FontSize="18"
-                Style="{StaticResource BotaoAzul1}" />
-            
+            <appepi:ConfirmarButton/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
