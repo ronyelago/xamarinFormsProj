@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:appepi="clr-namespace:AppEpi.ViewModels"
-             Title="Higienização"
+             Title="Envio para Higienização"
              x:Class="AppEpi.Views.EnvioHigienizacao">
     <ContentPage.Content>
         <StackLayout Margin="10,10" Spacing="10">
