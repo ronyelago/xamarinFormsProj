@@ -128,6 +128,11 @@ namespace AppEpi.Droid.Bluetooth
         }
 
 
+        public void RequestReaderPower()
+        {
+            SendCommand(BRICommands.RequestReaderPower);
+        }
+
         public ObservableCollection<string> GetPairedDevices()
         {
             return BluetoothUtils.GetPairedDevices();

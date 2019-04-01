@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace AppEpi
 {
@@ -16,6 +17,8 @@ namespace AppEpi
          * Retorna: power setting efetivamente definido (25-100)
          */
         int SetReaderPower(int power);
+        void RequestReaderPower();
+
         ObservableCollection<string> GetPairedDevices();
     }
 }

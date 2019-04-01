@@ -142,7 +142,16 @@ namespace AppEpi.Droid.Bluetooth
             {
                 Debug.WriteLine("Command:\n");
                 foreach (string line in _commandQueue)
+                {
+                    // resposta: Reader Power request
+                    if (line.Contains(BRICommands.ReaderPowerResponse))
+                    {
+                        var power = line.Split(BRICommands.ReaderPowerResponse)[1];
+                        MessagingCenter.Send((App)Application.Current, "RESPONSE_READERPOWER", power);
+                    }
+
                     Debug.WriteLine(line);
+                }
             }
             else
                 Debug.WriteLine("RFID says Ok!\n");

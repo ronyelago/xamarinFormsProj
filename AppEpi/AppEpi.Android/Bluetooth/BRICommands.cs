@@ -11,6 +11,7 @@
 
         // Vide documentação "Manual BRI", em FIELDSTRENGTH
         internal const string SetReaderPower = "ATTRIBUTE FIELDSTRENGTH=";
+        internal const string RequestReaderPower = "ATTRIBUTE FIELDSTRENGTH";
 
         #endregion
 
@@ -26,6 +27,9 @@
         internal const string TriggerReleaseEvent = "TRIGR"; // usado num Contains()
         internal const string TriggerPressEvent = "TRIGP"; // usado num Contains()
         internal const string Ok = "OK>";
+
+        //Respostas a comandos
+        internal const string ReaderPowerResponse = "FIELDSTRENGTH=";
 
         #endregion
         
