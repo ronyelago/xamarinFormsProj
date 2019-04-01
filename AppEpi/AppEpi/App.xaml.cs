@@ -13,6 +13,9 @@ namespace AppEpi
 
             NavigationPage.SetHasNavigationBar(this, false);
             MainPage = new NavigationPage(new Views.Login());
+
+            // inicialização do módulo de Bluetooth
+            DependencyService.Get<IBluetoothController>().Init();
         }
 
         protected override void OnStart()

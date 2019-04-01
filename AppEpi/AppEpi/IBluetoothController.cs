@@ -6,8 +6,10 @@ namespace AppEpi
     public interface IBluetoothController
     {
         ConnectionState CurrentState { get; }
-        void Start(string deviceName, bool readAsCharArray = true);
+        void Init(bool readAsCharArray = true);
         void Cancel();
+        void Connect(string deviceName = "default");
+        void Disconnect();
         /*
          * power é um inteiro de 25-100 (Vide BRI Manual)
          * O valor final definido não é exatamente igual ao solicitado, é rounded down to the nearest multiple of 5

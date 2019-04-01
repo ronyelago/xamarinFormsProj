@@ -22,6 +22,8 @@ namespace AppEpi.Droid.Bluetooth
         private const int _connectionAwait = 1000; // tempo aguardado para confirmar conexão
         private const string _uuid = "00001101-0000-1000-8000-00805f9b34fb";
 
+        private bool _serverStarted = false;
+        private string _targetDeviceName = null;
         private int _pollingInterval = _slowPollingInterval;
         private CancellationTokenSource _cts;
         private BluetoothSocket _bthSocket;
@@ -61,24 +63,52 @@ namespace AppEpi.Droid.Bluetooth
         }
 
 
-        // Start the Reading loop 
+        // Starts the Server loop 
         /// <param name="deviceName"> Name of the paired bluetooth device </param>
-        public void Start(string deviceName, bool readAsCharArray = true)
+        public void Init(bool readAsCharArray = true)
         {
-            Task.Run(() =>
-                Loop(deviceName, readAsCharArray)
-                );
+            _serverStarted = true;
+
+            if (_currentState == ConnectionState.Closed)
+            {
+                Task.Run(() =>
+                    Loop(readAsCharArray)
+                    );
+            }
+            else
+            {
+                Debug.WriteLine("Servidor Bluetooth reiniciado.");
+                Cancel();
+                Thread.Sleep(2*_pollingInterval);
+                Init(readAsCharArray);
+            }
         }
 
 
-        // Cancel the Reading loop
+        // Cancels the Server loop
         public void Cancel()
         {
+            _serverStarted = false;
+
             if (_cts != null)
             {
                 Debug.WriteLine("Send a cancel to task!");
                 _cts.Cancel();
             }
+            CurrentState = ConnectionState.Closed;
+        }
+
+
+        public void Connect(string deviceName = "default")
+        {
+            _targetDeviceName = deviceName;
+        }
+        
+
+        public void Disconnect()
+        {
+            _targetDeviceName = null;
+            Init();
         }
 
 
@@ -230,23 +260,27 @@ namespace AppEpi.Droid.Bluetooth
         }
 
 
-        private async Task Loop(string name, bool readAsCharArray)
+        private async Task Loop(bool readAsCharArray)
         {
-            _bthSocket = null;
+            if (_bthSocket != null)
+                _bthSocket.Close();
 
+            _bthSocket = null;
             _cts = new CancellationTokenSource();
+
             while (_cts.IsCancellationRequested == false)
             {
+                Thread.Sleep(_pollingInterval);
+
                 try
                 {
-                    Thread.Sleep(_pollingInterval);
-
-                    CurrentState = ConnectionState.Connecting;
-                    await ConnectDevice(name);
+                    if (_targetDeviceName != null)
+                        await ConnectDevice(_targetDeviceName);
 
                     // Escaneia continuamente até que seja solicitado cancelamento de _ct
                     // ou perdida a conexão
-                    await ScanInput(readAsCharArray);
+                    if (CurrentState == ConnectionState.Open)
+                        await ScanInput(readAsCharArray);
                 }
                 catch (Exception e)
                 {
@@ -261,17 +295,21 @@ namespace AppEpi.Droid.Bluetooth
                     CurrentState = ConnectionState.Closed;
                 }
             }
-            Debug.WriteLine("Connection loop exit");
+            Debug.WriteLine("Server loop exit");
         }
 
 
         // throws descriptive exceptions
         private async Task ConnectDevice(string name)
         {
-            var device = BluetoothUtils.FindDevice(name);
+            CurrentState = ConnectionState.Connecting;
 
+            var device = BluetoothUtils.FindDevice(name);
             if (device != null)
             {
+                if (_bthSocket != null)
+                    _bthSocket.Close();
+
                 UUID uuid = UUID.FromString(_uuid);
                 _bthSocket = device.CreateInsecureRfcommSocketToServiceRecord(uuid);
 
@@ -283,18 +321,16 @@ namespace AppEpi.Droid.Bluetooth
                     {
                         CurrentState = ConnectionState.Open;
                         Debug.WriteLine("Connected!");
+
+                        // Initialize RFIDReader
+                        await SendCommandAsync(BRICommands.ResetFactoryDefaults);
                     }
                     else
-                        throw new UnauthorizedAccessException();
+                        return;
                 }
                 else
                     throw new NullReferenceException();
             }
-            else
-                throw new ArgumentException();
-
-            // Initialize RFIDReader
-            await SendCommandAsync(BRICommands.ResetFactoryDefaults);
         }
 
 

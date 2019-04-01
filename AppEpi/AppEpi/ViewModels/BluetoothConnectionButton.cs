@@ -1,6 +1,5 @@
 ﻿using AppEpi.Views;
 using System;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using Xamarin.Forms;
@@ -15,15 +14,12 @@ namespace AppEpi.ViewModels
         public BluetoothConnectionButton() : base()
         {
             Clicked += new EventHandler(OnClicked);
-
-            MessagingCenter.Subscribe<App, ConnectionState>(this, "BLUETOOTH_STATE", (sender, arg) =>
-            {
-            });
         }
 
 
         private void OnClicked(object sender, EventArgs args)
-        {   
+        {
+            Debug.WriteLine("--------------------OnClicked----------------");
             switch (_bluetoothController.CurrentState)
             {
                 case ConnectionState.Closed:
@@ -46,13 +42,13 @@ namespace AppEpi.ViewModels
         private void Connect()
         {
             string deviceName = ((Bluetooth)ParentPage).SelectedDeviceName;
-            DependencyService.Get<IBluetoothController>().Start(deviceName);
+            _bluetoothController.Connect(deviceName);
         }
 
 
         private void Disconnect()
         {
-            _bluetoothController.Cancel();
+            _bluetoothController.Disconnect();
         }
     }
 }
