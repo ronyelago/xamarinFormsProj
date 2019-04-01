@@ -99,7 +99,7 @@ namespace AppEpi.Droid.Bluetooth
         }
 
 
-        public void Connect(string deviceName = "default")
+        public void Connect(string deviceName = "")
         {
             _targetDeviceName = deviceName;
         }

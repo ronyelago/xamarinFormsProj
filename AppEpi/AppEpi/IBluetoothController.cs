@@ -8,7 +8,7 @@ namespace AppEpi
         ConnectionState CurrentState { get; }
         void Init(bool readAsCharArray = true);
         void Cancel();
-        void Connect(string deviceName = "default");
+        void Connect(string deviceName = "");
         void Disconnect();
         /*
          * power é um inteiro de 25-100 (Vide BRI Manual)

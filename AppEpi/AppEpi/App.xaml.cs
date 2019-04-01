@@ -6,6 +6,8 @@ namespace AppEpi
 {
     public partial class App : Application
     {
+        private IBluetoothController _bluetoothController = DependencyService.Get<IBluetoothController>();
+
         public App()
         {
             InitializeComponent();
@@ -14,8 +16,11 @@ namespace AppEpi
             NavigationPage.SetHasNavigationBar(this, false);
             MainPage = new NavigationPage(new Views.Login());
 
-            // inicialização do módulo de Bluetooth
-            DependencyService.Get<IBluetoothController>().Init();
+            // Inicialização do módulo de Bluetooth
+            _bluetoothController.Init();
+
+            // Conexão automática ao primeiro dispositivo pareado
+            _bluetoothController.Connect();
         }
 
         protected override void OnStart()

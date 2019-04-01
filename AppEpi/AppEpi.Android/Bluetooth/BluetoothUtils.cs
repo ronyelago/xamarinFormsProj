@@ -1,5 +1,6 @@
 ﻿using Android.Bluetooth;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace AppEpi.Droid.Bluetooth
 {
@@ -22,6 +23,10 @@ namespace AppEpi.Droid.Bluetooth
             else
                 Debug.WriteLine("Adapter enabled!");
             #endregion
+
+            // se o nome for vazio, retorna primeiro dispositivo pareado
+            if (name == "")
+                return adapter.BondedDevices.OfType<BluetoothDevice>().FirstOrDefault();
 
             BluetoothDevice device = null;
 
