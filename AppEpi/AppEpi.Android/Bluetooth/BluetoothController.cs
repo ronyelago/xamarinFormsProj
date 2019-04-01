@@ -20,13 +20,13 @@ namespace AppEpi.Droid.Bluetooth
         private const int _pingIfIdleFor = 5000; // se não houver mensagem do leitor durante esse intervalo (em ms), envia-se um ping
         private const int _connectionTimeout = 10000; // se não houver mensagem do leitor durante esse intervalo (em ms), inicia-se reconexão
         private const int _connectionAwait = 1000; // tempo aguardado para confirmar conexão
-        private const string _uuid = "00001101-0000-1000-8000-00805f9b34fb";
+        private const string _uuid = "00001101-0000-1000-8000-00805F9B34FB";
 
         private bool _serverStarted = false;
         private string _targetDeviceName = null;
         private int _pollingInterval = _slowPollingInterval;
         private CancellationTokenSource _cts;
-        private BluetoothSocket _bthSocket;
+        private BluetoothSocket _bthSocket = null;
         private RFIDComm _rfidComm;
 
         public enum PollingSpeed
@@ -67,20 +67,20 @@ namespace AppEpi.Droid.Bluetooth
         /// <param name="deviceName"> Name of the paired bluetooth device </param>
         public void Init(bool readAsCharArray = true)
         {
-            _serverStarted = true;
+            if (!_serverStarted)
+            {
+                _serverStarted = true;
 
-            if (_currentState == ConnectionState.Closed)
-            {
-                Task.Run(() =>
-                    Loop(readAsCharArray)
-                    );
-            }
-            else
-            {
-                Debug.WriteLine("Servidor Bluetooth reiniciado.");
-                Cancel();
-                Thread.Sleep(2*_pollingInterval);
-                Init(readAsCharArray);
+                if (_currentState == ConnectionState.Closed)
+                {
+                    Task.Run(() =>
+                        Loop(readAsCharArray)
+                        );
+                }
+                else
+                {
+                    RestartServer();
+                }
             }
         }
 
@@ -103,12 +103,12 @@ namespace AppEpi.Droid.Bluetooth
         {
             _targetDeviceName = deviceName;
         }
-        
+
 
         public void Disconnect()
         {
             _targetDeviceName = null;
-            Init();
+            RestartServer();
         }
 
 
@@ -185,7 +185,7 @@ namespace AppEpi.Droid.Bluetooth
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("EXCEPTION: " + e.Message);
+                    Debug.WriteLine("StreamMessage exception: " + e.Message);
                 }
             }
         }
@@ -196,65 +196,72 @@ namespace AppEpi.Droid.Bluetooth
         // returns on connection lost or cancellation requested
         private async Task ScanInput(bool readAsCharArray)
         {
-            var buffer = new BufferedReader(new InputStreamReader(_bthSocket.InputStream));
-
-            int pingTimer = 0;
-            int reconnectTimer = 0;
-            while (_cts.IsCancellationRequested == false)
+            try
             {
-                Thread.Sleep(_pollingInterval);
-                if (_cts.IsCancellationRequested == false)
+                var buffer = new BufferedReader(new InputStreamReader(_bthSocket.InputStream));
+
+                int pingTimer = 0;
+                int reconnectTimer = 0;
+                while (_cts.IsCancellationRequested == false)
                 {
-                    pingTimer += _pollingInterval;
-                    reconnectTimer += _pollingInterval;
-
-                    if (reconnectTimer < _connectionTimeout)
+                    Thread.Sleep(_pollingInterval);
+                    if (_cts.IsCancellationRequested == false)
                     {
-                        if (buffer.Ready()) // se houver o que ler
+                        pingTimer += _pollingInterval;
+                        reconnectTimer += _pollingInterval;
+
+                        if (reconnectTimer < _connectionTimeout)
                         {
-                            CurrentState = ConnectionState.Open;
-                            string response = "";
-
-                            if (readAsCharArray)
-                            #region read as char array
+                            if (buffer.Ready()) // se houver o que ler
                             {
-                                char[] chr = new char[100];
+                                CurrentState = ConnectionState.Open;
+                                string response = "";
 
-                                await buffer.ReadAsync(chr);
-                                foreach (char c in chr)
+                                if (readAsCharArray)
+                                #region read as char array
                                 {
-                                    if (c == '\0')
-                                        break;
-                                    response += c;
+                                    char[] chr = new char[100];
+
+                                    await buffer.ReadAsync(chr);
+                                    foreach (char c in chr)
+                                    {
+                                        if (c == '\0')
+                                            break;
+                                        response += c;
+                                    }
                                 }
+                                #endregion
+
+                                else
+                                    response = await buffer.ReadLineAsync();
+
+                                if (response.Length > 0) // se a leitura foi válida
+                                {
+                                    _rfidComm.HandleResponse(response);
+
+                                    pingTimer = 0; // timers são reiniciados
+                                    reconnectTimer = 0;
+                                }
+                                else
+                                    Debug.WriteLine("No data");
                             }
-                            #endregion
-
-                            else
-                                response = await buffer.ReadLineAsync();
-
-                            if (response.Length > 0) // se a leitura foi válida
+                            else if (pingTimer >= _pingIfIdleFor)
                             {
-                                _rfidComm.HandleResponse(response);
-
-                                pingTimer = 0; // timers são reiniciados
-                                reconnectTimer = 0;
+                                SendCommand(BRICommands.Ping);
+                                pingTimer = 0;
                             }
-                            else
-                                Debug.WriteLine("No data");
                         }
-                        else if (pingTimer >= _pingIfIdleFor)
+                        else
                         {
-                            SendCommand(BRICommands.Ping);
-                            pingTimer = 0;
+                            Debug.WriteLine("Connection Timeout. Retrying...");
+                            break;
                         }
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Connection Timeout. Retrying...");
-                        break;
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("ScanInput Exception: " + e.Message);
             }
             Debug.WriteLine("ScanInput loop exit");
         }
@@ -262,18 +269,14 @@ namespace AppEpi.Droid.Bluetooth
 
         private async Task Loop(bool readAsCharArray)
         {
-            if (_bthSocket != null)
-                _bthSocket.Close();
-
-            _bthSocket = null;
-            _cts = new CancellationTokenSource();
-
-            while (_cts.IsCancellationRequested == false)
+            try
             {
-                Thread.Sleep(_pollingInterval);
+                _cts = new CancellationTokenSource();
 
-                try
+                while (_cts.IsCancellationRequested == false)
                 {
+                    Thread.Sleep(_pollingInterval);
+
                     if (_targetDeviceName != null)
                         await ConnectDevice(_targetDeviceName);
 
@@ -282,54 +285,66 @@ namespace AppEpi.Droid.Bluetooth
                     if (CurrentState == ConnectionState.Open)
                         await ScanInput(readAsCharArray);
                 }
-                catch (Exception e)
-                {
-                    CurrentState = ConnectionState.Broken;
-                    Debug.WriteLine("EXCEPTION: " + e.Message);
-                }
-                finally
-                {
-                    if (_bthSocket != null)
-                        _bthSocket.Close();
-
-                    CurrentState = ConnectionState.Closed;
-                }
+                Debug.WriteLine("Server loop exit");
             }
-            Debug.WriteLine("Server loop exit");
+            catch (Exception e)
+            {
+                CurrentState = ConnectionState.Broken;
+                Debug.WriteLine("Loop Exception: " + e.Message);
+            }
+            finally
+            {
+                if (_bthSocket != null)
+                    _bthSocket.Close();
+
+                RestartServer();
+            }
         }
 
 
         // throws descriptive exceptions
         private async Task ConnectDevice(string name)
         {
-            CurrentState = ConnectionState.Connecting;
-
-            var device = BluetoothUtils.FindDevice(name);
-            if (device != null)
+            try
             {
-                if (_bthSocket != null)
-                    _bthSocket.Close();
-
-                UUID uuid = UUID.FromString(_uuid);
-                _bthSocket = device.CreateInsecureRfcommSocketToServiceRecord(uuid);
-
+                CurrentState = ConnectionState.Connecting;
+                
+                // reinicia o socket se o mesmo já tiver sido criado
                 if (_bthSocket != null)
                 {
-                    await _bthSocket.ConnectAsync();
+                    _bthSocket.Close();
+                    _bthSocket.Dispose();
+                }
 
-                    if (_bthSocket.IsConnected)
+                var device = BluetoothUtils.FindDevice(name);
+                if (device != null)
+                {
+
+                    UUID uuid = UUID.FromString(_uuid);
+                    _bthSocket = device.CreateInsecureRfcommSocketToServiceRecord(uuid);
+
+                    if (_bthSocket != null)
                     {
-                        CurrentState = ConnectionState.Open;
-                        Debug.WriteLine("Connected!");
+                        await _bthSocket.ConnectAsync();
 
-                        // Initialize RFIDReader
-                        await SendCommandAsync(BRICommands.ResetFactoryDefaults);
+                        if (_bthSocket.IsConnected)
+                        {
+                            CurrentState = ConnectionState.Open;
+                            Debug.WriteLine("Connected!");
+
+                            // Initialize RFIDReader
+                            await SendCommandAsync(BRICommands.ResetFactoryDefaults);
+                        }
+                        else
+                            return;
                     }
                     else
-                        return;
+                        throw new NullReferenceException();
                 }
-                else
-                    throw new NullReferenceException();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("ConnectDevice Exception: " + e.Message);
             }
         }
 
@@ -343,6 +358,16 @@ namespace AppEpi.Droid.Bluetooth
         private string AppendEOL(string input)
         {
             return string.Concat(input, BRICommands.Crlf);
+        }
+
+
+        private void RestartServer()
+        {
+            Debug.WriteLine("Servidor Bluetooth reiniciado.");
+            Thread.Sleep(_pollingInterval);
+            Cancel();
+            Thread.Sleep(2 * _pollingInterval);
+            Init();
         }
 
         #endregion
