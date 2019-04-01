@@ -1,6 +1,5 @@
 ﻿using AppEpi.Models;
 using AppEpi.ViewModels;
-using System;
 using System.Linq;
 using Xamarin.Forms;
 
