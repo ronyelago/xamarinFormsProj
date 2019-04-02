@@ -24,14 +24,6 @@ namespace AppEpi.Models
         public static string Cnpj { get; set; }
         public static int FkCliente { get; set; }
 
-        public static string[] categoriaInspecao = new string[] {
-            "Cinto Paraquedista",
-            "Talabarte",
-            "Talabarte de Posicionamento",
-            "Fita de Ancoragem",
-            "Trava Quedas",
-            "Conectores",
-            "Cordas"
-        };
+
     }
 }

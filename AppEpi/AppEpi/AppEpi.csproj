@@ -38,9 +38,6 @@
     <Compile Update="Views\Fiscalizacao.xaml.cs">
       <DependentUpon>Fiscalizacao.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Inspecao.xaml.cs">
-      <DependentUpon>Inspecao.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\Manutencao.xaml.cs">
       <DependentUpon>Manutencao.xaml</DependentUpon>
     </Compile>
