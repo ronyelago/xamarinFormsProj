@@ -54,15 +54,6 @@ namespace AppEpi.Views
         }
 
 
-        void OnSliderDragCompleted(object sender, EventArgs e)
-        {
-            float novaPotencia =
-                _bluetoothController.SetReaderPower((int)potenciaSlider.Value);
-
-            potenciaSlider.Value = novaPotencia;
-        }
-
-
         private void OnItemSelected(object sender, EventArgs e)
         {
             btnConectar.IsEnabled = true;

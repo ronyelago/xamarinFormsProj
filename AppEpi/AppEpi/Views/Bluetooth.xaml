@@ -43,13 +43,7 @@
                     Text="Potência leitor"
                     HorizontalOptions="Center" />
 
-                <Slider
-                    x:Name="potenciaSlider"
-                    Maximum="100"
-                    Minimum="25"
-                    MinimumTrackColor="Blue"
-                    MaximumTrackColor="Gray"
-                    DragCompleted="OnSliderDragCompleted" />
+                <viewmodels:BluetoothPotenciaSlider />
 
             </StackLayout>
 
