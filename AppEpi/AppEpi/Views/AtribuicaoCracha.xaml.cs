@@ -25,7 +25,7 @@ namespace AppEpi.Views
                 {
                     var wbs = DependencyService.Get<IWEBClient>();
                     var result = wbs.atribuicaoCrachar(entMatricula.Text, epcList.GetFormattedEpcList());
-                    UsuarioLogado.Operacao = "0";
+                    UsuarioLogado.Operacao = (int)UsuarioLogado.Operacoes.AtribuicaoCracha;
                     var detailPage = new ResultadoTrn(result);
 
                     await Navigation.PushAsync(detailPage);

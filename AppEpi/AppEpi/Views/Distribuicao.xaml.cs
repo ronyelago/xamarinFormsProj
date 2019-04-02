@@ -23,7 +23,7 @@ namespace AppEpi.Views
                 var answer = await DisplayAlert("Entrega de EPI", "Confirmar Entrega de EPI?", "Sim", "Não");
                 if (answer)
                 {
-                    UsuarioLogado.Operacao = "3";
+                    UsuarioLogado.Operacao = UsuarioLogado.Operacoes.Distribuicao;
                     var wbs = DependencyService.Get<IWEBClient>();
                     var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
                     var detailPage = new Page4(result);

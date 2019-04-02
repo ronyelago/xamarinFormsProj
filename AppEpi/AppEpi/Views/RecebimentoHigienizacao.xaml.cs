@@ -24,7 +24,7 @@ namespace AppEpi.Views
                 {
                     var wbs = DependencyService.Get<IWEBClient>();
                     var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
-                    UsuarioLogado.Operacao = "9";
+                    UsuarioLogado.Operacao = UsuarioLogado.Operacoes.RecebimentoHigienizacao;
                     var detailPage = new Page4(result);
 
                     await Navigation.PushAsync(detailPage);

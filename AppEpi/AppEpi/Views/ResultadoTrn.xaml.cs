@@ -56,7 +56,7 @@ namespace AppEpi.Views
 
             _chave = _temChave;
 
-            if(UsuarioLogado.Operacao == "3")
+            if(UsuarioLogado.Operacao == UsuarioLogado.Operacoes.Distribuicao)
             {
                 if (!erro)
                 {

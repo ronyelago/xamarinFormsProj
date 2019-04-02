@@ -33,7 +33,7 @@ namespace AppEpi.Views
                     var wbs = DependencyService.Get<IWEBClient>();
                     var data = dtProximtoTeste.Date.Day + "-" + dtProximtoTeste.Date.Month + "-" + dtProximtoTeste.Date.Year;
                     var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
-                    UsuarioLogado.Operacao = "5";
+                    UsuarioLogado.Operacao = UsuarioLogado.Operacoes.RecebimentoTeste;
                     UsuarioLogado.DataTeste = data;
                     UsuarioLogado.ART = entART.Text;
                     var detailPage = new Page4(result);

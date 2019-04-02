@@ -26,7 +26,7 @@ namespace AppEpi.Views
                 {
                     var wbs = DependencyService.Get<IWEBClient>();
                     var result = wbs.consultEPI(epcList.GetFormattedEpcList());
-                    UsuarioLogado.Operacao = "7";
+                    UsuarioLogado.Operacao = UsuarioLogado.Operacoes.Consulta;
                     var detailPage = new ResultadoTrn(result);
                     NavigationPage.SetBackButtonTitle(this, "Voltar");
 

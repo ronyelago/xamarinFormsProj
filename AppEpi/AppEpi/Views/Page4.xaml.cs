@@ -33,7 +33,7 @@ namespace AppEpi.Views
 
         private bool TimerElapsed()
         {
-            if (UsuarioLogado.Operacao == "3")
+            if (UsuarioLogado.Operacao == UsuarioLogado.Operacoes.Distribuicao)
             {
                 btnSenha.IsVisible = false;
                 btnConfirmar.IsVisible = true;
@@ -100,39 +100,39 @@ namespace AppEpi.Views
 
                     switch (UsuarioLogado.Operacao)
                     {
-                        case "1":
+                        case UsuarioLogado.Operacoes.Recebimento:
                             result = wbs.recebimentoEstoquesCnpj(listEPCS, UsuarioLogado.Cnpj);
                             break;
-                        case "2":
+                        case UsuarioLogado.Operacoes.MovimentacaoEstoque:
                             result = wbs.movimentacaoEstoque(listEPCS, UsuarioLogado.LocalEstoque, UsuarioLogado.StatusEstoque);
                             break;
-                        case "3":
+                        case UsuarioLogado.Operacoes.Distribuicao:
                             result = wbs.distribuicaoEPIS(listEPCS, UsuarioLogado.MatriculaDistribuicao);
                             break;
-                        case "4":
+                        case UsuarioLogado.Operacoes.EnvioTeste:
                             result = wbs.envioParaTeste(listEPCS, UsuarioLogado.LocalEstoque);
                             break;
-                        case "5":
+                        case UsuarioLogado.Operacoes.RecebimentoTeste:
                             result = wbs.recebimentoDoTeste(listEPCS, UsuarioLogado.DataTeste, UsuarioLogado.ART);
                             break;
-                        case "6":
+                        case UsuarioLogado.Operacoes.Fiscalizacao:
                             result = wbs.inspecaoEPIFUNC(listEPCS, UsuarioLogado.Latitude, UsuarioLogado.Longitude);
                             break;
-                        case "8":
+                        case UsuarioLogado.Operacoes.EnvioHigienizacao:
                             result = wbs.envioParaHigienizacao(listEPCS, UsuarioLogado.LocalEstoque);
                             break;
-                        case "9":
+                        case UsuarioLogado.Operacoes.RecebimentoHigienizacao:
                             result = wbs.recebimentoDaHigienizacao(listEPCS);
                             break;
-                        case "10":
+                        //case 10:
                             //INSPEÇÃO VISUAL
                             //var detailPage = new InspFiscalizacao();
                             //NavigationPage.SetBackButtonTitle(this, "Voltar");
                             //await Navigation.PushAsync(detailPage);
-                            break;
+                            //break;
                     }
 
-                    if (UsuarioLogado.Operacao != "6")
+                    if (UsuarioLogado.Operacao != UsuarioLogado.Operacoes.Fiscalizacao)
                     {
                         var detailPage = new ResultadoTrn(result);
 
