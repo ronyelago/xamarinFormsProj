@@ -66,7 +66,7 @@ namespace AppEpi.Views
 
             try
             {
-                _listOfDevices = _bluetoothController.GetPairedDevices();
+                _listOfDevices = _bluetoothController.PairedDevices;
 
                 // se houver dispositivos pareados, apresenta-se uma lista com os mesmos
                 if (_listOfDevices.Count > 0)

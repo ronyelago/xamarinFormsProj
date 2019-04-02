@@ -54,17 +54,5 @@ namespace AppEpi.Droid.Bluetooth
 
             return device;
         }
-
-
-        public static ObservableCollection<string> GetPairedDevices()
-        {
-            BluetoothAdapter adapter = BluetoothAdapter.DefaultAdapter;
-            ObservableCollection<string> devices = new ObservableCollection<string>();
-
-            foreach (var bd in adapter.BondedDevices)
-                devices.Add(bd.Name);
-
-            return devices;
-        }
     }
 }

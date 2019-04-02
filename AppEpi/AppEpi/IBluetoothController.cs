@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 namespace AppEpi
 {
     public interface IBluetoothController
-    {
-        ConnectionState CurrentState { get; }
+    {        
         void Init(bool readAsCharArray = true);
         void Cancel();
         void Connect(string deviceName = "");
@@ -17,7 +16,7 @@ namespace AppEpi
          * Retorna: power setting efetivamente definido (25-100)
          */
         int ReaderPower { get; set; }
-
-        ObservableCollection<string> GetPairedDevices();
+        ConnectionState CurrentState { get; }
+        ObservableCollection<string> PairedDevices { get; }
     }
 }

@@ -100,6 +100,20 @@ namespace AppEpi.Droid.Bluetooth
             }
         }
 
+        public ObservableCollection<string> PairedDevices
+        {
+            get
+            {
+                BluetoothAdapter adapter = BluetoothAdapter.DefaultAdapter;
+                ObservableCollection<string> devices = new ObservableCollection<string>();
+
+                foreach (var bd in adapter.BondedDevices)
+                    devices.Add(bd.Name);
+
+                return devices;
+            }
+        }
+
 
         // Starts the Server loop 
         /// <param name="deviceName"> Name of the paired bluetooth device </param>
@@ -147,12 +161,6 @@ namespace AppEpi.Droid.Bluetooth
         {
             _targetDeviceName = null;
             RestartServer();
-        }
-
-
-        public ObservableCollection<string> GetPairedDevices()
-        {
-            return BluetoothUtils.GetPairedDevices();
         }
 
         #endregion

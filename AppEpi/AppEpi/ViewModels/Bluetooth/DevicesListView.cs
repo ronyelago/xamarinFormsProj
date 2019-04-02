@@ -9,7 +9,7 @@ namespace AppEpi.ViewModels.Bluetooth
         // Constructor
         public DevicesListView()
         {
-            ItemsSource = _bluetoothController.GetPairedDevices();
+            ItemsSource = _bluetoothController.PairedDevices;
             VerticalOptions = LayoutOptions.StartAndExpand;
 
             Refreshing += OnRefreshing;
@@ -18,7 +18,7 @@ namespace AppEpi.ViewModels.Bluetooth
 
         private void OnRefreshing(object sender, System.EventArgs e)
         {
-            ItemsSource = _bluetoothController.GetPairedDevices();
+            ItemsSource = _bluetoothController.PairedDevices;
             EndRefresh();
         }
     }
