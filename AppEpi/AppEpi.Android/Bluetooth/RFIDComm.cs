@@ -147,7 +147,7 @@ namespace AppEpi.Droid.Bluetooth
                     if (line.Contains(BRICommands.ReaderPowerResponse))
                     {
                         var power = line.Split(BRICommands.ReaderPowerResponse)[1];
-                        MessagingCenter.Send((App)Application.Current, "RESPONSE_READERPOWER", power);
+                        _bluetoothController.ReaderPower = int.Parse(power);
                     }
 
                     Debug.WriteLine(line);

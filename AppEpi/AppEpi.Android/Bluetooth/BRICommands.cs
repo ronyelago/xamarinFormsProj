@@ -36,6 +36,9 @@
         #region general
 
         internal const string Crlf = "\r\n";
+        internal const int MaxPower = 100;
+        internal const int MinPower = 25;
+        internal const int PowerStep = 5;
 
         #endregion
     }

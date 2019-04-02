@@ -27,10 +27,8 @@ namespace AppEpi.Views
                 Debug.WriteLine("LOW BATTERY EVENT"));
             MessagingCenter.Subscribe<App>(this, "RFID_OVERHEAT", (sender) =>
                 Debug.WriteLine("OVERHEAT EVENT"));
-            MessagingCenter.Subscribe<App, string>(this, "RESPONSE_READERPOWER", (sender, arg) =>
-                Debug.WriteLine("READER POWER = " + arg));
-
         }
+
 
         private void UpdateLayout()
         {

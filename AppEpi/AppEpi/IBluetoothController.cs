@@ -16,8 +16,7 @@ namespace AppEpi
          * O valor final definido não é exatamente igual ao solicitado, é rounded down to the nearest multiple of 5
          * Retorna: power setting efetivamente definido (25-100)
          */
-        int SetReaderPower(int power);
-        void RequestReaderPower();
+        int ReaderPower { get; set; }
 
         ObservableCollection<string> GetPairedDevices();
     }
