@@ -1,13 +1,13 @@
 ﻿using Xamarin.Forms;
 
-namespace AppEpi.ViewModels
+namespace AppEpi.ViewModels.Bluetooth
 {
-    class BluetoothDevicesListView : ListView
+    class DevicesListView : ListView
     {
         private IBluetoothController _bluetoothController = DependencyService.Get<IBluetoothController>();
 
         // Constructor
-        public BluetoothDevicesListView()
+        public DevicesListView()
         {
             ItemsSource = _bluetoothController.GetPairedDevices();
             VerticalOptions = LayoutOptions.StartAndExpand;

@@ -1,14 +1,14 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace AppEpi.ViewModels
+namespace AppEpi.ViewModels.Bluetooth
 {
-    class BluetoothPotenciaSlider : Slider
+    class PotenciaSlider : Slider
     {
         private IBluetoothController _bluetoothController = DependencyService.Get<IBluetoothController>();
 
         // Constructor
-        public BluetoothPotenciaSlider()
+        public PotenciaSlider()
         {
             Maximum = 100;
             Minimum = 25;

@@ -1,17 +1,16 @@
-﻿using AppEpi.Views;
-using System;
+﻿using System;
 using System.Data;
 using System.Diagnostics;
 using Xamarin.Forms;
 
-namespace AppEpi.ViewModels
+namespace AppEpi.ViewModels.Bluetooth
 {
-    public class BluetoothConnectionButton : AppEPIButton
+    public class ConnectionButton : AppEPIButton
     {
         private readonly IBluetoothController _bluetoothController = DependencyService.Get<IBluetoothController>();
 
         // Constructor
-        public BluetoothConnectionButton() : base()
+        public ConnectionButton() : base()
         {
             Clicked += new EventHandler(OnClicked);
         }
@@ -41,7 +40,7 @@ namespace AppEpi.ViewModels
 
         private void Connect()
         {
-            string deviceName = ((Bluetooth)ParentPage).SelectedDeviceName;
+            string deviceName = ((Views.Bluetooth)ParentPage).SelectedDeviceName;
             _bluetoothController.Connect(deviceName);
         }
 

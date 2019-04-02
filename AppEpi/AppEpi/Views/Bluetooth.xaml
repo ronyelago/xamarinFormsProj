@@ -1,55 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:AppEpi.ViewModels"
+             xmlns:viewmodels="clr-namespace:AppEpi.ViewModels.Bluetooth"
              x:Class="AppEpi.Views.Bluetooth">
-    <ContentPage.Content>
-        <StackLayout Margin="10,10" Spacing="10">
+  <ContentPage.Content>
+    <StackLayout Margin="10,10" Spacing="10">
 
-            <StackLayout Padding="5,10" VerticalOptions="StartAndExpand">
+      <StackLayout Padding="5,10" VerticalOptions="StartAndExpand">
 
-                <Label>Dispositivos Pareados</Label>
+        <Label>Dispositivos Pareados</Label>
 
-                <viewmodels:BluetoothDevicesListView 
-                    x:Name="deviceList"
-                    ItemSelected="OnItemSelected"/>
+        <viewmodels:DevicesListView
+            x:Name="deviceList"
+            ItemSelected="OnItemSelected"/>
 
-                <StackLayout
-                    x:Name="avisoNaoHaDispositivos"
-                    VerticalOptions="FillAndExpand">
+        <StackLayout
+            x:Name="avisoNaoHaDispositivos"
+            VerticalOptions="FillAndExpand">
 
-                    <!-- Essa label não está devidamente centralizada -->
-                    <Label
-                        Text="Não há dispositivos pareados!"
-                        TextColor="Red"
-                        IsVisible="False"
-                        VerticalOptions="FillAndExpand" 
-                        VerticalTextAlignment="Center"
-                        HorizontalOptions="Center" />
+          <!-- Essa label não está devidamente centralizada -->
+          <Label
+              Text="Não há dispositivos pareados!"
+              TextColor="Red"
+              IsVisible="False"
+              VerticalOptions="FillAndExpand"
+              VerticalTextAlignment="Center"
+              HorizontalOptions="Center" />
 
-                    <!-- Inserir botão para as opções de Bluetooth do aparelho aqui -->
-
-                </StackLayout>
-
-            </StackLayout>
-
-            <StackLayout
-                x:Name="controlePotencia"
-                Margin="10,10"
-                Spacing="10">
-
-                <Label
-                    x:Name="potenciaLabel"
-                    Text="Potência leitor"
-                    HorizontalOptions="Center" />
-
-                <viewmodels:BluetoothPotenciaSlider />
-
-            </StackLayout>
-
-            <viewmodels:BluetoothConnectionButton 
-                x:Name="btnConectar" />
+          <!-- Inserir botão para as opções de Bluetooth do aparelho aqui -->
 
         </StackLayout>
-    </ContentPage.Content>
+
+      </StackLayout>
+
+      <StackLayout
+          x:Name="controlePotencia"
+          Margin="10,10"
+          Spacing="10">
+
+        <Label
+            x:Name="potenciaLabel"
+            Text="Potência leitor"
+            HorizontalOptions="Center" />
+
+        <viewmodels:PotenciaSlider />
+
+      </StackLayout>
+
+      <viewmodels:ConnectionButton
+          x:Name="btnConectar" />
+
+    </StackLayout>
+  </ContentPage.Content>
 </ContentPage>
