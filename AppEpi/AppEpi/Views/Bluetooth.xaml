@@ -33,15 +33,10 @@
 
             </StackLayout>
 
-            <viewmodels:BluetoothConnectionButton 
-                x:Name="btnConectar"
-                Text="Conectar" />
-
             <StackLayout
                 x:Name="controlePotencia"
                 Margin="10,10"
-                Spacing="10"
-                IsVisible="True">
+                Spacing="10">
 
                 <Label
                     x:Name="potenciaLabel"
@@ -57,6 +52,9 @@
                     DragCompleted="OnSliderDragCompleted" />
 
             </StackLayout>
+
+            <viewmodels:BluetoothConnectionButton 
+                x:Name="btnConectar" />
 
         </StackLayout>
     </ContentPage.Content>
