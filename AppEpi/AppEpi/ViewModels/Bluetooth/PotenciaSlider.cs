@@ -15,7 +15,7 @@ namespace AppEpi.ViewModels.Bluetooth
             MinimumTrackColor = Color.Blue;
             MaximumTrackColor = Color.Gray;
 
-            Value = Maximum;
+            Value = _bluetoothController.ReaderPower;
 
             DragCompleted += OnDragCompleted;
         }

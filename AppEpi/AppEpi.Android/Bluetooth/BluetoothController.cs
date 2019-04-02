@@ -20,6 +20,7 @@ namespace AppEpi.Droid.Bluetooth
         private const int _pingIfIdleFor = 5000; // se não houver mensagem do leitor durante esse intervalo (em ms), envia-se um ping
         private const int _connectionTimeout = 10000; // se não houver mensagem do leitor durante esse intervalo (em ms), inicia-se reconexão
         private const string _uuid = "00001101-0000-1000-8000-00805F9B34FB";
+        private const string _configFileName = "BTH_Power";
 
         private bool _serverStarted = false;
         private string _targetDeviceName = null;
@@ -38,6 +39,16 @@ namespace AppEpi.Droid.Bluetooth
         public BluetoothController()
         {
             _rfidComm = new RFIDComm(this);
+
+            // Inicialização da potência caso haja definição armazenada
+            string power = new StorageController().LoadText(_configFileName);
+            if (power != "")
+            {
+                if (int.TryParse(power, out int i))
+                {
+                    _readerPower = i;
+                }
+            }
         }
 
         #region IBth implementation
@@ -52,7 +63,7 @@ namespace AppEpi.Droid.Bluetooth
             private set
             {
                 // se o novo valor for diferente do anterior
-                if (!(value.Equals(_currentState)))
+                if (!value.Equals(_currentState))
                 {
                     // envia mensagem a toda aplicação com o novo estado
                     MessagingCenter.Send((App)Application.Current, "BLUETOOTH_STATE", value);
@@ -83,6 +94,8 @@ namespace AppEpi.Droid.Bluetooth
                 // envia ao aparelho a nova potência
                 SendCommand(BRICommands.SetReaderPower + power);
 
+                // armazena o novo valor em arquivo, assim como na variavel privada
+                new StorageController().SaveText(_configFileName, power.ToString());
                 _readerPower = power;
             }
         }
@@ -256,7 +269,9 @@ namespace AppEpi.Droid.Bluetooth
                             }
                             else if (pingTimer >= _pingIfIdleFor)
                             {
-                                SendCommand(BRICommands.Ping);
+                                //SendCommand(BRICommands.Ping);
+                                // Set ReaderPower no dispositivo
+                                ReaderPower = ReaderPower; // Funciona também como ping
                                 pingTimer = 0;
                             }
                         }
@@ -289,10 +304,11 @@ namespace AppEpi.Droid.Bluetooth
                     if (_targetDeviceName != null)
                         await ConnectDevice(_targetDeviceName);
 
-                    // Escaneia continuamente até que seja solicitado cancelamento de _ct
-                    // ou perdida a conexão
                     if (CurrentState == ConnectionState.Open)
+                    {
+                        // Escaneia inputs continuamente até que caia conexão ou seja cancelado
                         await ScanInput(readAsCharArray);
+                    }
                 }
                 Debug.WriteLine("Server loop exit");
             }
@@ -317,7 +333,7 @@ namespace AppEpi.Droid.Bluetooth
             try
             {
                 CurrentState = ConnectionState.Connecting;
-                
+
                 // reinicia o socket se o mesmo já tiver sido criado
                 if (_bthSocket != null)
                 {
