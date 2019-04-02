@@ -6,6 +6,8 @@ namespace AppEpi.Droid.Bluetooth
 {
     public class BluetoothUtils
     {
+        private static int _deviceCyclingIndex = 0;
+
         // retorna BluetoothDevice pareado buscando por nome
         public static BluetoothDevice FindDevice(string name)
         {
@@ -24,11 +26,18 @@ namespace AppEpi.Droid.Bluetooth
                 Debug.WriteLine("Adapter enabled!");
             #endregion
 
-            // se o nome for vazio, retorna primeiro dispositivo pareado
-            if (name == "")
-                return adapter.BondedDevices.OfType<BluetoothDevice>().FirstOrDefault();
-
             BluetoothDevice device = null;
+
+            // se o nome for vazio, cicla-se o retorno por cada dispositivo encontrado
+            if (name == "")
+            {
+                if (_deviceCyclingIndex >= adapter.BondedDevices.Count)
+                    _deviceCyclingIndex = 0;
+
+                device = adapter.BondedDevices.OfType<BluetoothDevice>().ElementAtOrDefault(_deviceCyclingIndex);
+                _deviceCyclingIndex++;
+                return device;
+            }
 
             foreach (var bd in adapter.BondedDevices)
             {
