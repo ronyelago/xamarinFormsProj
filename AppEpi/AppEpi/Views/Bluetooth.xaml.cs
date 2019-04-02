@@ -8,7 +8,7 @@ namespace AppEpi.Views
 {
     public partial class Bluetooth : ContentPage
     {
-        private ObservableCollection<string> _listOfDevices = new ObservableCollection<string>();
+        private ObservableCollection<string> _listOfDevices;
         private readonly IBluetoothController _bluetoothController = DependencyService.Get<IBluetoothController>();
 
         public string SelectedDeviceName { get => deviceList.SelectedItem.ToString(); }
@@ -16,27 +16,20 @@ namespace AppEpi.Views
         public Bluetooth()
         {
             InitializeComponent();
-            UpdateLayout();
-
+            
             MessagingCenter.Subscribe<App, ConnectionState>(this, "BLUETOOTH_STATE", (sender, arg) =>
             {
                 UpdateLayout();
             });
 
-            // Deixados aqui apenas para referência. É assim que se recebe esses dois eventos:
+            // Deixados aqui apenas para referência. É assim que se recebe esses eventos:
             MessagingCenter.Subscribe<App>(this, "RFID_LOWBATT", (sender) =>
-            {
-                Debug.WriteLine("LOW BATTERY EVENT");
-            });
+                Debug.WriteLine("LOW BATTERY EVENT"));
             MessagingCenter.Subscribe<App>(this, "RFID_OVERHEAT", (sender) =>
-            {
-                Debug.WriteLine("OVERHEAT EVENT");
-            });
+                Debug.WriteLine("OVERHEAT EVENT"));
             MessagingCenter.Subscribe<App, string>(this, "RESPONSE_READERPOWER", (sender, arg) =>
-            {
-                Debug.WriteLine("READER POWER = " + arg);
-            });
-            
+                Debug.WriteLine("READER POWER = " + arg));
+
         }
 
         private void UpdateLayout()
@@ -57,11 +50,11 @@ namespace AppEpi.Views
                     break;
             }
 
-            this.UpdateChildrenLayout();
+            UpdateChildrenLayout();
         }
-        
 
-        void OnSliderDragCompleted(object sender , EventArgs e)
+
+        void OnSliderDragCompleted(object sender, EventArgs e)
         {
             float novaPotencia =
                 _bluetoothController.SetReaderPower((int)potenciaSlider.Value);
@@ -70,11 +63,18 @@ namespace AppEpi.Views
         }
 
 
+        private void OnItemSelected(object sender, EventArgs e)
+        {
+            btnConectar.IsEnabled = true;
+        }
+
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            // povoa lista de dispositivos pareados
+            UpdateLayout();
+
             try
             {
                 _listOfDevices = _bluetoothController.GetPairedDevices();
@@ -84,13 +84,7 @@ namespace AppEpi.Views
                 {
                     avisoNaoHaDispositivos.IsVisible = false;
                     deviceList.IsVisible = true;
-
-                    deviceList.ItemsSource = _listOfDevices;
-
-                    deviceList.ItemSelected += (object sender, SelectedItemChangedEventArgs e) =>
-                    {
-                        btnConectar.IsEnabled = true;
-                    };
+                    deviceList.BeginRefresh();
                 }
                 else
                 {

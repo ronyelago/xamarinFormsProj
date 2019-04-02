@@ -10,9 +10,9 @@
 
                 <Label>Dispositivos Pareados</Label>
 
-                <ListView 
-                    x:Name="deviceList" 
-                    VerticalOptions="StartAndExpand" />
+                <viewmodels:BluetoothDevicesListView 
+                    x:Name="deviceList"
+                    ItemSelected="OnItemSelected"/>
 
                 <StackLayout
                     x:Name="avisoNaoHaDispositivos"
