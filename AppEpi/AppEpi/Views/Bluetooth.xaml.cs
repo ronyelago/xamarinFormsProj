@@ -11,12 +11,25 @@ namespace AppEpi.Views
         private ObservableCollection<string> _listOfDevices;
         private readonly IBluetoothController _bluetoothController = DependencyService.Get<IBluetoothController>();
 
-        public string SelectedDeviceName { get => deviceList.SelectedItem.ToString(); }
+        public string SelectedDeviceName
+        {
+            get
+            {
+                try
+                {
+                    return deviceList.SelectedItem.ToString();
+                }
+                catch // quando não se tem nada selecionado, teriamos um NullPointerException
+                {
+                    return "";
+                }
+            }
+        }
 
         public Bluetooth()
         {
             InitializeComponent();
-            
+
             MessagingCenter.Subscribe<App, ConnectionState>(this, "BLUETOOTH_STATE", (sender, arg) =>
             {
                 UpdateLayout();
