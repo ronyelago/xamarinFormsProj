@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace AppEpi.ViewModels
@@ -39,13 +40,10 @@ namespace AppEpi.ViewModels
         {
             if (_epcList.Count > 0)
             {
-                string[] epcList = new string[_epcList.Count];
-                _epcList.CopyTo(epcList, 0);
-
                 if (_epcList.Count > 1)
                 {
                     string wbsFormattedEpcList = "";
-                    foreach (string epc in epcList)
+                    foreach (string epc in _epcList)
                     {
                         wbsFormattedEpcList += "|" + epc;
                     }
@@ -53,7 +51,7 @@ namespace AppEpi.ViewModels
                     return wbsFormattedEpcList;
                 }
                 else
-                    return epcList[0];
+                    return _epcList.OfType<string>().FirstOrDefault();
             }
             else
                 return null;
