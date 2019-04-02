@@ -65,12 +65,6 @@ namespace AppEpi.Views
         }
 
 
-        private void OnItemSelected(object sender, EventArgs e)
-        {
-            btnConectar.IsEnabled = true;
-        }
-
-
         protected override void OnAppearing()
         {
             base.OnAppearing();

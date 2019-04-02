@@ -18,7 +18,6 @@ namespace AppEpi.ViewModels.Bluetooth
 
         private void OnClicked(object sender, EventArgs args)
         {
-            Debug.WriteLine("--------------------OnClicked----------------");
             switch (_bluetoothController.CurrentState)
             {
                 case ConnectionState.Closed:
@@ -28,7 +27,8 @@ namespace AppEpi.ViewModels.Bluetooth
                     Disconnect();
                     break;
                 case ConnectionState.Connecting:
-                    Debug.WriteLine("Conexão em andamento... Click inválido.");
+                    //Debug.WriteLine("Conexão em andamento... Click inválido.");
+                    Disconnect();
                     break;
                 default:
                     IsVisible = false;
