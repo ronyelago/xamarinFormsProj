@@ -11,7 +11,7 @@
         <Label>Dispositivos Pareados</Label>
 
         <viewmodels:DevicesListView
-            x:Name="deviceList" />
+            x:Name="devicesList" />
 
         <StackLayout
             x:Name="avisoNaoHaDispositivos"

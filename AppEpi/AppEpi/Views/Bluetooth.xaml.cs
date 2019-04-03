@@ -17,10 +17,10 @@ namespace AppEpi.Views
             {
                 try
                 {
-                    return deviceList.SelectedItem.ToString();
+                    return devicesList.SelectedItem.ToString();
                 }
-                catch // quando não se tem nada selecionado, teriamos um NullPointerException
-                {
+                catch
+                {   // quando não se tem nada selecionado, teriamos um NullPointerException
                     DisplayAlert("Aviso", "Selecione um dispositivo na lista!", "OK");
                     return null;
                 }
@@ -30,8 +30,6 @@ namespace AppEpi.Views
         public Bluetooth()
         {
             InitializeComponent();
-
-            UpdateLayout();
 
             _bluetoothController.ConnectionStateChanged += OnConnectionStateChanged;
         }
@@ -73,8 +71,6 @@ namespace AppEpi.Views
         {
             base.OnAppearing();
 
-            UpdateLayout();
-
             try
             {
                 _listOfDevices = _bluetoothController.PairedDevices;
@@ -83,19 +79,21 @@ namespace AppEpi.Views
                 if (_listOfDevices.Count > 0)
                 {
                     avisoNaoHaDispositivos.IsVisible = false;
-                    deviceList.IsVisible = true;
-                    deviceList.BeginRefresh();
+                    devicesList.IsVisible = true;
+                    devicesList.BeginRefresh();
                 }
                 else
                 {
                     avisoNaoHaDispositivos.IsVisible = true;
-                    deviceList.IsVisible = false;
+                    devicesList.IsVisible = false;
                 }
             }
             catch (Exception e)
             {
                 Debug.WriteLine("Exceção no povoamento de dispositivos Bluetooth: " + e.Message);
             }
+
+            UpdateLayout();
         }
     }
 }
