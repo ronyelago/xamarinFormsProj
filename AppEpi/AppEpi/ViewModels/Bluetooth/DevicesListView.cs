@@ -11,6 +11,7 @@ namespace AppEpi.ViewModels.Bluetooth
         {
             ItemsSource = _bluetoothController.PairedDevices;
             VerticalOptions = LayoutOptions.StartAndExpand;
+            SelectionMode = ListViewSelectionMode.Single;
 
             Refreshing += OnRefreshing;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using Xamarin.Forms;
 
 namespace AppEpi.ViewModels.Bluetooth
@@ -18,12 +19,25 @@ namespace AppEpi.ViewModels.Bluetooth
             Value = _bluetoothController.ReaderPower;
 
             DragCompleted += OnDragCompleted;
+            _bluetoothController.ConnectionStateChanged += OnConnectionStateChanged;
+            OnConnectionStateChanged(this, null);
         }
 
         private void OnDragCompleted(object sender, EventArgs e)
         {
             _bluetoothController.ReaderPower = (int)Value;
             Value = _bluetoothController.ReaderPower;
+        }
+
+        private void OnConnectionStateChanged(object sender, EventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                if (_bluetoothController.CurrentState == ConnectionState.Open)
+                    IsEnabled = true;
+                else
+                    IsEnabled = false;
+            });
         }
     }
 }

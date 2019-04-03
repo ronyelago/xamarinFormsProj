@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:appepi="clr-namespace:AppEpi.ViewModels"
+             xmlns:bluetooth="clr-namespace:AppEpi.ViewModels.Bluetooth"
              Title="Recebimento de Itens Testado"
              x:Class="AppEpi.Views.RecebimentoTeste">
     <ContentPage.Content>
@@ -22,6 +23,8 @@
             <Label>ART</Label>
 
             <Entry x:Name="entART"/>
+
+            <bluetooth:PotenciaSlider/>
 
             <appepi:ConfirmarButton/>
 

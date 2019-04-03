@@ -17,6 +17,7 @@ namespace AppEpi.ViewModels
         public EpcListView()
         {
             ItemsSource = _epcList;
+            SelectionMode = ListViewSelectionMode.None;
 
             SetBasicLayout();
 
