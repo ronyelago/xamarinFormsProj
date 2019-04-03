@@ -39,10 +39,13 @@ namespace AppEpi.Views
 
         private void OnConnectionStateChanged(object sender, EventArgs e)
         {
-            UpdateLayout();
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                UpdateLayout();
 
-            if (_bluetoothController.CurrentState == ConnectionState.Open)
-                DisplayAlert("Bluetooth", "Conexão efetuada com sucesso!", "OK");
+                if (_bluetoothController.CurrentState == ConnectionState.Open)
+                    DisplayAlert("Bluetooth", "Conexão efetuada com sucesso!", "OK");
+            });
         }
 
 
@@ -63,8 +66,6 @@ namespace AppEpi.Views
                     btnConectar.Text = "Conectando...";
                     break;
             }
-
-            UpdateChildrenLayout();
         }
 
 
