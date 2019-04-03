@@ -31,8 +31,7 @@ namespace AppEpi.Views
 
         void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var item = e.SelectedItem as MasterPageItem;
-            if (item != null)
+            if (e.SelectedItem is MasterPageItem item)
             {
                 Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType))
                 {

@@ -1,5 +1,4 @@
 ﻿using Android.Bluetooth;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace AppEpi.Droid.Bluetooth
