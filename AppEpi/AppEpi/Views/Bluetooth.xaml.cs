@@ -31,28 +31,33 @@ namespace AppEpi.Views
         {
             InitializeComponent();
 
-            UpdateLayout(_bluetoothController.CurrentState);
+            UpdateLayout();
 
-            MessagingCenter.Subscribe<App, ConnectionState>(this, "BLUETOOTH_STATE", (sender, arg) =>
-            {
-                UpdateLayout(arg);
-
-                if (arg.ToString() == ConnectionState.Open.ToString())
-                    DisplayAlert("Bluetooth", "Conexão efetuada com sucesso!", "OK");
-
-            });
-
+            _bluetoothController.ConnectionStateChanged += OnConnectionStateChanged;
+            
+            /*
             // Deixados aqui apenas para referência. É assim que se recebe esses eventos:
+            // Isso acontece em uma Thread paralela, deve-se ter cuidado com os timings e com manipulação de elementos da UI
             MessagingCenter.Subscribe<App>(this, "RFID_LOWBATT", (sender) =>
                 Debug.WriteLine("LOW BATTERY EVENT"));
             MessagingCenter.Subscribe<App>(this, "RFID_OVERHEAT", (sender) =>
                 Debug.WriteLine("OVERHEAT EVENT"));
+            */
         }
 
 
-        private void UpdateLayout(ConnectionState connectionState)
+        private void OnConnectionStateChanged(object sender, EventArgs e)
         {
-            switch (connectionState)
+            UpdateLayout();
+
+            if (_bluetoothController.CurrentState == ConnectionState.Open)
+                DisplayAlert("Bluetooth", "Conexão efetuada com sucesso!", "OK");
+        }
+
+
+        private void UpdateLayout()
+        {
+            switch (_bluetoothController.CurrentState)
             {
                 case ConnectionState.Open:
                     controlePotencia.IsVisible = true;
@@ -76,7 +81,7 @@ namespace AppEpi.Views
         {
             base.OnAppearing();
 
-            UpdateLayout(_bluetoothController.CurrentState);
+            UpdateLayout();
 
             try
             {

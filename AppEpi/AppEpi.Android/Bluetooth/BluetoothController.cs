@@ -53,6 +53,8 @@ namespace AppEpi.Droid.Bluetooth
 
         #region IBth implementation
 
+        public event EventHandler ConnectionStateChanged;
+
         private ConnectionState _currentState = ConnectionState.Closed;
         public ConnectionState CurrentState
         {
@@ -66,8 +68,7 @@ namespace AppEpi.Droid.Bluetooth
                 if (!value.Equals(_currentState))
                 {
                     _currentState = value; // necessário alterar antes de divulgar novo estado
-                    // envia mensagem a toda aplicação com o novo estado
-                    MessagingCenter.Send((App)Application.Current, "BLUETOOTH_STATE", _currentState);
+                    ConnectionStateChanged(this, null);
                 }
                 _currentState = value;
             }

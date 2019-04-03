@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Data;
 
 namespace AppEpi
@@ -17,5 +18,7 @@ namespace AppEpi
         int ReaderPower { get; set; }
         ConnectionState CurrentState { get; }
         ObservableCollection<string> PairedDevices { get; }
+
+        event EventHandler ConnectionStateChanged;
     }
 }
