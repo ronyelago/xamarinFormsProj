@@ -10,7 +10,7 @@ namespace AppEpi.Droid.Bluetooth
         // retorna BluetoothDevice pareado buscando por nome
         public static BluetoothDevice FindDevice(string name)
         {
-            Debug.WriteLine("Try to connect to " + name);
+            Debug.WriteLine("Searching for device" + name);
 
             BluetoothAdapter adapter = BluetoothAdapter.DefaultAdapter;
             #region adapter debug
@@ -26,7 +26,7 @@ namespace AppEpi.Droid.Bluetooth
             #endregion
 
             BluetoothDevice device = null;
-
+            
             // se o nome for vazio, cicla-se o retorno por cada dispositivo encontrado
             if (name == "")
             {
@@ -38,12 +38,14 @@ namespace AppEpi.Droid.Bluetooth
                 return device;
             }
 
+            Debug.Write(" named " + name + ".");
+
             foreach (var bd in adapter.BondedDevices)
             {
                 Debug.WriteLine("Paired devices found: " + bd.Name.ToUpper());
                 if (bd.Name.ToUpper().IndexOf(name.ToUpper()) >= 0)
                 {
-                    Debug.WriteLine("Found " + bd.Name + ". Try to connect with it!");
+                    Debug.WriteLine("Found " + bd.Name + ". Try to connect to it!");
                     device = bd;
                     break;
                 }
