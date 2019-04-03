@@ -118,6 +118,22 @@ namespace AppEpi.Droid.Bluetooth
             }
         }
 
+        private string _connectedDeviceName = null;
+        public string ConnectedDeviceName
+        {
+            get
+            {
+                if (CurrentState == ConnectionState.Open)
+                    return _connectedDeviceName;
+                else
+                    return null;
+            }
+            private set
+            {
+                _connectedDeviceName = value;
+            }
+        }
+
 
         // Starts the Server loop 
         /// <param name="deviceName"> Name of the paired bluetooth device </param>
@@ -378,6 +394,7 @@ namespace AppEpi.Droid.Bluetooth
                 if (device != null)
                 {
                     CurrentState = ConnectionState.Connecting;
+                    ConnectedDeviceName = device.Name;
 
                     UUID uuid = UUID.FromString(_uuid);
                     _bthSocket = device.CreateInsecureRfcommSocketToServiceRecord(uuid);

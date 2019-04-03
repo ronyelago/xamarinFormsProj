@@ -18,6 +18,7 @@ namespace AppEpi
         int ReaderPower { get; set; }
         ConnectionState CurrentState { get; }
         ObservableCollection<string> PairedDevices { get; }
+        string ConnectedDeviceName { get; }
 
         event EventHandler ConnectionStateChanged;
         event EventHandler LowBatteryWarning;
