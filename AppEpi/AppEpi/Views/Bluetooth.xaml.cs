@@ -34,15 +34,6 @@ namespace AppEpi.Views
             UpdateLayout();
 
             _bluetoothController.ConnectionStateChanged += OnConnectionStateChanged;
-            
-            /*
-            // Deixados aqui apenas para referência. É assim que se recebe esses eventos:
-            // Isso acontece em uma Thread paralela, deve-se ter cuidado com os timings e com manipulação de elementos da UI
-            MessagingCenter.Subscribe<App>(this, "RFID_LOWBATT", (sender) =>
-                Debug.WriteLine("LOW BATTERY EVENT"));
-            MessagingCenter.Subscribe<App>(this, "RFID_OVERHEAT", (sender) =>
-                Debug.WriteLine("OVERHEAT EVENT"));
-            */
         }
 
 

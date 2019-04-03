@@ -105,12 +105,12 @@ namespace AppEpi.Droid.Bluetooth
                     // evento = low battery warning
                     else if (message.Contains(BRICommands.LowBatteryEvent))
                     {
-                        MessagingCenter.Send((App)Application.Current, "RFID_LOWBATT");
+                        _bluetoothController.BroadcastLowBatteryWarning();
                     }
                     // evento = overheating
                     else if (message.Contains(BRICommands.OverheatEvent))
                     {
-                        MessagingCenter.Send((App)Application.Current, "RFID_OVERHEAT");
+                        _bluetoothController.BroadcastOverheatingWarning();
                     }
                     else
                         Debug.WriteLine("Handle other incoming event. Input: " + message);

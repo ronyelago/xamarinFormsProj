@@ -54,6 +54,8 @@ namespace AppEpi.Droid.Bluetooth
         #region IBth implementation
 
         public event EventHandler ConnectionStateChanged;
+        public event EventHandler LowBatteryWarning;
+        public event EventHandler OverheatingWarning;
 
         private ConnectionState _currentState = ConnectionState.Closed;
         public ConnectionState CurrentState
@@ -183,6 +185,17 @@ namespace AppEpi.Droid.Bluetooth
                     Debug.WriteLine("Invalid polling mode setup");
                     break;
             }
+        }
+
+
+        public void BroadcastLowBatteryWarning()
+        {
+            LowBatteryWarning(this, null);
+        }
+
+        public void BroadcastOverheatingWarning()
+        {
+            OverheatingWarning(this, null);
         }
 
 

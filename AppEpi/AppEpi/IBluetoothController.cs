@@ -20,5 +20,7 @@ namespace AppEpi
         ObservableCollection<string> PairedDevices { get; }
 
         event EventHandler ConnectionStateChanged;
+        event EventHandler LowBatteryWarning;
+        event EventHandler OverheatingWarning;
     }
 }
