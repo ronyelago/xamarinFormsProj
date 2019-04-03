@@ -21,7 +21,8 @@ namespace AppEpi.Views
                 }
                 catch // quando não se tem nada selecionado, teriamos um NullPointerException
                 {
-                    return "";
+                    DisplayAlert("Aviso", "Selecione um dispositivo na lista!", "OK");
+                    return null;
                 }
             }
         }
