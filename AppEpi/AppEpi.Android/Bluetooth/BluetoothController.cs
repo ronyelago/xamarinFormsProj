@@ -65,9 +65,9 @@ namespace AppEpi.Droid.Bluetooth
                 // se o novo valor for diferente do anterior
                 if (!value.Equals(_currentState))
                 {
-                    _currentState = value;
+                    _currentState = value; // necessário alterar antes de divulgar novo estado
                     // envia mensagem a toda aplicação com o novo estado
-                    MessagingCenter.Send((App)Application.Current, "BLUETOOTH_STATE", value);
+                    MessagingCenter.Send((App)Application.Current, "BLUETOOTH_STATE", _currentState);
                 }
                 _currentState = value;
             }
@@ -302,6 +302,7 @@ namespace AppEpi.Droid.Bluetooth
 
         private async Task Loop(bool readAsCharArray)
         {
+            Debug.WriteLine("Server loop started");
             try
             {
                 _cts = new CancellationTokenSource();
@@ -343,8 +344,6 @@ namespace AppEpi.Droid.Bluetooth
         {
             try
             {
-                CurrentState = ConnectionState.Connecting;
-
                 try
                 {
                     // reinicia o socket se o mesmo já tiver sido criado
@@ -365,6 +364,7 @@ namespace AppEpi.Droid.Bluetooth
                 var device = BluetoothUtils.FindDevice(name);
                 if (device != null)
                 {
+                    CurrentState = ConnectionState.Connecting;
 
                     UUID uuid = UUID.FromString(_uuid);
                     _bthSocket = device.CreateInsecureRfcommSocketToServiceRecord(uuid);
