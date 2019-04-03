@@ -31,9 +31,15 @@ namespace AppEpi.Views
         {
             InitializeComponent();
 
+            UpdateLayout(_bluetoothController.CurrentState);
+
             MessagingCenter.Subscribe<App, ConnectionState>(this, "BLUETOOTH_STATE", (sender, arg) =>
             {
-                UpdateLayout();
+                UpdateLayout(arg);
+
+                if (arg.ToString() == ConnectionState.Open.ToString())
+                    DisplayAlert("Bluetooth", "Conexão efetuada com sucesso!", "OK");
+
             });
 
             // Deixados aqui apenas para referência. É assim que se recebe esses eventos:
@@ -44,9 +50,9 @@ namespace AppEpi.Views
         }
 
 
-        private void UpdateLayout()
+        private void UpdateLayout(ConnectionState connectionState)
         {
-            switch (_bluetoothController.CurrentState)
+            switch (connectionState)
             {
                 case ConnectionState.Open:
                     controlePotencia.IsVisible = true;
@@ -70,7 +76,7 @@ namespace AppEpi.Views
         {
             base.OnAppearing();
 
-            UpdateLayout();
+            UpdateLayout(_bluetoothController.CurrentState);
 
             try
             {
