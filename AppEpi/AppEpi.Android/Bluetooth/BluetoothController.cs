@@ -141,27 +141,25 @@ namespace AppEpi.Droid.Bluetooth
         // Cancels the Server loop
         public void Cancel()
         {
-            _serverStarted = false;
-
             if (_cts != null)
             {
                 Debug.WriteLine("Send a cancel to task!");
                 _cts.Cancel();
             }
-            CurrentState = ConnectionState.Closed;
         }
 
 
         public void Connect(string deviceName = "")
         {
             _targetDeviceName = deviceName;
+            Init();
         }
 
 
         public void Disconnect()
         {
             _targetDeviceName = null;
-            RestartServer();
+            Cancel();
         }
 
         #endregion
@@ -335,7 +333,8 @@ namespace AppEpi.Droid.Bluetooth
                     _bthSocket.Dispose();
                 }
 
-                RestartServer();
+                _serverStarted = false;
+                CurrentState = ConnectionState.Closed;
             }
         }
 
@@ -410,7 +409,6 @@ namespace AppEpi.Droid.Bluetooth
         private void RestartServer()
         {
             Debug.WriteLine("Servidor Bluetooth reiniciado.");
-            Thread.Sleep(_pollingInterval);
             Cancel();
             Thread.Sleep(2 * _pollingInterval);
             Init();
