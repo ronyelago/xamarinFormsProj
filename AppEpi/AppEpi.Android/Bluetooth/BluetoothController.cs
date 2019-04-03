@@ -329,25 +329,37 @@ namespace AppEpi.Droid.Bluetooth
             finally
             {
                 if (_bthSocket != null)
+                {
                     _bthSocket.Close();
+                    _bthSocket.Dispose();
+                }
 
                 RestartServer();
             }
         }
 
 
-        // throws descriptive exceptions
         private async Task ConnectDevice(string name)
         {
             try
             {
                 CurrentState = ConnectionState.Connecting;
 
-                // reinicia o socket se o mesmo já tiver sido criado
-                if (_bthSocket != null)
+                try
                 {
-                    _bthSocket.Close();
-                    _bthSocket.Dispose();
+                    // reinicia o socket se o mesmo já tiver sido criado
+                    // Na verdade, até onde entendo, o socket só deveria ser fechado ao final da operação.
+                    // Esse .Dispose(), no entanto, foi o que fez com que a segunda conexão funcionasse como um todo.
+                    // Introduziu também alguns problemas no gerenciamento de reconexão que não tive tempo nem de analizar
+                    if (_bthSocket != null)
+                    {
+                        _bthSocket.Close();
+                        _bthSocket.Dispose();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Socket disposing Exception: " + e.Message);
                 }
 
                 var device = BluetoothUtils.FindDevice(name);
