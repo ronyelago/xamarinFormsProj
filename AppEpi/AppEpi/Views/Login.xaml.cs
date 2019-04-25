@@ -11,6 +11,33 @@ namespace AppEpi.Views
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+
+            Carregar_Dados_Login();
+        }
+
+        private void Carregar_Dados_Login()
+        {
+            if (Application.Current.Properties.ContainsKey("Matricula") &&
+                Application.Current.Properties.ContainsKey("Senha"))
+            {
+                entMatricula.Text = Application.Current.Properties["Matricula"] as string;
+                entSenha.Text = Application.Current.Properties["Senha"] as string;
+            }
+        }
+
+        async private void Salvar_Dados_Login()
+        {
+            if (Application.Current.Properties.ContainsKey("Matricula"))
+                Application.Current.Properties["Matricula"] = entMatricula.Text;
+            else
+                Application.Current.Properties.Add("Matricula", entMatricula.Text);
+
+            if (Application.Current.Properties.ContainsKey("Senha"))
+                Application.Current.Properties["Senha"] = entSenha.Text;
+            else
+                Application.Current.Properties.Add("Senha", entSenha.Text);
+
+            await Application.Current.SavePropertiesAsync();
         }
 
 
@@ -32,6 +59,8 @@ namespace AppEpi.Views
 
                     if (result.Find(x => x.Resultado == "OK") != null)
                     {
+                        Salvar_Dados_Login();
+
                         UsuarioLogado.DadosUsuario = result;
                         LoginButton.Clicked += LoginButton_Clicked;
                         UsuarioLogado.Cnpj = result[0].Cnpj;
