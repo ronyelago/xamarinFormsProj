@@ -11,16 +11,17 @@ namespace AppEpi.Views
             InitializeComponent();
         }
 
-
         async void IConfirmacao.OnConfirmarClicked()
         {
             if (epcList.Count <= 0 || entMatricula.Text == "")
             {
-                await DisplayAlert("Atribuição", "Verifique os Campos!", "OK");
+                await DisplayAlert("Erro", "Verifique os Campos.", "OK");
             }
+
             else
             {
-                var answer = await DisplayAlert("Atribuição de Cracha", "Deseja Confirmar Atribuição?", "Sim", "Não");
+                bool answer = await DisplayAlert("Atribuição de Crachá", "Confirmar Atribuição?", "Sim", "Não");
+
                 if (answer)
                 {
                     var wbs = DependencyService.Get<IWEBClient>();
@@ -32,7 +33,6 @@ namespace AppEpi.Views
                 }
             }
         }
-
 
         protected override void OnAppearing()
         {
