@@ -27,11 +27,11 @@
                                 WidthRequest="100"
                                 Source="icon.png"/>
                         <Entry HorizontalOptions="Center"
-                                x:Name="entMatricula" WidthRequest="200"
+                                x:Name="emailEntry" WidthRequest="200"
                                 Style="{StaticResource EntryStyle}"
                                 Placeholder="Login" />
                         <Entry HorizontalOptions="Center"
-                                x:Name="entSenha" WidthRequest="200"
+                                x:Name="passwordEntry" WidthRequest="200"
                                 Style="{StaticResource EntryStyle}"
                                 Placeholder="Senha"
                                 IsPassword="True"/>

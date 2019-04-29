@@ -11,6 +11,7 @@
             <Label >Matricula</Label>
 
             <Entry x:Name="entMatricula" />
+            
 
             <Label>Cracha</Label>
 

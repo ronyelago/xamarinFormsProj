@@ -17,25 +17,25 @@ namespace AppEpi.Views
 
         private void Carregar_Dados_Login()
         {
-            if (Application.Current.Properties.ContainsKey("Matricula") &&
-                Application.Current.Properties.ContainsKey("Senha"))
+            if (Application.Current.Properties.ContainsKey("Email") &&
+                Application.Current.Properties.ContainsKey("Password"))
             {
-                entMatricula.Text = Application.Current.Properties["Matricula"] as string;
-                entSenha.Text = Application.Current.Properties["Senha"] as string;
+                emailEntry.Text = Application.Current.Properties["Email"] as string;
+                passwordEntry.Text = Application.Current.Properties["Password"] as string;
             }
         }
 
         async private void Salvar_Dados_Login()
         {
-            if (Application.Current.Properties.ContainsKey("Matricula"))
-                Application.Current.Properties["Matricula"] = entMatricula.Text;
+            if (Application.Current.Properties.ContainsKey("Email"))
+                Application.Current.Properties["Email"] = emailEntry.Text;
             else
-                Application.Current.Properties.Add("Matricula", entMatricula.Text);
+                Application.Current.Properties.Add("Email", emailEntry.Text);
 
-            if (Application.Current.Properties.ContainsKey("Senha"))
-                Application.Current.Properties["Senha"] = entSenha.Text;
+            if (Application.Current.Properties.ContainsKey("Password"))
+                Application.Current.Properties["Password"] = passwordEntry.Text;
             else
-                Application.Current.Properties.Add("Senha", entSenha.Text);
+                Application.Current.Properties.Add("Password", passwordEntry.Text);
 
             await Application.Current.SavePropertiesAsync();
         }
@@ -52,10 +52,10 @@ namespace AppEpi.Views
                     await Navigation.PushModalAsync(detailPage);
                 }
 
-                if (entMatricula.Text != "" && entSenha.Text != "")
+                if (emailEntry.Text != "" && passwordEntry.Text != "")
                 {
                     var wbs = DependencyService.Get<IWEBClient>();
-                    var result = wbs.loginFunc(entMatricula.Text, entSenha.Text);
+                    var result = wbs.loginFunc(emailEntry.Text, passwordEntry.Text);
 
                     if (result.Find(x => x.Resultado == "OK") != null)
                     {
@@ -65,7 +65,7 @@ namespace AppEpi.Views
                         LoginButton.Clicked += LoginButton_Clicked;
                         UsuarioLogado.Cnpj = result[0].Cnpj;
                         UsuarioLogado.FkCliente = result[0].FkCliente;
-                        UsuarioLogado.MatriculaDistribuicao = entMatricula.Text;
+                        UsuarioLogado.MatriculaDistribuicao = emailEntry.Text;
                         UsuarioLogado.SenhaConfirmada = true;
                         NavigationPage.SetHasNavigationBar(this, false);
                         var navPage = new NavigationPage(new Splash());
