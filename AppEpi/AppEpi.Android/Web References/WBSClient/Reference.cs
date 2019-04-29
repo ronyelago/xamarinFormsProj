@@ -731,9 +731,9 @@ namespace AppEpi.Droid.WBSClient {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/loginFuncionario", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public DADOSLOGIN[] loginFuncionario(string matricula, string senha) {
+        public DADOSLOGIN[] loginFuncionario(string loginUsuario, string senha) {
             object[] results = this.Invoke("loginFuncionario", new object[] {
-                        matricula,
+                        loginUsuario,
                         senha});
             return ((DADOSLOGIN[])(results[0]));
         }
