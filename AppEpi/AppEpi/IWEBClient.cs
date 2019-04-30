@@ -32,7 +32,7 @@ namespace AppEpi
 
         List<RESULTADOMOV> descartItem(string epc, string estoque);
 
-        List<RESULTADOMOV> consultEPI(string listaEPCS);
+        List<RESULTADOMOV> consultEPIouCracha(string listaEPCS);
 
         List<RESULTADOMOV> retornarDEpi(string listaEPCS);
 

@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using AppEpi.Droid;
 using System.Collections.ObjectModel;
 using AppEpi.Models;
+using System;
 
 [assembly: Dependency(typeof(WEBClient))]
 namespace AppEpi.Droid
@@ -496,7 +497,7 @@ namespace AppEpi.Droid
         }
 
 
-        public List<RESULTADOMOV> consultEPI(string listaEPCS)
+        public List<RESULTADOMOV> consultEPIouCracha(string listaEPCS)
         {
             try
             {
@@ -516,8 +517,9 @@ namespace AppEpi.Droid
                 }
                 return lpd;
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
