@@ -29,8 +29,6 @@ namespace AppEpi.Droid.WBSClient {
     [System.Web.Services.WebServiceBindingAttribute(Name="ClientSoap", Namespace="http://tempuri.org/")]
     public partial class Client : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
-        private System.Threading.SendOrPostCallback HelloWorldOperationCompleted;
-        
         private System.Threading.SendOrPostCallback retornaLocalEstoqueOperationCompleted;
         
         private System.Threading.SendOrPostCallback movimentacaoEstoqueOperationCompleted;
@@ -65,7 +63,7 @@ namespace AppEpi.Droid.WBSClient {
         
         private System.Threading.SendOrPostCallback descartarItemOperationCompleted;
         
-        private System.Threading.SendOrPostCallback consultaEPIOperationCompleted;
+        private System.Threading.SendOrPostCallback consultaEPIouCrachaOperationCompleted;
         
         private System.Threading.SendOrPostCallback retornarDadosEpiOperationCompleted;
         
@@ -75,13 +73,9 @@ namespace AppEpi.Droid.WBSClient {
         
         private System.Threading.SendOrPostCallback retornarDadosEpiValidarOperationCompleted;
         
-        private System.Threading.SendOrPostCallback salvarMensagemOcorrenciaOperationCompleted;
-        
         private System.Threading.SendOrPostCallback retornarListaMensagemOperationCompleted;
         
         private System.Threading.SendOrPostCallback retornarListaMensagemSupervisorOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback alterarStatusOperationCompleted;
         
         private System.Threading.SendOrPostCallback dataDifOperationCompleted;
         
@@ -115,7 +109,7 @@ namespace AppEpi.Droid.WBSClient {
         
         /// <remarks/>
         public Client() {
-            this.Url = "http://easyepi.com.br/WBSHomologacao/Client.asmx";
+            this.Url = "https://easyepi.com.br/WBSHomologacao/Client.asmx";
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
@@ -148,9 +142,6 @@ namespace AppEpi.Droid.WBSClient {
                 this.useDefaultCredentialsSetExplicitly = true;
             }
         }
-        
-        /// <remarks/>
-        public event HelloWorldCompletedEventHandler HelloWorldCompleted;
         
         /// <remarks/>
         public event retornaLocalEstoqueCompletedEventHandler retornaLocalEstoqueCompleted;
@@ -204,7 +195,7 @@ namespace AppEpi.Droid.WBSClient {
         public event descartarItemCompletedEventHandler descartarItemCompleted;
         
         /// <remarks/>
-        public event consultaEPICompletedEventHandler consultaEPICompleted;
+        public event consultaEPIouCrachaCompletedEventHandler consultaEPIouCrachaCompleted;
         
         /// <remarks/>
         public event retornarDadosEpiCompletedEventHandler retornarDadosEpiCompleted;
@@ -219,16 +210,10 @@ namespace AppEpi.Droid.WBSClient {
         public event retornarDadosEpiValidarCompletedEventHandler retornarDadosEpiValidarCompleted;
         
         /// <remarks/>
-        public event salvarMensagemOcorrenciaCompletedEventHandler salvarMensagemOcorrenciaCompleted;
-        
-        /// <remarks/>
         public event retornarListaMensagemCompletedEventHandler retornarListaMensagemCompleted;
         
         /// <remarks/>
         public event retornarListaMensagemSupervisorCompletedEventHandler retornarListaMensagemSupervisorCompleted;
-        
-        /// <remarks/>
-        public event alterarStatusCompletedEventHandler alterarStatusCompleted;
         
         /// <remarks/>
         public event dataDifCompletedEventHandler dataDifCompleted;
@@ -271,33 +256,6 @@ namespace AppEpi.Droid.WBSClient {
         
         /// <remarks/>
         public event testeIndexOFCompletedEventHandler testeIndexOFCompleted;
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/HelloWorld", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string HelloWorld() {
-            object[] results = this.Invoke("HelloWorld", new object[0]);
-            return ((string)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void HelloWorldAsync() {
-            this.HelloWorldAsync(null);
-        }
-        
-        /// <remarks/>
-        public void HelloWorldAsync(object userState) {
-            if ((this.HelloWorldOperationCompleted == null)) {
-                this.HelloWorldOperationCompleted = new System.Threading.SendOrPostCallback(this.OnHelloWorldOperationCompleted);
-            }
-            this.InvokeAsync("HelloWorld", new object[0], this.HelloWorldOperationCompleted, userState);
-        }
-        
-        private void OnHelloWorldOperationCompleted(object arg) {
-            if ((this.HelloWorldCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.HelloWorldCompleted(this, new HelloWorldCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/retornaLocalEstoque", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -731,25 +689,25 @@ namespace AppEpi.Droid.WBSClient {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/loginFuncionario", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public DADOSLOGIN[] loginFuncionario(string matricula, string senha) {
+        public DADOSLOGIN[] loginFuncionario(string loginUsuario, string senha) {
             object[] results = this.Invoke("loginFuncionario", new object[] {
-                        matricula,
+                        loginUsuario,
                         senha});
             return ((DADOSLOGIN[])(results[0]));
         }
         
         /// <remarks/>
-        public void loginFuncionarioAsync(string matricula, string senha) {
-            this.loginFuncionarioAsync(matricula, senha, null);
+        public void loginFuncionarioAsync(string loginUsuario, string senha) {
+            this.loginFuncionarioAsync(loginUsuario, senha, null);
         }
         
         /// <remarks/>
-        public void loginFuncionarioAsync(string matricula, string senha, object userState) {
+        public void loginFuncionarioAsync(string loginUsuario, string senha, object userState) {
             if ((this.loginFuncionarioOperationCompleted == null)) {
                 this.loginFuncionarioOperationCompleted = new System.Threading.SendOrPostCallback(this.OnloginFuncionarioOperationCompleted);
             }
             this.InvokeAsync("loginFuncionario", new object[] {
-                        matricula,
+                        loginUsuario,
                         senha}, this.loginFuncionarioOperationCompleted, userState);
         }
         
@@ -823,33 +781,33 @@ namespace AppEpi.Droid.WBSClient {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/consultaEPI", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public RESULTADOMOV[] consultaEPI(string listaEPCS, string cnpj) {
-            object[] results = this.Invoke("consultaEPI", new object[] {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/consultaEPIouCracha", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public RESULTADOMOV[] consultaEPIouCracha(string listaEPCS, string cnpj) {
+            object[] results = this.Invoke("consultaEPIouCracha", new object[] {
                         listaEPCS,
                         cnpj});
             return ((RESULTADOMOV[])(results[0]));
         }
         
         /// <remarks/>
-        public void consultaEPIAsync(string listaEPCS, string cnpj) {
-            this.consultaEPIAsync(listaEPCS, cnpj, null);
+        public void consultaEPIouCrachaAsync(string listaEPCS, string cnpj) {
+            this.consultaEPIouCrachaAsync(listaEPCS, cnpj, null);
         }
         
         /// <remarks/>
-        public void consultaEPIAsync(string listaEPCS, string cnpj, object userState) {
-            if ((this.consultaEPIOperationCompleted == null)) {
-                this.consultaEPIOperationCompleted = new System.Threading.SendOrPostCallback(this.OnconsultaEPIOperationCompleted);
+        public void consultaEPIouCrachaAsync(string listaEPCS, string cnpj, object userState) {
+            if ((this.consultaEPIouCrachaOperationCompleted == null)) {
+                this.consultaEPIouCrachaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnconsultaEPIouCrachaOperationCompleted);
             }
-            this.InvokeAsync("consultaEPI", new object[] {
+            this.InvokeAsync("consultaEPIouCracha", new object[] {
                         listaEPCS,
-                        cnpj}, this.consultaEPIOperationCompleted, userState);
+                        cnpj}, this.consultaEPIouCrachaOperationCompleted, userState);
         }
         
-        private void OnconsultaEPIOperationCompleted(object arg) {
-            if ((this.consultaEPICompleted != null)) {
+        private void OnconsultaEPIouCrachaOperationCompleted(object arg) {
+            if ((this.consultaEPIouCrachaCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.consultaEPICompleted(this, new consultaEPICompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.consultaEPIouCrachaCompleted(this, new consultaEPIouCrachaCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -974,37 +932,6 @@ namespace AppEpi.Droid.WBSClient {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/salvarMensagemOcorrencia", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public bool salvarMensagemOcorrencia(string number, string mensagem) {
-            object[] results = this.Invoke("salvarMensagemOcorrencia", new object[] {
-                        number,
-                        mensagem});
-            return ((bool)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void salvarMensagemOcorrenciaAsync(string number, string mensagem) {
-            this.salvarMensagemOcorrenciaAsync(number, mensagem, null);
-        }
-        
-        /// <remarks/>
-        public void salvarMensagemOcorrenciaAsync(string number, string mensagem, object userState) {
-            if ((this.salvarMensagemOcorrenciaOperationCompleted == null)) {
-                this.salvarMensagemOcorrenciaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnsalvarMensagemOcorrenciaOperationCompleted);
-            }
-            this.InvokeAsync("salvarMensagemOcorrencia", new object[] {
-                        number,
-                        mensagem}, this.salvarMensagemOcorrenciaOperationCompleted, userState);
-        }
-        
-        private void OnsalvarMensagemOcorrenciaOperationCompleted(object arg) {
-            if ((this.salvarMensagemOcorrenciaCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.salvarMensagemOcorrenciaCompleted(this, new salvarMensagemOcorrenciaCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/retornarListaMensagem", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public RESULTADOMOV[] retornarListaMensagem() {
             object[] results = this.Invoke("retornarListaMensagem", new object[0]);
@@ -1055,37 +982,6 @@ namespace AppEpi.Droid.WBSClient {
             if ((this.retornarListaMensagemSupervisorCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.retornarListaMensagemSupervisorCompleted(this, new retornarListaMensagemSupervisorCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/alterarStatus", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string alterarStatus(int id, string ocorrencia) {
-            object[] results = this.Invoke("alterarStatus", new object[] {
-                        id,
-                        ocorrencia});
-            return ((string)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void alterarStatusAsync(int id, string ocorrencia) {
-            this.alterarStatusAsync(id, ocorrencia, null);
-        }
-        
-        /// <remarks/>
-        public void alterarStatusAsync(int id, string ocorrencia, object userState) {
-            if ((this.alterarStatusOperationCompleted == null)) {
-                this.alterarStatusOperationCompleted = new System.Threading.SendOrPostCallback(this.OnalterarStatusOperationCompleted);
-            }
-            this.InvokeAsync("alterarStatus", new object[] {
-                        id,
-                        ocorrencia}, this.alterarStatusOperationCompleted, userState);
-        }
-        
-        private void OnalterarStatusOperationCompleted(object arg) {
-            if ((this.alterarStatusCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.alterarStatusCompleted(this, new alterarStatusCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1310,24 +1206,24 @@ namespace AppEpi.Droid.WBSClient {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/formatarTelefone", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string formatarTelefone(string tELEFONE) {
+        public string formatarTelefone(string telefone) {
             object[] results = this.Invoke("formatarTelefone", new object[] {
-                        tELEFONE});
+                        telefone});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void formatarTelefoneAsync(string tELEFONE) {
-            this.formatarTelefoneAsync(tELEFONE, null);
+        public void formatarTelefoneAsync(string telefone) {
+            this.formatarTelefoneAsync(telefone, null);
         }
         
         /// <remarks/>
-        public void formatarTelefoneAsync(string tELEFONE, object userState) {
+        public void formatarTelefoneAsync(string telefone, object userState) {
             if ((this.formatarTelefoneOperationCompleted == null)) {
                 this.formatarTelefoneOperationCompleted = new System.Threading.SendOrPostCallback(this.OnformatarTelefoneOperationCompleted);
             }
             this.InvokeAsync("formatarTelefone", new object[] {
-                        tELEFONE}, this.formatarTelefoneOperationCompleted, userState);
+                        telefone}, this.formatarTelefoneOperationCompleted, userState);
         }
         
         private void OnformatarTelefoneOperationCompleted(object arg) {
@@ -2208,6 +2104,14 @@ namespace AppEpi.Droid.WBSClient {
         
         private string nORMAField;
         
+        private string aTIVOField;
+        
+        private string cNV_DT_FABRICACAOField;
+        
+        private string cNV_DT_VALIDADEField;
+        
+        private string cNV_VALIDADE_TESTEField;
+        
         /// <remarks/>
         public int ID {
             get {
@@ -2383,6 +2287,46 @@ namespace AppEpi.Droid.WBSClient {
                 this.nORMAField = value;
             }
         }
+        
+        /// <remarks/>
+        public string ATIVO {
+            get {
+                return this.aTIVOField;
+            }
+            set {
+                this.aTIVOField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CNV_DT_FABRICACAO {
+            get {
+                return this.cNV_DT_FABRICACAOField;
+            }
+            set {
+                this.cNV_DT_FABRICACAOField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CNV_DT_VALIDADE {
+            get {
+                return this.cNV_DT_VALIDADEField;
+            }
+            set {
+                this.cNV_DT_VALIDADEField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CNV_VALIDADE_TESTE {
+            get {
+                return this.cNV_VALIDADE_TESTEField;
+            }
+            set {
+                this.cNV_VALIDADE_TESTEField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -2520,6 +2464,8 @@ namespace AppEpi.Droid.WBSClient {
         
         private string corAvisoField;
         
+        private bool hasErrorField;
+        
         /// <remarks/>
         public System.DateTime DataMovimentacao {
             get {
@@ -2561,7 +2507,7 @@ namespace AppEpi.Droid.WBSClient {
         }
         
         /// <remarks/>
-        public string corAviso {
+        public string CorAviso {
             get {
                 return this.corAvisoField;
             }
@@ -2569,30 +2515,14 @@ namespace AppEpi.Droid.WBSClient {
                 this.corAvisoField = value;
             }
         }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
-    public delegate void HelloWorldCompletedEventHandler(object sender, HelloWorldCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class HelloWorldCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal HelloWorldCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
         
         /// <remarks/>
-        public string Result {
+        public bool HasError {
             get {
-                this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
+                return this.hasErrorField;
+            }
+            set {
+                this.hasErrorField = value;
             }
         }
     }
@@ -3041,17 +2971,17 @@ namespace AppEpi.Droid.WBSClient {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
-    public delegate void consultaEPICompletedEventHandler(object sender, consultaEPICompletedEventArgs e);
+    public delegate void consultaEPIouCrachaCompletedEventHandler(object sender, consultaEPIouCrachaCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class consultaEPICompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class consultaEPIouCrachaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal consultaEPICompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal consultaEPIouCrachaCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -3171,32 +3101,6 @@ namespace AppEpi.Droid.WBSClient {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
-    public delegate void salvarMensagemOcorrenciaCompletedEventHandler(object sender, salvarMensagemOcorrenciaCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class salvarMensagemOcorrenciaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal salvarMensagemOcorrenciaCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public bool Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void retornarListaMensagemCompletedEventHandler(object sender, retornarListaMensagemCompletedEventArgs e);
     
     /// <remarks/>
@@ -3243,32 +3147,6 @@ namespace AppEpi.Droid.WBSClient {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((RESULTADOMOV[])(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
-    public delegate void alterarStatusCompletedEventHandler(object sender, alterarStatusCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class alterarStatusCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal alterarStatusCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public string Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
             }
         }
     }

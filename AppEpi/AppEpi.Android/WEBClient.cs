@@ -53,7 +53,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -84,7 +84,7 @@ namespace AppEpi.Droid
                             EPC = item.EPC,
                             Resultado = item.Resultado,
                             Produto = item.Produto,
-                            corAviso = isnullCor(item.corAviso)
+                            corAviso = isnullCor(item.CorAviso)
                         });
                     }
                     else
@@ -98,7 +98,7 @@ namespace AppEpi.Droid
                                 EPC = item.EPC,
                                 Resultado = item.Resultado,
                                 Produto = item.Produto,
-                                corAviso = isnullCor(item.corAviso)
+                                corAviso = isnullCor(item.CorAviso)
                             });
                         }
                     }
@@ -131,7 +131,7 @@ namespace AppEpi.Droid
                             EPC = item.EPC,
                             Resultado = item.Resultado,
                             Produto = item.Produto,
-                            corAviso = isnullCor(item.corAviso)
+                            corAviso = isnullCor(item.CorAviso)
                         });
                     }
                     else
@@ -145,7 +145,7 @@ namespace AppEpi.Droid
                                 EPC = item.EPC,
                                 Resultado = item.Resultado,
                                 Produto = item.Produto,
-                                corAviso = isnullCor(item.corAviso)
+                                corAviso = isnullCor(item.CorAviso)
                             });
                         }
                     }
@@ -166,6 +166,7 @@ namespace AppEpi.Droid
                 WBSClient.Client cl = new WBSClient.Client();
                 var rest = cl.atribuicaoCracha(matricula, cracha);
                 List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
+
                 foreach (var item in rest)
                 {
                     lpd.Add(new RESULTADOMOV
@@ -174,11 +175,14 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso),
+                        HasError = item.HasError
                     });
                 }
+
                 return lpd;
             }
+
             catch
             {
                 return null;
@@ -201,7 +205,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -228,7 +232,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -255,7 +259,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -282,7 +286,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -309,7 +313,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -337,7 +341,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -364,7 +368,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -391,7 +395,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -403,13 +407,15 @@ namespace AppEpi.Droid
         }
 
 
-        public List<DADOSLOGIN> loginFunc(string matricula, string senha)
+        public List<DADOSLOGIN> loginFunc(string loginUsuario, string senha)
         {
             try
             {
                 WBSClient.Client cl = new WBSClient.Client();
-                var rest = cl.loginFuncionario(matricula, senha);
+                WBSClient.DADOSLOGIN[] rest = cl.loginFuncionario(loginUsuario, senha);
+
                 List<DADOSLOGIN> lpd = new List<DADOSLOGIN>();
+
                 foreach (var item in rest)
                 {
                     lpd.Add(new DADOSLOGIN
@@ -425,8 +431,10 @@ namespace AppEpi.Droid
                         Cnpj = item.Cnpj
                     });
                 }
+
                 return lpd;
             }
+
             catch
             {
                 return null;
@@ -449,7 +457,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -476,7 +484,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -493,7 +501,7 @@ namespace AppEpi.Droid
             try
             {
                 WBSClient.Client cl = new WBSClient.Client();
-                var rest = cl.consultaEPI(listaEPCS, UsuarioLogado.Cnpj);
+                var rest = cl.consultaEPIouCracha(listaEPCS, UsuarioLogado.Cnpj);
                 List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
@@ -503,7 +511,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -530,7 +538,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -616,7 +624,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;
@@ -643,7 +651,7 @@ namespace AppEpi.Droid
                         EPC = item.EPC,
                         Resultado = item.Resultado,
                         Produto = item.Produto,
-                        corAviso = isnullCor(item.corAviso)
+                        corAviso = isnullCor(item.CorAviso)
                     });
                 }
                 return lpd;

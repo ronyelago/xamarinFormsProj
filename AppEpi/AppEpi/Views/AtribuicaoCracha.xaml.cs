@@ -1,5 +1,7 @@
 ﻿using AppEpi.Models;
 using AppEpi.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
@@ -20,16 +22,25 @@ namespace AppEpi.Views
 
             else
             {
-                bool answer = await DisplayAlert("Atribuição de Crachá", "Confirmar Atribuição?", "Sim", "Não");
+                IWEBClient wbs = DependencyService.Get<IWEBClient>();
+                List<RESULTADOMOV> result = wbs.atribuicaoCrachar(entMatricula.Text, epcList.GetFormattedEpcList());
+                UsuarioLogado.Operacao = (int)UsuarioLogado.Operacoes.AtribuicaoCracha;
 
-                if (answer)
+                if (result.Any(r => r.HasError == true))
                 {
-                    var wbs = DependencyService.Get<IWEBClient>();
-                    var result = wbs.atribuicaoCrachar(entMatricula.Text, epcList.GetFormattedEpcList());
-                    UsuarioLogado.Operacao = (int)UsuarioLogado.Operacoes.AtribuicaoCracha;
-                    var detailPage = new ResultadoTrn(result);
+                    await DisplayAlert("Erro", $"{result[0].Resultado}", "Fechar");
+                }
 
-                    await Navigation.PushAsync(detailPage);
+                else
+                {
+                    bool answer = await DisplayAlert("Atribuição de Crachá", "Confirmar Atribuição?", "Sim", "Não");
+
+                    if (answer)
+                    {
+                        var detailPage = new ResultadoTrn(result);
+
+                        await Navigation.PushAsync(detailPage);
+                    }
                 }
             }
         }

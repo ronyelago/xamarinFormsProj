@@ -3,16 +3,6 @@
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:import namespace="http://microsoft.com/wsdl/types/" />
-      <s:element name="HelloWorld">
-        <s:complexType />
-      </s:element>
-      <s:element name="HelloWorldResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="retornaLocalEstoque">
         <s:complexType />
       </s:element>
@@ -65,7 +55,8 @@
           <s:element minOccurs="0" maxOccurs="1" name="EPC" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Produto" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="corAviso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CorAviso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasError" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:element name="recebimentoEstoque">
@@ -250,7 +241,7 @@
       <s:element name="loginFuncionario">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="matricula" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="loginUsuario" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="senha" type="s:string" />
           </s:sequence>
         </s:complexType>
@@ -310,7 +301,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="consultaEPI">
+      <s:element name="consultaEPIouCracha">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="listaEPCS" type="s:string" />
@@ -318,10 +309,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="consultaEPIResponse">
+      <s:element name="consultaEPIouCrachaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="consultaEPIResult" type="tns:ArrayOfRESULTADOMOV" />
+            <s:element minOccurs="0" maxOccurs="1" name="consultaEPIouCrachaResult" type="tns:ArrayOfRESULTADOMOV" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -379,6 +370,10 @@
           <s:element minOccurs="1" maxOccurs="1" name="COD_CLIENTE" nillable="true" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="GRUPO_CLIENTE" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="NORMA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ATIVO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CNV_DT_FABRICACAO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CNV_DT_VALIDADE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CNV_VALIDADE_TESTE" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="importacaoDeDadosResponse">
@@ -418,21 +413,6 @@
           <s:element minOccurs="1" maxOccurs="1" name="Qtd" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:element name="salvarMensagemOcorrencia">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="number" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="mensagem" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="salvarMensagemOcorrenciaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="salvarMensagemOcorrenciaResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="retornarListaMensagem">
         <s:complexType />
       </s:element>
@@ -450,21 +430,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="retornarListaMensagemSupervisorResult" type="tns:ArrayOfRESULTADOMOV" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="alterarStatus">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="ocorrencia" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="alterarStatusResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="alterarStatusResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -636,7 +601,7 @@
       <s:element name="formatarTelefone">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="tELEFONE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="telefone" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -743,13 +708,13 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="string" nillable="true" type="s:string" />
       <s:element name="ArrayOfL_LOCALESTOQUE" nillable="true" type="tns:ArrayOfL_LOCALESTOQUE" />
       <s:element name="ArrayOfRESULTADOMOV" nillable="true" type="tns:ArrayOfRESULTADOMOV" />
       <s:element name="boolean" type="s:boolean" />
       <s:element name="ArrayOfDADOSLOGIN" nillable="true" type="tns:ArrayOfDADOSLOGIN" />
       <s:element name="int" type="s:int" />
       <s:element name="ArrayOfDADOSEPI" nillable="true" type="tns:ArrayOfDADOSEPI" />
+      <s:element name="string" nillable="true" type="s:string" />
       <s:element name="Document" nillable="true" type="tns:Document" />
       <s:element name="ArrayOfDADOS_ASSINATURA" nillable="true" type="tns:ArrayOfDADOS_ASSINATURA" />
     </s:schema>
@@ -761,12 +726,6 @@
       </s:simpleType>
     </s:schema>
   </wsdl:types>
-  <wsdl:message name="HelloWorldSoapIn">
-    <wsdl:part name="parameters" element="tns:HelloWorld" />
-  </wsdl:message>
-  <wsdl:message name="HelloWorldSoapOut">
-    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
-  </wsdl:message>
   <wsdl:message name="retornaLocalEstoqueSoapIn">
     <wsdl:part name="parameters" element="tns:retornaLocalEstoque" />
   </wsdl:message>
@@ -869,11 +828,11 @@
   <wsdl:message name="descartarItemSoapOut">
     <wsdl:part name="parameters" element="tns:descartarItemResponse" />
   </wsdl:message>
-  <wsdl:message name="consultaEPISoapIn">
-    <wsdl:part name="parameters" element="tns:consultaEPI" />
+  <wsdl:message name="consultaEPIouCrachaSoapIn">
+    <wsdl:part name="parameters" element="tns:consultaEPIouCracha" />
   </wsdl:message>
-  <wsdl:message name="consultaEPISoapOut">
-    <wsdl:part name="parameters" element="tns:consultaEPIResponse" />
+  <wsdl:message name="consultaEPIouCrachaSoapOut">
+    <wsdl:part name="parameters" element="tns:consultaEPIouCrachaResponse" />
   </wsdl:message>
   <wsdl:message name="retornarDadosEpiSoapIn">
     <wsdl:part name="parameters" element="tns:retornarDadosEpi" />
@@ -899,12 +858,6 @@
   <wsdl:message name="retornarDadosEpiValidarSoapOut">
     <wsdl:part name="parameters" element="tns:retornarDadosEpiValidarResponse" />
   </wsdl:message>
-  <wsdl:message name="salvarMensagemOcorrenciaSoapIn">
-    <wsdl:part name="parameters" element="tns:salvarMensagemOcorrencia" />
-  </wsdl:message>
-  <wsdl:message name="salvarMensagemOcorrenciaSoapOut">
-    <wsdl:part name="parameters" element="tns:salvarMensagemOcorrenciaResponse" />
-  </wsdl:message>
   <wsdl:message name="retornarListaMensagemSoapIn">
     <wsdl:part name="parameters" element="tns:retornarListaMensagem" />
   </wsdl:message>
@@ -916,12 +869,6 @@
   </wsdl:message>
   <wsdl:message name="retornarListaMensagemSupervisorSoapOut">
     <wsdl:part name="parameters" element="tns:retornarListaMensagemSupervisorResponse" />
-  </wsdl:message>
-  <wsdl:message name="alterarStatusSoapIn">
-    <wsdl:part name="parameters" element="tns:alterarStatus" />
-  </wsdl:message>
-  <wsdl:message name="alterarStatusSoapOut">
-    <wsdl:part name="parameters" element="tns:alterarStatusResponse" />
   </wsdl:message>
   <wsdl:message name="dataDifSoapIn">
     <wsdl:part name="parameters" element="tns:dataDif" />
@@ -1006,10 +953,6 @@
   </wsdl:message>
   <wsdl:message name="testeIndexOFSoapOut">
     <wsdl:part name="parameters" element="tns:testeIndexOFResponse" />
-  </wsdl:message>
-  <wsdl:message name="HelloWorldHttpGetIn" />
-  <wsdl:message name="HelloWorldHttpGetOut">
-    <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
   <wsdl:message name="retornaLocalEstoqueHttpGetIn" />
   <wsdl:message name="retornaLocalEstoqueHttpGetOut">
@@ -1107,7 +1050,7 @@
     <wsdl:part name="Body" element="tns:ArrayOfRESULTADOMOV" />
   </wsdl:message>
   <wsdl:message name="loginFuncionarioHttpGetIn">
-    <wsdl:part name="matricula" type="s:string" />
+    <wsdl:part name="loginUsuario" type="s:string" />
     <wsdl:part name="senha" type="s:string" />
   </wsdl:message>
   <wsdl:message name="loginFuncionarioHttpGetOut">
@@ -1127,11 +1070,11 @@
   <wsdl:message name="descartarItemHttpGetOut">
     <wsdl:part name="Body" element="tns:ArrayOfRESULTADOMOV" />
   </wsdl:message>
-  <wsdl:message name="consultaEPIHttpGetIn">
+  <wsdl:message name="consultaEPIouCrachaHttpGetIn">
     <wsdl:part name="listaEPCS" type="s:string" />
     <wsdl:part name="cnpj" type="s:string" />
   </wsdl:message>
-  <wsdl:message name="consultaEPIHttpGetOut">
+  <wsdl:message name="consultaEPIouCrachaHttpGetOut">
     <wsdl:part name="Body" element="tns:ArrayOfRESULTADOMOV" />
   </wsdl:message>
   <wsdl:message name="retornarDadosEpiHttpGetIn">
@@ -1154,13 +1097,6 @@
   <wsdl:message name="retornarDadosEpiValidarHttpGetOut">
     <wsdl:part name="Body" element="tns:ArrayOfDADOSEPI" />
   </wsdl:message>
-  <wsdl:message name="salvarMensagemOcorrenciaHttpGetIn">
-    <wsdl:part name="number" type="s:string" />
-    <wsdl:part name="mensagem" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="salvarMensagemOcorrenciaHttpGetOut">
-    <wsdl:part name="Body" element="tns:boolean" />
-  </wsdl:message>
   <wsdl:message name="retornarListaMensagemHttpGetIn" />
   <wsdl:message name="retornarListaMensagemHttpGetOut">
     <wsdl:part name="Body" element="tns:ArrayOfRESULTADOMOV" />
@@ -1168,13 +1104,6 @@
   <wsdl:message name="retornarListaMensagemSupervisorHttpGetIn" />
   <wsdl:message name="retornarListaMensagemSupervisorHttpGetOut">
     <wsdl:part name="Body" element="tns:ArrayOfRESULTADOMOV" />
-  </wsdl:message>
-  <wsdl:message name="alterarStatusHttpGetIn">
-    <wsdl:part name="id" type="s:string" />
-    <wsdl:part name="ocorrencia" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="alterarStatusHttpGetOut">
-    <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
   <wsdl:message name="dataDifHttpGetIn">
     <wsdl:part name="dt1" type="s:string" />
@@ -1217,7 +1146,7 @@
   </wsdl:message>
   <wsdl:message name="restListaAssinaturaHttpGetOut" />
   <wsdl:message name="formatarTelefoneHttpGetIn">
-    <wsdl:part name="tELEFONE" type="s:string" />
+    <wsdl:part name="telefone" type="s:string" />
   </wsdl:message>
   <wsdl:message name="formatarTelefoneHttpGetOut">
     <wsdl:part name="Body" element="tns:string" />
@@ -1256,10 +1185,6 @@
     <wsdl:part name="nomeProduto" type="s:string" />
   </wsdl:message>
   <wsdl:message name="testeIndexOFHttpGetOut">
-    <wsdl:part name="Body" element="tns:string" />
-  </wsdl:message>
-  <wsdl:message name="HelloWorldHttpPostIn" />
-  <wsdl:message name="HelloWorldHttpPostOut">
     <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
   <wsdl:message name="retornaLocalEstoqueHttpPostIn" />
@@ -1358,7 +1283,7 @@
     <wsdl:part name="Body" element="tns:ArrayOfRESULTADOMOV" />
   </wsdl:message>
   <wsdl:message name="loginFuncionarioHttpPostIn">
-    <wsdl:part name="matricula" type="s:string" />
+    <wsdl:part name="loginUsuario" type="s:string" />
     <wsdl:part name="senha" type="s:string" />
   </wsdl:message>
   <wsdl:message name="loginFuncionarioHttpPostOut">
@@ -1378,11 +1303,11 @@
   <wsdl:message name="descartarItemHttpPostOut">
     <wsdl:part name="Body" element="tns:ArrayOfRESULTADOMOV" />
   </wsdl:message>
-  <wsdl:message name="consultaEPIHttpPostIn">
+  <wsdl:message name="consultaEPIouCrachaHttpPostIn">
     <wsdl:part name="listaEPCS" type="s:string" />
     <wsdl:part name="cnpj" type="s:string" />
   </wsdl:message>
-  <wsdl:message name="consultaEPIHttpPostOut">
+  <wsdl:message name="consultaEPIouCrachaHttpPostOut">
     <wsdl:part name="Body" element="tns:ArrayOfRESULTADOMOV" />
   </wsdl:message>
   <wsdl:message name="retornarDadosEpiHttpPostIn">
@@ -1405,13 +1330,6 @@
   <wsdl:message name="retornarDadosEpiValidarHttpPostOut">
     <wsdl:part name="Body" element="tns:ArrayOfDADOSEPI" />
   </wsdl:message>
-  <wsdl:message name="salvarMensagemOcorrenciaHttpPostIn">
-    <wsdl:part name="number" type="s:string" />
-    <wsdl:part name="mensagem" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="salvarMensagemOcorrenciaHttpPostOut">
-    <wsdl:part name="Body" element="tns:boolean" />
-  </wsdl:message>
   <wsdl:message name="retornarListaMensagemHttpPostIn" />
   <wsdl:message name="retornarListaMensagemHttpPostOut">
     <wsdl:part name="Body" element="tns:ArrayOfRESULTADOMOV" />
@@ -1419,13 +1337,6 @@
   <wsdl:message name="retornarListaMensagemSupervisorHttpPostIn" />
   <wsdl:message name="retornarListaMensagemSupervisorHttpPostOut">
     <wsdl:part name="Body" element="tns:ArrayOfRESULTADOMOV" />
-  </wsdl:message>
-  <wsdl:message name="alterarStatusHttpPostIn">
-    <wsdl:part name="id" type="s:string" />
-    <wsdl:part name="ocorrencia" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="alterarStatusHttpPostOut">
-    <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
   <wsdl:message name="dataDifHttpPostIn">
     <wsdl:part name="dt1" type="s:string" />
@@ -1468,7 +1379,7 @@
   </wsdl:message>
   <wsdl:message name="restListaAssinaturaHttpPostOut" />
   <wsdl:message name="formatarTelefoneHttpPostIn">
-    <wsdl:part name="tELEFONE" type="s:string" />
+    <wsdl:part name="telefone" type="s:string" />
   </wsdl:message>
   <wsdl:message name="formatarTelefoneHttpPostOut">
     <wsdl:part name="Body" element="tns:string" />
@@ -1510,10 +1421,6 @@
     <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
   <wsdl:portType name="ClientSoap">
-    <wsdl:operation name="HelloWorld">
-      <wsdl:input message="tns:HelloWorldSoapIn" />
-      <wsdl:output message="tns:HelloWorldSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="retornaLocalEstoque">
       <wsdl:input message="tns:retornaLocalEstoqueSoapIn" />
       <wsdl:output message="tns:retornaLocalEstoqueSoapOut" />
@@ -1582,9 +1489,9 @@
       <wsdl:input message="tns:descartarItemSoapIn" />
       <wsdl:output message="tns:descartarItemSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="consultaEPI">
-      <wsdl:input message="tns:consultaEPISoapIn" />
-      <wsdl:output message="tns:consultaEPISoapOut" />
+    <wsdl:operation name="consultaEPIouCracha">
+      <wsdl:input message="tns:consultaEPIouCrachaSoapIn" />
+      <wsdl:output message="tns:consultaEPIouCrachaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="retornarDadosEpi">
       <wsdl:input message="tns:retornarDadosEpiSoapIn" />
@@ -1602,10 +1509,6 @@
       <wsdl:input message="tns:retornarDadosEpiValidarSoapIn" />
       <wsdl:output message="tns:retornarDadosEpiValidarSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="salvarMensagemOcorrencia">
-      <wsdl:input message="tns:salvarMensagemOcorrenciaSoapIn" />
-      <wsdl:output message="tns:salvarMensagemOcorrenciaSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="retornarListaMensagem">
       <wsdl:input message="tns:retornarListaMensagemSoapIn" />
       <wsdl:output message="tns:retornarListaMensagemSoapOut" />
@@ -1613,10 +1516,6 @@
     <wsdl:operation name="retornarListaMensagemSupervisor">
       <wsdl:input message="tns:retornarListaMensagemSupervisorSoapIn" />
       <wsdl:output message="tns:retornarListaMensagemSupervisorSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="alterarStatus">
-      <wsdl:input message="tns:alterarStatusSoapIn" />
-      <wsdl:output message="tns:alterarStatusSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="dataDif">
       <wsdl:input message="tns:dataDifSoapIn" />
@@ -1676,10 +1575,6 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="ClientHttpGet">
-    <wsdl:operation name="HelloWorld">
-      <wsdl:input message="tns:HelloWorldHttpGetIn" />
-      <wsdl:output message="tns:HelloWorldHttpGetOut" />
-    </wsdl:operation>
     <wsdl:operation name="retornaLocalEstoque">
       <wsdl:input message="tns:retornaLocalEstoqueHttpGetIn" />
       <wsdl:output message="tns:retornaLocalEstoqueHttpGetOut" />
@@ -1748,9 +1643,9 @@
       <wsdl:input message="tns:descartarItemHttpGetIn" />
       <wsdl:output message="tns:descartarItemHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="consultaEPI">
-      <wsdl:input message="tns:consultaEPIHttpGetIn" />
-      <wsdl:output message="tns:consultaEPIHttpGetOut" />
+    <wsdl:operation name="consultaEPIouCracha">
+      <wsdl:input message="tns:consultaEPIouCrachaHttpGetIn" />
+      <wsdl:output message="tns:consultaEPIouCrachaHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="retornarDadosEpi">
       <wsdl:input message="tns:retornarDadosEpiHttpGetIn" />
@@ -1764,10 +1659,6 @@
       <wsdl:input message="tns:retornarDadosEpiValidarHttpGetIn" />
       <wsdl:output message="tns:retornarDadosEpiValidarHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="salvarMensagemOcorrencia">
-      <wsdl:input message="tns:salvarMensagemOcorrenciaHttpGetIn" />
-      <wsdl:output message="tns:salvarMensagemOcorrenciaHttpGetOut" />
-    </wsdl:operation>
     <wsdl:operation name="retornarListaMensagem">
       <wsdl:input message="tns:retornarListaMensagemHttpGetIn" />
       <wsdl:output message="tns:retornarListaMensagemHttpGetOut" />
@@ -1775,10 +1666,6 @@
     <wsdl:operation name="retornarListaMensagemSupervisor">
       <wsdl:input message="tns:retornarListaMensagemSupervisorHttpGetIn" />
       <wsdl:output message="tns:retornarListaMensagemSupervisorHttpGetOut" />
-    </wsdl:operation>
-    <wsdl:operation name="alterarStatus">
-      <wsdl:input message="tns:alterarStatusHttpGetIn" />
-      <wsdl:output message="tns:alterarStatusHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="dataDif">
       <wsdl:input message="tns:dataDifHttpGetIn" />
@@ -1834,10 +1721,6 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="ClientHttpPost">
-    <wsdl:operation name="HelloWorld">
-      <wsdl:input message="tns:HelloWorldHttpPostIn" />
-      <wsdl:output message="tns:HelloWorldHttpPostOut" />
-    </wsdl:operation>
     <wsdl:operation name="retornaLocalEstoque">
       <wsdl:input message="tns:retornaLocalEstoqueHttpPostIn" />
       <wsdl:output message="tns:retornaLocalEstoqueHttpPostOut" />
@@ -1906,9 +1789,9 @@
       <wsdl:input message="tns:descartarItemHttpPostIn" />
       <wsdl:output message="tns:descartarItemHttpPostOut" />
     </wsdl:operation>
-    <wsdl:operation name="consultaEPI">
-      <wsdl:input message="tns:consultaEPIHttpPostIn" />
-      <wsdl:output message="tns:consultaEPIHttpPostOut" />
+    <wsdl:operation name="consultaEPIouCracha">
+      <wsdl:input message="tns:consultaEPIouCrachaHttpPostIn" />
+      <wsdl:output message="tns:consultaEPIouCrachaHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="retornarDadosEpi">
       <wsdl:input message="tns:retornarDadosEpiHttpPostIn" />
@@ -1922,10 +1805,6 @@
       <wsdl:input message="tns:retornarDadosEpiValidarHttpPostIn" />
       <wsdl:output message="tns:retornarDadosEpiValidarHttpPostOut" />
     </wsdl:operation>
-    <wsdl:operation name="salvarMensagemOcorrencia">
-      <wsdl:input message="tns:salvarMensagemOcorrenciaHttpPostIn" />
-      <wsdl:output message="tns:salvarMensagemOcorrenciaHttpPostOut" />
-    </wsdl:operation>
     <wsdl:operation name="retornarListaMensagem">
       <wsdl:input message="tns:retornarListaMensagemHttpPostIn" />
       <wsdl:output message="tns:retornarListaMensagemHttpPostOut" />
@@ -1933,10 +1812,6 @@
     <wsdl:operation name="retornarListaMensagemSupervisor">
       <wsdl:input message="tns:retornarListaMensagemSupervisorHttpPostIn" />
       <wsdl:output message="tns:retornarListaMensagemSupervisorHttpPostOut" />
-    </wsdl:operation>
-    <wsdl:operation name="alterarStatus">
-      <wsdl:input message="tns:alterarStatusHttpPostIn" />
-      <wsdl:output message="tns:alterarStatusHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="dataDif">
       <wsdl:input message="tns:dataDifHttpPostIn" />
@@ -1993,15 +1868,6 @@
   </wsdl:portType>
   <wsdl:binding name="ClientSoap" type="tns:ClientSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="HelloWorld">
-      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="retornaLocalEstoque">
       <soap:operation soapAction="http://tempuri.org/retornaLocalEstoque" style="document" />
       <wsdl:input>
@@ -2155,8 +2021,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="consultaEPI">
-      <soap:operation soapAction="http://tempuri.org/consultaEPI" style="document" />
+    <wsdl:operation name="consultaEPIouCracha">
+      <soap:operation soapAction="http://tempuri.org/consultaEPIouCracha" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2200,15 +2066,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="salvarMensagemOcorrencia">
-      <soap:operation soapAction="http://tempuri.org/salvarMensagemOcorrencia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="retornarListaMensagem">
       <soap:operation soapAction="http://tempuri.org/retornarListaMensagem" style="document" />
       <wsdl:input>
@@ -2220,15 +2077,6 @@
     </wsdl:operation>
     <wsdl:operation name="retornarListaMensagemSupervisor">
       <soap:operation soapAction="http://tempuri.org/retornarListaMensagemSupervisor" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="alterarStatus">
-      <soap:operation soapAction="http://tempuri.org/alterarStatus" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2365,15 +2213,6 @@
   </wsdl:binding>
   <wsdl:binding name="ClientSoap12" type="tns:ClientSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="HelloWorld">
-      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="retornaLocalEstoque">
       <soap12:operation soapAction="http://tempuri.org/retornaLocalEstoque" style="document" />
       <wsdl:input>
@@ -2527,8 +2366,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="consultaEPI">
-      <soap12:operation soapAction="http://tempuri.org/consultaEPI" style="document" />
+    <wsdl:operation name="consultaEPIouCracha">
+      <soap12:operation soapAction="http://tempuri.org/consultaEPIouCracha" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2572,15 +2411,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="salvarMensagemOcorrencia">
-      <soap12:operation soapAction="http://tempuri.org/salvarMensagemOcorrencia" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="retornarListaMensagem">
       <soap12:operation soapAction="http://tempuri.org/retornarListaMensagem" style="document" />
       <wsdl:input>
@@ -2592,15 +2422,6 @@
     </wsdl:operation>
     <wsdl:operation name="retornarListaMensagemSupervisor">
       <soap12:operation soapAction="http://tempuri.org/retornarListaMensagemSupervisor" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="alterarStatus">
-      <soap12:operation soapAction="http://tempuri.org/alterarStatus" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2737,15 +2558,6 @@
   </wsdl:binding>
   <wsdl:binding name="ClientHttpGet" type="tns:ClientHttpGet">
     <http:binding verb="GET" />
-    <wsdl:operation name="HelloWorld">
-      <http:operation location="/HelloWorld" />
-      <wsdl:input>
-        <http:urlEncoded />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="retornaLocalEstoque">
       <http:operation location="/retornaLocalEstoque" />
       <wsdl:input>
@@ -2899,8 +2711,8 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="consultaEPI">
-      <http:operation location="/consultaEPI" />
+    <wsdl:operation name="consultaEPIouCracha">
+      <http:operation location="/consultaEPIouCracha" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -2935,15 +2747,6 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="salvarMensagemOcorrencia">
-      <http:operation location="/salvarMensagemOcorrencia" />
-      <wsdl:input>
-        <http:urlEncoded />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="retornarListaMensagem">
       <http:operation location="/retornarListaMensagem" />
       <wsdl:input>
@@ -2955,15 +2758,6 @@
     </wsdl:operation>
     <wsdl:operation name="retornarListaMensagemSupervisor">
       <http:operation location="/retornarListaMensagemSupervisor" />
-      <wsdl:input>
-        <http:urlEncoded />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="alterarStatus">
-      <http:operation location="/alterarStatus" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -3085,15 +2879,6 @@
   </wsdl:binding>
   <wsdl:binding name="ClientHttpPost" type="tns:ClientHttpPost">
     <http:binding verb="POST" />
-    <wsdl:operation name="HelloWorld">
-      <http:operation location="/HelloWorld" />
-      <wsdl:input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="retornaLocalEstoque">
       <http:operation location="/retornaLocalEstoque" />
       <wsdl:input>
@@ -3247,8 +3032,8 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="consultaEPI">
-      <http:operation location="/consultaEPI" />
+    <wsdl:operation name="consultaEPIouCracha">
+      <http:operation location="/consultaEPIouCracha" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
@@ -3283,15 +3068,6 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="salvarMensagemOcorrencia">
-      <http:operation location="/salvarMensagemOcorrencia" />
-      <wsdl:input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="retornarListaMensagem">
       <http:operation location="/retornarListaMensagem" />
       <wsdl:input>
@@ -3303,15 +3079,6 @@
     </wsdl:operation>
     <wsdl:operation name="retornarListaMensagemSupervisor">
       <http:operation location="/retornarListaMensagemSupervisor" />
-      <wsdl:input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="alterarStatus">
-      <http:operation location="/alterarStatus" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
@@ -3433,16 +3200,16 @@
   </wsdl:binding>
   <wsdl:service name="Client">
     <wsdl:port name="ClientSoap" binding="tns:ClientSoap">
-      <soap:address location="http://easyepi.com.br/WBSHomologacao/Client.asmx" />
+      <soap:address location="https://easyepi.com.br/WBSHomologacao/Client.asmx" />
     </wsdl:port>
     <wsdl:port name="ClientSoap12" binding="tns:ClientSoap12">
-      <soap12:address location="http://easyepi.com.br/WBSHomologacao/Client.asmx" />
+      <soap12:address location="https://easyepi.com.br/WBSHomologacao/Client.asmx" />
     </wsdl:port>
     <wsdl:port name="ClientHttpGet" binding="tns:ClientHttpGet">
-      <http:address location="http://easyepi.com.br/WBSHomologacao/Client.asmx" />
+      <http:address location="https://easyepi.com.br/WBSHomologacao/Client.asmx" />
     </wsdl:port>
     <wsdl:port name="ClientHttpPost" binding="tns:ClientHttpPost">
-      <http:address location="http://easyepi.com.br/WBSHomologacao/Client.asmx" />
+      <http:address location="https://easyepi.com.br/WBSHomologacao/Client.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
