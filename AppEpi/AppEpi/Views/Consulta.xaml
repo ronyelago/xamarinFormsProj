@@ -5,7 +5,6 @@
              xmlns:bluetooth="clr-namespace:AppEpi.ViewModels.Bluetooth"
              Title="Consulta"
              x:Class="AppEpi.Views.Consulta">
-    
     <ContentPage.Content>
         <StackLayout Margin="10,10" Spacing="10">
             
