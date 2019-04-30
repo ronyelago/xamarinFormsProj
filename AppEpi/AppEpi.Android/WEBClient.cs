@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using AppEpi.Droid;
 using System.Collections.ObjectModel;
 using AppEpi.Models;
+using System;
 
 [assembly: Dependency(typeof(WEBClient))]
 namespace AppEpi.Droid
@@ -488,12 +489,12 @@ namespace AppEpi.Droid
         }
 
 
-        public List<RESULTADOMOV> consultEPI(string listaEPCS)
+        public List<RESULTADOMOV> consultEPIouCracha(string listaEPCS)
         {
             try
             {
                 WBSClient.Client cl = new WBSClient.Client();
-                var rest = cl.consultaEPI(listaEPCS, UsuarioLogado.Cnpj);
+                var rest = cl.consultaEPIouCracha(listaEPCS, UsuarioLogado.Cnpj);
                 List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
                 foreach (var item in rest)
                 {
@@ -508,8 +509,9 @@ namespace AppEpi.Droid
                 }
                 return lpd;
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return null;
             }
         }

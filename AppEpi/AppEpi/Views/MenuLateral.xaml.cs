@@ -104,7 +104,7 @@ namespace AppEpi.Views
 
                 new MasterPageItem
                 {
-                    Title = "Consultar EPI",
+                    Title = "Consulta",
                     TargetType = typeof(Consulta)
                 },
 

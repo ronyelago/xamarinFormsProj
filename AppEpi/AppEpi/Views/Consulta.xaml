@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:appepi="clr-namespace:AppEpi.ViewModels"
              xmlns:bluetooth="clr-namespace:AppEpi.ViewModels.Bluetooth"
-             Title="Consulta de EPI"
+             Title="Consulta"
              x:Class="AppEpi.Views.Consulta">
     <ContentPage.Content>
         <StackLayout Margin="10,10" Spacing="10">
             
-            <Label>EPIs</Label>
+            <Label>EPIs ou Crachás</Label>
             
             <appepi:EpcListView x:Name="epcList" />
 

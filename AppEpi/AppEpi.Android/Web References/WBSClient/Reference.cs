@@ -823,9 +823,9 @@ namespace AppEpi.Droid.WBSClient {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/consultaEPI", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public RESULTADOMOV[] consultaEPI(string listaEPCS, string cnpj) {
-            object[] results = this.Invoke("consultaEPI", new object[] {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/consultaEPIouCracha", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public RESULTADOMOV[] consultaEPIouCracha(string listaEPCS, string cnpj) {
+            object[] results = this.Invoke("consultaEPIouCracha", new object[] {
                         listaEPCS,
                         cnpj});
             return ((RESULTADOMOV[])(results[0]));
