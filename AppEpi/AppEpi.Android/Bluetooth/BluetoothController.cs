@@ -15,7 +15,7 @@ namespace AppEpi.Droid.Bluetooth
 {
     public class BluetoothController : IBluetoothController
     {
-        private const int _fastPollingInterval = 250; // intervalo entre polls (em ms) quando trigger pressed
+        private const int _fastPollingInterval = 100; // intervalo entre polls (em ms) quando trigger pressed
         private const int _slowPollingInterval = 500; // intervalo entre polls (em ms) quando trigger released
         private const int _pingIfIdleFor = 5000; // se não houver mensagem do leitor durante esse intervalo (em ms), envia-se um ping
         private const int _connectionTimeout = 10000; // se não houver mensagem do leitor durante esse intervalo (em ms), inicia-se reconexão

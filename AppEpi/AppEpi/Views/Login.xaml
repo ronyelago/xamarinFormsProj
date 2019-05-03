@@ -17,35 +17,39 @@
                 <Frame x:Name="FrameContainer"
                         Margin="15"
                         HorizontalOptions="Center"
-                        BackgroundColor="White">
+                        BackgroundColor="#FFFFFF">
                     <StackLayout IsClippedToBounds="True"
                                     Padding="10, 5"
                                     Spacing="3">
-                        <Image HorizontalOptions="Center"
-                                Margin="10"
-                                HeightRequest="100"
-                                WidthRequest="100"
-                                Source="logoEasy1.png"/>
-                        <Entry HorizontalOptions="Center"
+                        <StackLayout>
+                            <Image HeightRequest="100"
+                                   WidthRequest="100"
+                                   Aspect="AspectFill"
+                                   Source="fundoi2.png"/>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center">
+                            <Entry HorizontalOptions="Center"
                                 x:Name="emailEntry" WidthRequest="200"
                                 Style="{StaticResource EntryStyle}"
                                 Placeholder="Login" />
-                        <Entry HorizontalOptions="Center"
+                            <Entry HorizontalOptions="Center"
                                 x:Name="passwordEntry" WidthRequest="200"
                                 Style="{StaticResource EntryStyle}"
                                 Placeholder="Senha"
                                 IsPassword="True"/>
-                        <Button Margin="10, 5"
+                            <Button Margin="10, 5"
                                 BackgroundColor="#124284"
                                 TextColor="White"
                                 HorizontalOptions="Fill"
                                 Clicked="LoginButton_Clicked"
                                 x:Name="LoginButton"
                                 Text="Login">
-                            <Button.HeightRequest>
-                                <OnPlatform x:TypeArguments="x:Double" Android="50" iOS="30" WinPhone="30"/>
-                            </Button.HeightRequest>
-                        </Button>
+                                <Button.HeightRequest>
+                                    <OnPlatform x:TypeArguments="x:Double" Android="50" iOS="30" WinPhone="30"/>
+                                </Button.HeightRequest>
+                            </Button>
+                        </StackLayout>
                     </StackLayout>
                 </Frame>
             </AbsoluteLayout>

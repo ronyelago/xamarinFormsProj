@@ -12,7 +12,7 @@ namespace AppEpi.ViewModels.Bluetooth
         public PotenciaSlider()
         {
             Maximum = 100;
-            Minimum = 25;
+            Minimum = 50;
             MinimumTrackColor = Color.Blue;
             MaximumTrackColor = Color.Gray;
 
