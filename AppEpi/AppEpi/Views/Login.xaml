@@ -25,7 +25,7 @@
                                 Margin="10"
                                 HeightRequest="100"
                                 WidthRequest="100"
-                                Source="icon.png"/>
+                                Source="logoEasy1.png"/>
                         <Entry HorizontalOptions="Center"
                                 x:Name="emailEntry" WidthRequest="200"
                                 Style="{StaticResource EntryStyle}"
