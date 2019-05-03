@@ -28,6 +28,7 @@ namespace AppEpi.Droid.Bluetooth
         private CancellationTokenSource _cts;
         private BluetoothSocket _bthSocket = null;
         private RFIDComm _rfidComm;
+        private string _connectedDeviceName = null;
 
         public enum PollingSpeed
         {
@@ -118,7 +119,6 @@ namespace AppEpi.Droid.Bluetooth
             }
         }
 
-        private string _connectedDeviceName = null;
         public string ConnectedDeviceName
         {
             get
@@ -134,7 +134,6 @@ namespace AppEpi.Droid.Bluetooth
             }
         }
 
-
         // Starts the Server loop 
         /// <param name="deviceName"> Name of the paired bluetooth device </param>
         public void Init(bool readAsCharArray = true)
@@ -145,10 +144,9 @@ namespace AppEpi.Droid.Bluetooth
 
                 if (_currentState == ConnectionState.Closed)
                 {
-                    Task.Run(() =>
-                        Loop(readAsCharArray)
-                        );
+                    Task.Run(() => Loop(readAsCharArray));
                 }
+
                 else
                 {
                     RestartServer();
@@ -167,13 +165,11 @@ namespace AppEpi.Droid.Bluetooth
             }
         }
 
-
         public void Connect(string deviceName = "")
         {
             _targetDeviceName = deviceName;
             Init();
         }
-
 
         public void Disconnect()
         {
@@ -218,9 +214,7 @@ namespace AppEpi.Droid.Bluetooth
         // Envia um comando ao leitor RFID conectado
         public void SendCommand(string command)
         {
-            Task.Run(() =>
-                SendCommandAsync(command)
-            );
+            Task.Run(() => SendCommandAsync(command));
         }
 
         #endregion
@@ -331,6 +325,7 @@ namespace AppEpi.Droid.Bluetooth
         private async Task Loop(bool readAsCharArray)
         {
             Debug.WriteLine("Server loop started");
+
             try
             {
                 _cts = new CancellationTokenSource();
@@ -350,11 +345,13 @@ namespace AppEpi.Droid.Bluetooth
                 }
                 Debug.WriteLine("Server loop exit");
             }
+
             catch (Exception e)
             {
                 CurrentState = ConnectionState.Broken;
                 Debug.WriteLine("Loop Exception: " + e.Message);
             }
+
             finally
             {
                 if (_bthSocket != null)

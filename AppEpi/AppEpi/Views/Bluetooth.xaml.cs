@@ -11,6 +11,12 @@ namespace AppEpi.Views
         private ObservableCollection<string> _listOfDevices;
         private readonly IBluetoothController _bluetoothController = DependencyService.Get<IBluetoothController>();
 
+        public Bluetooth()
+        {
+            InitializeComponent();
+            _bluetoothController.ConnectionStateChanged += OnConnectionStateChanged;
+        }
+
         public string SelectedDeviceName
         {
             get
@@ -19,21 +25,16 @@ namespace AppEpi.Views
                 {
                     return devicesList.SelectedItem.ToString();
                 }
+
                 catch
-                {   // quando não se tem nada selecionado, teriamos um NullPointerException
+                {   
+                    // quando não se tem nada selecionado, teriamos um NullPointerException
                     DisplayAlert("Aviso", "Selecione um dispositivo na lista!", "OK");
+
                     return null;
                 }
             }
         }
-
-        public Bluetooth()
-        {
-            InitializeComponent();
-
-            _bluetoothController.ConnectionStateChanged += OnConnectionStateChanged;
-        }
-
 
         private void OnConnectionStateChanged(object sender, EventArgs e)
         {
@@ -45,7 +46,6 @@ namespace AppEpi.Views
                     DisplayAlert("Bluetooth", "Conexão efetuada com sucesso!", "OK");
             });
         }
-
 
         private void UpdateLayout()
         {
@@ -65,7 +65,6 @@ namespace AppEpi.Views
                     break;
             }
         }
-
 
         protected override void OnAppearing()
         {
