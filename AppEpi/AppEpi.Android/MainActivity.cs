@@ -11,7 +11,7 @@ using Rg.Plugins.Popup;
 
 namespace AppEpi.Droid
 {
-    [Activity(Label = "EasyEPI", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "EasyEPI", Icon = "@mipmap/icone", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
 
     public class MainActivity : FormsAppCompatActivity
     {
