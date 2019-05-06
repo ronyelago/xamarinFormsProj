@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Xamarin.Forms;
 using AppEpi.ViewModels;
+using Plugin.Geolocator.Abstractions;
 
 namespace AppEpi.Views
 {
@@ -55,11 +56,13 @@ namespace AppEpi.Views
                 }
                 else
                 {
-                    var location = await CrossGeolocator.Current.GetPositionAsync(TimeSpan.FromSeconds(10));
+                    Position location = await CrossGeolocator.Current.GetPositionAsync(TimeSpan.FromSeconds(10));
+
                     UsuarioLogado.Latitude = location.Latitude.ToString();
                     UsuarioLogado.Longitude = location.Longitude.ToString();
 
                     var answer = await DisplayAlert("Fiscalização", "Confirmar Fiscalização?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
+
                     if (answer)
                     {
                         var wbs = DependencyService.Get<IWEBClient>();
