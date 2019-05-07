@@ -43,7 +43,7 @@ namespace AppEpi.Views
                 UpdateLayout();
 
                 if (_bluetoothController.CurrentState == ConnectionState.Open)
-                    DisplayAlert("Bluetooth", "Conexão efetuada com sucesso!", "OK");
+                    DisplayAlert("Bluetooth", $"Conectado ao dispositivo {_bluetoothController.ConnectedDeviceName}.", "OK");
             });
         }
 
