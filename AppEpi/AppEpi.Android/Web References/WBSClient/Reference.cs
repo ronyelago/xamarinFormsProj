@@ -109,7 +109,7 @@ namespace AppEpi.Droid.WBSClient {
         
         /// <remarks/>
         public Client() {
-            this.Url = "https://easyepi.com.br/WBSClient/Client.asmx";
+            this.Url = "https://easyepi.com.br/WBSHomologacao/Client.asmx";
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
