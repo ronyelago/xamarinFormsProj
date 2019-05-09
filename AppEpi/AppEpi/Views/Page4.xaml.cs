@@ -103,24 +103,31 @@ namespace AppEpi.Views
                         case UsuarioLogado.Operacoes.Recebimento:
                             result = wbs.recebimentoEstoquesCnpj(listEPCS, UsuarioLogado.Cnpj);
                             break;
+
                         case UsuarioLogado.Operacoes.MovimentacaoEstoque:
                             result = wbs.movimentacaoEstoque(listEPCS, UsuarioLogado.LocalEstoque, UsuarioLogado.StatusEstoque);
                             break;
+
                         case UsuarioLogado.Operacoes.Distribuicao:
                             result = wbs.distribuicaoEPIS(listEPCS, UsuarioLogado.MatriculaDistribuicao);
                             break;
+
                         case UsuarioLogado.Operacoes.EnvioTeste:
                             result = wbs.envioParaTeste(listEPCS, UsuarioLogado.LocalEstoque);
                             break;
+
                         case UsuarioLogado.Operacoes.RecebimentoTeste:
                             result = wbs.recebimentoDoTeste(listEPCS, UsuarioLogado.DataTeste, UsuarioLogado.ART);
                             break;
+
                         case UsuarioLogado.Operacoes.Fiscalizacao:
                             result = wbs.inspecaoEPIFUNC(listEPCS, UsuarioLogado.Latitude, UsuarioLogado.Longitude);
                             break;
+
                         case UsuarioLogado.Operacoes.EnvioHigienizacao:
                             result = wbs.envioParaHigienizacao(listEPCS, UsuarioLogado.LocalEstoque);
                             break;
+
                         case UsuarioLogado.Operacoes.RecebimentoHigienizacao:
                             result = wbs.recebimentoDaHigienizacao(listEPCS);
                             break;

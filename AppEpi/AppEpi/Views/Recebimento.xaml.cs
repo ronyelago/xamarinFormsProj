@@ -1,5 +1,6 @@
 ﻿using AppEpi.Models;
 using AppEpi.ViewModels;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
@@ -18,16 +19,20 @@ namespace AppEpi.Views
             {
                 await DisplayAlert("Recebimento", "Verifique os Campos!", "OK");
             }
+
             else
             {
-                var answer = await DisplayAlert("Recebimento", "Confirmar Recebimento?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
+                bool answer = await DisplayAlert("Recebimento", "Confirmar Recebimento?\nTotal de Itens:" + epcList.Count, "Sim", "Não");
+
                 if (answer)
                 {
-                    var wbs = DependencyService.Get<IWEBClient>();
-                    var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
-                    UsuarioLogado.Operacao = UsuarioLogado.Operacoes.Recebimento;
-                    var detailPage = new Page4(result);
+                    IWEBClient wbs = DependencyService.Get<IWEBClient>();
+                    ObservableCollection<DADOSEPI> result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
 
+                    // Define qual recurso será consumido
+                    UsuarioLogado.Operacao = UsuarioLogado.Operacoes.Recebimento;
+
+                    Page4 detailPage = new Page4(result);
                     await Navigation.PushAsync(detailPage);
                 }
             }

@@ -21,6 +21,7 @@ namespace AppEpi.Views
             else
             {
                 var answer = await DisplayAlert("Entrega de EPI", "Confirmar Entrega de EPI?", "Sim", "Não");
+
                 if (answer)
                 {
                     UsuarioLogado.Operacao = UsuarioLogado.Operacoes.Distribuicao;
