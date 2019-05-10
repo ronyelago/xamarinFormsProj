@@ -14,11 +14,11 @@ namespace AppEpi.Views
         private int countConfirmacao = 0;
         private ObservableCollection<DADOSEPI> items;
 
-        public Page4(ObservableCollection<DADOSEPI> result)
+        public Page4(ObservableCollection<DADOSEPI> dadosEpiCollection)
         {
             InitializeComponent();
 
-            items = result;
+            items = dadosEpiCollection;
             listResultado.ItemsSource = items;
         }
 

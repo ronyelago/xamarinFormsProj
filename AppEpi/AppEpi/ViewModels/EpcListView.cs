@@ -44,12 +44,13 @@ namespace AppEpi.ViewModels
                 if (_epcList.Count > 1)
                 {
                     string wbsFormattedEpcList = "";
+
                     foreach (string epc in _epcList)
                     {
                         wbsFormattedEpcList += "|" + epc;
                     }
 
-                    return wbsFormattedEpcList;
+                    return wbsFormattedEpcList.Remove(0, 1);
                 }
                 else
                     return _epcList.OfType<string>().FirstOrDefault();

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppEpi.Views.ConfirmarDistribuicao">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <Label>Confira os itens e o crachá antes de confirmar a atribuição dos EPI's ao Funcionário</Label>
+            </StackLayout>
+            <StackLayout>
+                <ListView x:Name="itensListView"
+                          SeparatorVisibility="None"
+                          RowHeight="130"
+                          ItemTapped="ItensListView_ItemTapped">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout VerticalOptions="FillAndExpand"
+                                             Orientation="Vertical">
+                                    <Label Text="{Binding Titulo}"/>
+                                    <Label Text="{Binding Epc}"/>
+                                    <Label Text="{Binding Situacao}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

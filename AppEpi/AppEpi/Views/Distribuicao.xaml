@@ -8,14 +8,11 @@
     <ContentPage.Content>
         <StackLayout Margin="10,10" Spacing="10">
 
-            <Label>Cracha/EPI</Label>
+            <Label>1. Efetue a leitura do crachá e dos EPI's</Label>
 
             <appepi:EpcListView x:Name="epcList" />
-
             <bluetooth:PotenciaSlider/>
-
             <appepi:ConfirmarButton/>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

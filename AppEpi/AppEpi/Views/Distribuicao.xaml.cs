@@ -1,5 +1,6 @@
 ﻿using AppEpi.Models;
 using AppEpi.ViewModels;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
 namespace AppEpi.Views
@@ -24,13 +25,15 @@ namespace AppEpi.Views
 
                 if (answer)
                 {
-                    UsuarioLogado.Operacao = UsuarioLogado.Operacoes.Distribuicao;
-                    var wbs = DependencyService.Get<IWEBClient>();
-                    var result = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
-                    var detailPage = new Page4(result);
-                    NavigationPage.SetBackButtonTitle(this, "Voltar");
+                    //UsuarioLogado.Operacao = UsuarioLogado.Operacoes.Distribuicao;
 
-                    await Navigation.PushAsync(detailPage);
+                    var wbs = DependencyService.Get<IWEBClient>();
+                    //ObservableCollection<DADOSEPI> dadosEpiCollection = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
+
+                    //Page4 detailPage = new Page4(dadosEpiCollection);
+                    //NavigationPage.SetBackButtonTitle(this, "Voltar");
+
+                    await Navigation.PushAsync(new ConfirmarDistribuicao());
                 }
             }
         }
