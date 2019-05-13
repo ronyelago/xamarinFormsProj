@@ -28,12 +28,15 @@ namespace AppEpi.Views
                     //UsuarioLogado.Operacao = UsuarioLogado.Operacoes.Distribuicao;
 
                     var wbs = DependencyService.Get<IWEBClient>();
-                    //ObservableCollection<DADOSEPI> dadosEpiCollection = wbs.retornarDadosEpiValidar(epcList.GetFormattedEpcList(), UsuarioLogado.Cnpj, UsuarioLogado.FkCliente);
+                    var listaCrachas = wbs.ValidaListaCrachas(epcList.GetFormattedEpcList());
+
+                    DistribuicaoViewModel distribuicaoViewModel = new DistribuicaoViewModel();
+                    distribuicaoViewModel.ListaCrachas = new ObservableCollection<ItemDistribuicaoViewModel>(listaCrachas);
 
                     //Page4 detailPage = new Page4(dadosEpiCollection);
-                    //NavigationPage.SetBackButtonTitle(this, "Voltar");
+                    NavigationPage.SetBackButtonTitle(this, "Voltar");
 
-                    await Navigation.PushAsync(new ConfirmarDistribuicao());
+                    await Navigation.PushAsync(new ConfirmarDistribuicao(distribuicaoViewModel));
                 }
             }
         }

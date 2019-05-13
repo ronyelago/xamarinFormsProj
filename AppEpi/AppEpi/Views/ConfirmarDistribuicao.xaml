@@ -2,30 +2,45 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppEpi.Views.ConfirmarDistribuicao">
-    <ContentPage.Content>
+    <ScrollView>
         <StackLayout>
             <StackLayout>
                 <Label>Confira os itens e o crachá antes de confirmar a atribuição dos EPI's ao Funcionário</Label>
             </StackLayout>
-            <StackLayout>
-                <ListView x:Name="itensListView"
-                          SeparatorVisibility="None"
-                          RowHeight="130"
-                          ItemTapped="ItensListView_ItemTapped">
+            <StackLayout Spacing="15">
+                <Label Text="Funcionário" />
+                <ListView x:Name="crachaListView"
+                          RowHeight="100"
+                          HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout VerticalOptions="FillAndExpand"
+                                <StackLayout>
+                                    <StackLayout VerticalOptions="FillAndExpand"
                                              Orientation="Vertical">
-                                    <Label Text="{Binding Titulo}"/>
-                                    <Label Text="{Binding Epc}"/>
-                                    <Label Text="{Binding Situacao}"/>
+                                        <Label Text="{Binding Titulo}"/>
+                                        <Label Text="{Binding Epc}"/>
+                                        <Label Text="{Binding Observacoes}"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Vertical">
+                                        <Button Text="Remover"
+                                                BackgroundColor="Blue"
+                                                HorizontalOptions="EndAndExpand"
+                                                TextColor="White"
+                                                x:Name="BtnRemover"
+                                                Clicked="BtnRemover_Clicked"/>
+                                    </StackLayout>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
+            <StackLayout>
+                <ListView x:Name="epiListView">
+
+                </ListView>
+            </StackLayout>
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>

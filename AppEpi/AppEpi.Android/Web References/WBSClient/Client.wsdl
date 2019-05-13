@@ -107,7 +107,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="listaEPCS" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="matricula" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -383,10 +382,52 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ValidaListaCrachas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listaEpc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidaListaCrachasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidaListaCrachasResult" type="tns:ArrayOfDistribuicaoViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDistribuicaoViewModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DistribuicaoViewModel" nillable="true" type="tns:DistribuicaoViewModel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DistribuicaoViewModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Epc" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Disponivel" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observacoes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Icone" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ValidaListaEpi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listaEpc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidaListaEpiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidaListaEpiResult" type="tns:ArrayOfDistribuicaoViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="retornarDadosEpiValidar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="listaEPCS" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listaEpc" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="cnpj" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="fkCliente" type="s:int" />
           </s:sequence>
@@ -395,22 +436,22 @@
       <s:element name="retornarDadosEpiValidarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="retornarDadosEpiValidarResult" type="tns:ArrayOfDADOSEPI" />
+            <s:element minOccurs="0" maxOccurs="1" name="retornarDadosEpiValidarResult" type="tns:ArrayOfDadosEpi" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfDADOSEPI">
+      <s:complexType name="ArrayOfDadosEpi">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="DADOSEPI" nillable="true" type="tns:DADOSEPI" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DadosEpi" nillable="true" type="tns:DadosEpi" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="DADOSEPI">
+      <s:complexType name="DadosEpi">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="CodFornecedor" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="CodProduto" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="EPC" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoFornecedor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoProduto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Epc" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Produto" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Qtd" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quantidade" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="retornarListaMensagem">
@@ -457,7 +498,7 @@
       <s:element name="retornarDadosEpiValidarRecebimentoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="retornarDadosEpiValidarRecebimentoResult" type="tns:ArrayOfDADOSEPI" />
+            <s:element minOccurs="0" maxOccurs="1" name="retornarDadosEpiValidarRecebimentoResult" type="tns:ArrayOfDadosEpi" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -713,7 +754,8 @@
       <s:element name="boolean" type="s:boolean" />
       <s:element name="ArrayOfDADOSLOGIN" nillable="true" type="tns:ArrayOfDADOSLOGIN" />
       <s:element name="int" type="s:int" />
-      <s:element name="ArrayOfDADOSEPI" nillable="true" type="tns:ArrayOfDADOSEPI" />
+      <s:element name="ArrayOfDistribuicaoViewModel" nillable="true" type="tns:ArrayOfDistribuicaoViewModel" />
+      <s:element name="ArrayOfDadosEpi" nillable="true" type="tns:ArrayOfDadosEpi" />
       <s:element name="string" nillable="true" type="s:string" />
       <s:element name="Document" nillable="true" type="tns:Document" />
       <s:element name="ArrayOfDADOS_ASSINATURA" nillable="true" type="tns:ArrayOfDADOS_ASSINATURA" />
@@ -852,6 +894,18 @@
   <wsdl:message name="importacaoDeDadosSoapOut">
     <wsdl:part name="parameters" element="tns:importacaoDeDadosResponse" />
   </wsdl:message>
+  <wsdl:message name="ValidaListaCrachasSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidaListaCrachas" />
+  </wsdl:message>
+  <wsdl:message name="ValidaListaCrachasSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidaListaCrachasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidaListaEpiSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidaListaEpi" />
+  </wsdl:message>
+  <wsdl:message name="ValidaListaEpiSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidaListaEpiResponse" />
+  </wsdl:message>
   <wsdl:message name="retornarDadosEpiValidarSoapIn">
     <wsdl:part name="parameters" element="tns:retornarDadosEpiValidar" />
   </wsdl:message>
@@ -988,7 +1042,6 @@
   </wsdl:message>
   <wsdl:message name="distribuicaoEPIHttpGetIn">
     <wsdl:part name="listaEPCS" type="s:string" />
-    <wsdl:part name="matricula" type="s:string" />
   </wsdl:message>
   <wsdl:message name="distribuicaoEPIHttpGetOut">
     <wsdl:part name="Body" element="tns:ArrayOfRESULTADOMOV" />
@@ -1089,13 +1142,25 @@
   <wsdl:message name="dateDiffTesteHttpGetOut">
     <wsdl:part name="Body" element="tns:int" />
   </wsdl:message>
+  <wsdl:message name="ValidaListaCrachasHttpGetIn">
+    <wsdl:part name="listaEpc" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ValidaListaCrachasHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDistribuicaoViewModel" />
+  </wsdl:message>
+  <wsdl:message name="ValidaListaEpiHttpGetIn">
+    <wsdl:part name="listaEpc" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ValidaListaEpiHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDistribuicaoViewModel" />
+  </wsdl:message>
   <wsdl:message name="retornarDadosEpiValidarHttpGetIn">
-    <wsdl:part name="listaEPCS" type="s:string" />
+    <wsdl:part name="listaEpc" type="s:string" />
     <wsdl:part name="cnpj" type="s:string" />
     <wsdl:part name="fkCliente" type="s:string" />
   </wsdl:message>
   <wsdl:message name="retornarDadosEpiValidarHttpGetOut">
-    <wsdl:part name="Body" element="tns:ArrayOfDADOSEPI" />
+    <wsdl:part name="Body" element="tns:ArrayOfDadosEpi" />
   </wsdl:message>
   <wsdl:message name="retornarListaMensagemHttpGetIn" />
   <wsdl:message name="retornarListaMensagemHttpGetOut">
@@ -1115,7 +1180,7 @@
     <wsdl:part name="listaEPCS" type="s:string" />
   </wsdl:message>
   <wsdl:message name="retornarDadosEpiValidarRecebimentoHttpGetOut">
-    <wsdl:part name="Body" element="tns:ArrayOfDADOSEPI" />
+    <wsdl:part name="Body" element="tns:ArrayOfDadosEpi" />
   </wsdl:message>
   <wsdl:message name="convertHtmlDocxHttpGetIn">
     <wsdl:part name="matricula" type="s:string" />
@@ -1221,7 +1286,6 @@
   </wsdl:message>
   <wsdl:message name="distribuicaoEPIHttpPostIn">
     <wsdl:part name="listaEPCS" type="s:string" />
-    <wsdl:part name="matricula" type="s:string" />
   </wsdl:message>
   <wsdl:message name="distribuicaoEPIHttpPostOut">
     <wsdl:part name="Body" element="tns:ArrayOfRESULTADOMOV" />
@@ -1322,13 +1386,25 @@
   <wsdl:message name="dateDiffTesteHttpPostOut">
     <wsdl:part name="Body" element="tns:int" />
   </wsdl:message>
+  <wsdl:message name="ValidaListaCrachasHttpPostIn">
+    <wsdl:part name="listaEpc" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ValidaListaCrachasHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDistribuicaoViewModel" />
+  </wsdl:message>
+  <wsdl:message name="ValidaListaEpiHttpPostIn">
+    <wsdl:part name="listaEpc" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ValidaListaEpiHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDistribuicaoViewModel" />
+  </wsdl:message>
   <wsdl:message name="retornarDadosEpiValidarHttpPostIn">
-    <wsdl:part name="listaEPCS" type="s:string" />
+    <wsdl:part name="listaEpc" type="s:string" />
     <wsdl:part name="cnpj" type="s:string" />
     <wsdl:part name="fkCliente" type="s:string" />
   </wsdl:message>
   <wsdl:message name="retornarDadosEpiValidarHttpPostOut">
-    <wsdl:part name="Body" element="tns:ArrayOfDADOSEPI" />
+    <wsdl:part name="Body" element="tns:ArrayOfDadosEpi" />
   </wsdl:message>
   <wsdl:message name="retornarListaMensagemHttpPostIn" />
   <wsdl:message name="retornarListaMensagemHttpPostOut">
@@ -1348,7 +1424,7 @@
     <wsdl:part name="listaEPCS" type="s:string" />
   </wsdl:message>
   <wsdl:message name="retornarDadosEpiValidarRecebimentoHttpPostOut">
-    <wsdl:part name="Body" element="tns:ArrayOfDADOSEPI" />
+    <wsdl:part name="Body" element="tns:ArrayOfDadosEpi" />
   </wsdl:message>
   <wsdl:message name="convertHtmlDocxHttpPostIn">
     <wsdl:part name="matricula" type="s:string" />
@@ -1505,6 +1581,14 @@
       <wsdl:input message="tns:importacaoDeDadosSoapIn" />
       <wsdl:output message="tns:importacaoDeDadosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ValidaListaCrachas">
+      <wsdl:input message="tns:ValidaListaCrachasSoapIn" />
+      <wsdl:output message="tns:ValidaListaCrachasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidaListaEpi">
+      <wsdl:input message="tns:ValidaListaEpiSoapIn" />
+      <wsdl:output message="tns:ValidaListaEpiSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="retornarDadosEpiValidar">
       <wsdl:input message="tns:retornarDadosEpiValidarSoapIn" />
       <wsdl:output message="tns:retornarDadosEpiValidarSoapOut" />
@@ -1655,6 +1739,14 @@
       <wsdl:input message="tns:dateDiffTesteHttpGetIn" />
       <wsdl:output message="tns:dateDiffTesteHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="ValidaListaCrachas">
+      <wsdl:input message="tns:ValidaListaCrachasHttpGetIn" />
+      <wsdl:output message="tns:ValidaListaCrachasHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidaListaEpi">
+      <wsdl:input message="tns:ValidaListaEpiHttpGetIn" />
+      <wsdl:output message="tns:ValidaListaEpiHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="retornarDadosEpiValidar">
       <wsdl:input message="tns:retornarDadosEpiValidarHttpGetIn" />
       <wsdl:output message="tns:retornarDadosEpiValidarHttpGetOut" />
@@ -1800,6 +1892,14 @@
     <wsdl:operation name="dateDiffTeste">
       <wsdl:input message="tns:dateDiffTesteHttpPostIn" />
       <wsdl:output message="tns:dateDiffTesteHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidaListaCrachas">
+      <wsdl:input message="tns:ValidaListaCrachasHttpPostIn" />
+      <wsdl:output message="tns:ValidaListaCrachasHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidaListaEpi">
+      <wsdl:input message="tns:ValidaListaEpiHttpPostIn" />
+      <wsdl:output message="tns:ValidaListaEpiHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="retornarDadosEpiValidar">
       <wsdl:input message="tns:retornarDadosEpiValidarHttpPostIn" />
@@ -2050,6 +2150,24 @@
     </wsdl:operation>
     <wsdl:operation name="importacaoDeDados">
       <soap:operation soapAction="http://tempuri.org/importacaoDeDados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaListaCrachas">
+      <soap:operation soapAction="http://tempuri.org/ValidaListaCrachas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaListaEpi">
+      <soap:operation soapAction="http://tempuri.org/ValidaListaEpi" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2402,6 +2520,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ValidaListaCrachas">
+      <soap12:operation soapAction="http://tempuri.org/ValidaListaCrachas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaListaEpi">
+      <soap12:operation soapAction="http://tempuri.org/ValidaListaEpi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="retornarDadosEpiValidar">
       <soap12:operation soapAction="http://tempuri.org/retornarDadosEpiValidar" style="document" />
       <wsdl:input>
@@ -2738,6 +2874,24 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ValidaListaCrachas">
+      <http:operation location="/ValidaListaCrachas" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaListaEpi">
+      <http:operation location="/ValidaListaEpi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="retornarDadosEpiValidar">
       <http:operation location="/retornarDadosEpiValidar" />
       <wsdl:input>
@@ -3052,6 +3206,24 @@
     </wsdl:operation>
     <wsdl:operation name="dateDiffTeste">
       <http:operation location="/dateDiffTeste" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaListaCrachas">
+      <http:operation location="/ValidaListaCrachas" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaListaEpi">
+      <http:operation location="/ValidaListaEpi" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

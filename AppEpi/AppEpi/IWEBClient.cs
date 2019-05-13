@@ -1,4 +1,5 @@
 ﻿using AppEpi.Models;
+using AppEpi.ViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -10,9 +11,11 @@ namespace AppEpi
         List<RESULTADOMOV> movimentacaoEstoque(string listaEPCS, string estoque, string entSaida);
         List<RESULTADOMOV> recebimentoEstoques(string listaEPCS);
 
+        List<ItemDistribuicaoViewModel> ValidaListaCrachas(string listaEpc);
+
         List<RESULTADOMOV> recebimentoEstoquesCnpj(string listaEPCS, string cnpj);
         List<RESULTADOMOV> atribuicaoCrachar(string matricula, string cracha);
-        List<RESULTADOMOV> distribuicaoEPIS(string listaEPCS, string matricula);
+        
         List<RESULTADOMOV> envioParaTeste(string listaEPCS, string codEstoque);
 
         List<RESULTADOMOV> recebimentoDoTeste(string listaEPCS, string dataTeste, string art);

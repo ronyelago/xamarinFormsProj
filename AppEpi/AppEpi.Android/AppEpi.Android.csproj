@@ -103,13 +103,16 @@
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Web References\WBSClient\Client.wsdl" />
-    <None Include="Web References\WBSClient\DADOSEPI.datasource">
+    <None Include="Web References\WBSClient\DadosEpi.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\WBSClient\DADOSLOGIN.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\WBSClient\DADOS_ASSINATURA.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WBSClient\DistribuicaoViewModel.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\WBSClient\Document.datasource">
@@ -170,24 +173,6 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\nxt.png" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="https://easyepi.com.br/WBSHomologacao/Client.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\WBSClient\</RelPath>
-      <UpdateFromURL>https://easyepi.com.br/WBSHomologacao/Client.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>
-      </CachedAppSettingsObjectName>
-      <CachedSettingsPropName>
-      </CachedSettingsPropName>
-    </WebReferenceUrl>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web References\WBSClient\Client.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\logoEasy1.png" />
     <AndroidResource Include="Resources\drawable-hdpi\icon.png">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
@@ -211,6 +196,24 @@
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://easyepi.com.br/WBSHomologacao/Client.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WBSClient\</RelPath>
+      <UpdateFromURL>https://easyepi.com.br/WBSHomologacao/Client.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\WBSClient\Client.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

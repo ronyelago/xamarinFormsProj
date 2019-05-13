@@ -71,6 +71,10 @@ namespace AppEpi.Droid.WBSClient {
         
         private System.Threading.SendOrPostCallback importacaoDeDadosOperationCompleted;
         
+        private System.Threading.SendOrPostCallback ValidaListaCrachasOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ValidaListaEpiOperationCompleted;
+        
         private System.Threading.SendOrPostCallback retornarDadosEpiValidarOperationCompleted;
         
         private System.Threading.SendOrPostCallback retornarListaMensagemOperationCompleted;
@@ -205,6 +209,12 @@ namespace AppEpi.Droid.WBSClient {
         
         /// <remarks/>
         public event importacaoDeDadosCompletedEventHandler importacaoDeDadosCompleted;
+        
+        /// <remarks/>
+        public event ValidaListaCrachasCompletedEventHandler ValidaListaCrachasCompleted;
+        
+        /// <remarks/>
+        public event ValidaListaEpiCompletedEventHandler ValidaListaEpiCompleted;
         
         /// <remarks/>
         public event retornarDadosEpiValidarCompletedEventHandler retornarDadosEpiValidarCompleted;
@@ -410,26 +420,24 @@ namespace AppEpi.Droid.WBSClient {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/distribuicaoEPI", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public RESULTADOMOV[] distribuicaoEPI(string listaEPCS, string matricula) {
+        public RESULTADOMOV[] distribuicaoEPI(string listaEPCS) {
             object[] results = this.Invoke("distribuicaoEPI", new object[] {
-                        listaEPCS,
-                        matricula});
+                        listaEPCS});
             return ((RESULTADOMOV[])(results[0]));
         }
         
         /// <remarks/>
-        public void distribuicaoEPIAsync(string listaEPCS, string matricula) {
-            this.distribuicaoEPIAsync(listaEPCS, matricula, null);
+        public void distribuicaoEPIAsync(string listaEPCS) {
+            this.distribuicaoEPIAsync(listaEPCS, null);
         }
         
         /// <remarks/>
-        public void distribuicaoEPIAsync(string listaEPCS, string matricula, object userState) {
+        public void distribuicaoEPIAsync(string listaEPCS, object userState) {
             if ((this.distribuicaoEPIOperationCompleted == null)) {
                 this.distribuicaoEPIOperationCompleted = new System.Threading.SendOrPostCallback(this.OndistribuicaoEPIOperationCompleted);
             }
             this.InvokeAsync("distribuicaoEPI", new object[] {
-                        listaEPCS,
-                        matricula}, this.distribuicaoEPIOperationCompleted, userState);
+                        listaEPCS}, this.distribuicaoEPIOperationCompleted, userState);
         }
         
         private void OndistribuicaoEPIOperationCompleted(object arg) {
@@ -899,27 +907,85 @@ namespace AppEpi.Droid.WBSClient {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ValidaListaCrachas", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public DistribuicaoViewModel[] ValidaListaCrachas(string listaEpc) {
+            object[] results = this.Invoke("ValidaListaCrachas", new object[] {
+                        listaEpc});
+            return ((DistribuicaoViewModel[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ValidaListaCrachasAsync(string listaEpc) {
+            this.ValidaListaCrachasAsync(listaEpc, null);
+        }
+        
+        /// <remarks/>
+        public void ValidaListaCrachasAsync(string listaEpc, object userState) {
+            if ((this.ValidaListaCrachasOperationCompleted == null)) {
+                this.ValidaListaCrachasOperationCompleted = new System.Threading.SendOrPostCallback(this.OnValidaListaCrachasOperationCompleted);
+            }
+            this.InvokeAsync("ValidaListaCrachas", new object[] {
+                        listaEpc}, this.ValidaListaCrachasOperationCompleted, userState);
+        }
+        
+        private void OnValidaListaCrachasOperationCompleted(object arg) {
+            if ((this.ValidaListaCrachasCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ValidaListaCrachasCompleted(this, new ValidaListaCrachasCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ValidaListaEpi", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public DistribuicaoViewModel[] ValidaListaEpi(string listaEpc) {
+            object[] results = this.Invoke("ValidaListaEpi", new object[] {
+                        listaEpc});
+            return ((DistribuicaoViewModel[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ValidaListaEpiAsync(string listaEpc) {
+            this.ValidaListaEpiAsync(listaEpc, null);
+        }
+        
+        /// <remarks/>
+        public void ValidaListaEpiAsync(string listaEpc, object userState) {
+            if ((this.ValidaListaEpiOperationCompleted == null)) {
+                this.ValidaListaEpiOperationCompleted = new System.Threading.SendOrPostCallback(this.OnValidaListaEpiOperationCompleted);
+            }
+            this.InvokeAsync("ValidaListaEpi", new object[] {
+                        listaEpc}, this.ValidaListaEpiOperationCompleted, userState);
+        }
+        
+        private void OnValidaListaEpiOperationCompleted(object arg) {
+            if ((this.ValidaListaEpiCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ValidaListaEpiCompleted(this, new ValidaListaEpiCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/retornarDadosEpiValidar", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public DADOSEPI[] retornarDadosEpiValidar(string listaEPCS, string cnpj, int fkCliente) {
+        public DadosEpi[] retornarDadosEpiValidar(string listaEpc, string cnpj, int fkCliente) {
             object[] results = this.Invoke("retornarDadosEpiValidar", new object[] {
-                        listaEPCS,
+                        listaEpc,
                         cnpj,
                         fkCliente});
-            return ((DADOSEPI[])(results[0]));
+            return ((DadosEpi[])(results[0]));
         }
         
         /// <remarks/>
-        public void retornarDadosEpiValidarAsync(string listaEPCS, string cnpj, int fkCliente) {
-            this.retornarDadosEpiValidarAsync(listaEPCS, cnpj, fkCliente, null);
+        public void retornarDadosEpiValidarAsync(string listaEpc, string cnpj, int fkCliente) {
+            this.retornarDadosEpiValidarAsync(listaEpc, cnpj, fkCliente, null);
         }
         
         /// <remarks/>
-        public void retornarDadosEpiValidarAsync(string listaEPCS, string cnpj, int fkCliente, object userState) {
+        public void retornarDadosEpiValidarAsync(string listaEpc, string cnpj, int fkCliente, object userState) {
             if ((this.retornarDadosEpiValidarOperationCompleted == null)) {
                 this.retornarDadosEpiValidarOperationCompleted = new System.Threading.SendOrPostCallback(this.OnretornarDadosEpiValidarOperationCompleted);
             }
             this.InvokeAsync("retornarDadosEpiValidar", new object[] {
-                        listaEPCS,
+                        listaEpc,
                         cnpj,
                         fkCliente}, this.retornarDadosEpiValidarOperationCompleted, userState);
         }
@@ -1016,10 +1082,10 @@ namespace AppEpi.Droid.WBSClient {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/retornarDadosEpiValidarRecebimento", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public DADOSEPI[] retornarDadosEpiValidarRecebimento(string listaEPCS) {
+        public DadosEpi[] retornarDadosEpiValidarRecebimento(string listaEPCS) {
             object[] results = this.Invoke("retornarDadosEpiValidarRecebimento", new object[] {
                         listaEPCS});
-            return ((DADOSEPI[])(results[0]));
+            return ((DadosEpi[])(results[0]));
         }
         
         /// <remarks/>
@@ -1999,45 +2065,45 @@ namespace AppEpi.Droid.WBSClient {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class DADOSEPI {
+    public partial class DadosEpi {
         
-        private string codFornecedorField;
+        private string codigoFornecedorField;
         
-        private string codProdutoField;
+        private string codigoProdutoField;
         
-        private string ePCField;
+        private string epcField;
         
         private string produtoField;
         
-        private int qtdField;
+        private int quantidadeField;
         
         /// <remarks/>
-        public string CodFornecedor {
+        public string CodigoFornecedor {
             get {
-                return this.codFornecedorField;
+                return this.codigoFornecedorField;
             }
             set {
-                this.codFornecedorField = value;
+                this.codigoFornecedorField = value;
             }
         }
         
         /// <remarks/>
-        public string CodProduto {
+        public string CodigoProduto {
             get {
-                return this.codProdutoField;
+                return this.codigoProdutoField;
             }
             set {
-                this.codProdutoField = value;
+                this.codigoProdutoField = value;
             }
         }
         
         /// <remarks/>
-        public string EPC {
+        public string Epc {
             get {
-                return this.ePCField;
+                return this.epcField;
             }
             set {
-                this.ePCField = value;
+                this.epcField = value;
             }
         }
         
@@ -2052,12 +2118,81 @@ namespace AppEpi.Droid.WBSClient {
         }
         
         /// <remarks/>
-        public int Qtd {
+        public int Quantidade {
             get {
-                return this.qtdField;
+                return this.quantidadeField;
             }
             set {
-                this.qtdField = value;
+                this.quantidadeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class DistribuicaoViewModel {
+        
+        private string tituloField;
+        
+        private string epcField;
+        
+        private bool disponivelField;
+        
+        private string observacoesField;
+        
+        private string iconeField;
+        
+        /// <remarks/>
+        public string Titulo {
+            get {
+                return this.tituloField;
+            }
+            set {
+                this.tituloField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Epc {
+            get {
+                return this.epcField;
+            }
+            set {
+                this.epcField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool Disponivel {
+            get {
+                return this.disponivelField;
+            }
+            set {
+                this.disponivelField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Observacoes {
+            get {
+                return this.observacoesField;
+            }
+            set {
+                this.observacoesField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Icone {
+            get {
+                return this.iconeField;
+            }
+            set {
+                this.iconeField = value;
             }
         }
     }
@@ -3075,6 +3210,58 @@ namespace AppEpi.Droid.WBSClient {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    public delegate void ValidaListaCrachasCompletedEventHandler(object sender, ValidaListaCrachasCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ValidaListaCrachasCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ValidaListaCrachasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public DistribuicaoViewModel[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((DistribuicaoViewModel[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    public delegate void ValidaListaEpiCompletedEventHandler(object sender, ValidaListaEpiCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ValidaListaEpiCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ValidaListaEpiCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public DistribuicaoViewModel[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((DistribuicaoViewModel[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void retornarDadosEpiValidarCompletedEventHandler(object sender, retornarDadosEpiValidarCompletedEventArgs e);
     
     /// <remarks/>
@@ -3091,10 +3278,10 @@ namespace AppEpi.Droid.WBSClient {
         }
         
         /// <remarks/>
-        public DADOSEPI[] Result {
+        public DadosEpi[] Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((DADOSEPI[])(this.results[0]));
+                return ((DadosEpi[])(this.results[0]));
             }
         }
     }
@@ -3195,10 +3382,10 @@ namespace AppEpi.Droid.WBSClient {
         }
         
         /// <remarks/>
-        public DADOSEPI[] Result {
+        public DadosEpi[] Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((DADOSEPI[])(this.results[0]));
+                return ((DadosEpi[])(this.results[0]));
             }
         }
     }

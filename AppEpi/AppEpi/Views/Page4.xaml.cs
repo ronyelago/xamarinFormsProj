@@ -108,9 +108,9 @@ namespace AppEpi.Views
                             result = wbs.movimentacaoEstoque(listEPCS, UsuarioLogado.LocalEstoque, UsuarioLogado.StatusEstoque);
                             break;
 
-                        case UsuarioLogado.Operacoes.Distribuicao:
-                            result = wbs.distribuicaoEPIS(listEPCS, UsuarioLogado.MatriculaDistribuicao);
-                            break;
+                        //case UsuarioLogado.Operacoes.Distribuicao:
+                        //    result = wbs.distribuicaoEPIS(listEPCS, UsuarioLogado.MatriculaDistribuicao);
+                        //    break;
 
                         case UsuarioLogado.Operacoes.EnvioTeste:
                             result = wbs.envioParaTeste(listEPCS, UsuarioLogado.LocalEstoque);

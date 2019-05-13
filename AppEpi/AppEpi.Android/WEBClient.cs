@@ -4,6 +4,8 @@ using AppEpi.Droid;
 using System.Collections.ObjectModel;
 using AppEpi.Models;
 using System;
+using AppEpi.ViewModels;
+using System.Linq;
 
 [assembly: Dependency(typeof(WEBClient))]
 namespace AppEpi.Droid
@@ -38,7 +40,6 @@ namespace AppEpi.Droid
             }
         }
 
-
         public List<RESULTADOMOV> movimentacaoEstoque(string listaEPCS, string estoque, string entSaida)
         {
             try
@@ -64,7 +65,6 @@ namespace AppEpi.Droid
                 return null;
             }
         }
-
 
         public List<RESULTADOMOV> recebimentoEstoques(string listaEPCS)
         {
@@ -112,7 +112,6 @@ namespace AppEpi.Droid
             }
         }
 
-
         public List<RESULTADOMOV> recebimentoEstoquesCnpj(string listaEPCS, string cnpj)
         {
             try
@@ -159,6 +158,34 @@ namespace AppEpi.Droid
             }
         }
 
+        public ObservableCollection<DADOSEPI> retornarDadosEpiValidar(string listaEPCS, string cnpj, int fkCliente)
+        {
+            try
+            {
+                WBSClient.Client cl = new WBSClient.Client();
+                var rest = cl.retornarDadosEpiValidar(listaEPCS, cnpj, fkCliente);
+                ObservableCollection<DADOSEPI> lpd = new ObservableCollection<DADOSEPI>();
+                foreach (var item in rest)
+                {
+                    if (item.Quantidade != 0)
+                    {
+                        lpd.Add(new DADOSEPI
+                        {
+                            CodProduto = item.CodigoProduto,
+                            CodFornecedor = item.CodigoFornecedor,
+                            EPC = item.Epc,
+                            Produto = item.Produto,
+                            Qtd = item.Quantidade
+                        });
+                    }
+                }
+                return lpd;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         public List<RESULTADOMOV> atribuicaoCrachar(string matricula, string cracha)
         {
@@ -190,33 +217,27 @@ namespace AppEpi.Droid
             }
         }
 
-
-        public List<RESULTADOMOV> distribuicaoEPIS(string listaEPCS, string matricula)
+        public List<ItemDistribuicaoViewModel> ValidaListaCrachas(string listaEpc)
         {
-            try
-            {
-                WBSClient.Client cl = new WBSClient.Client();
-                var rest = cl.distribuicaoEPI(listaEPCS, matricula);
-                List<RESULTADOMOV> lpd = new List<RESULTADOMOV>();
-                foreach (var item in rest)
-                {
-                    lpd.Add(new RESULTADOMOV
-                    {
-                        DataMovimentacao = item.DataMovimentacao,
-                        EPC = item.EPC,
-                        Resultado = item.Resultado,
-                        Produto = item.Produto,
-                        corAviso = isnullCor(item.CorAviso)
-                    });
-                }
-                return lpd;
-            }
-            catch
-            {
-                return null;
-            }
-        }
+            var client = new WBSClient.Client();
+            List<WBSClient.DistribuicaoViewModel> retults = client.ValidaListaCrachas(listaEpc).ToList();
 
+            List<ItemDistribuicaoViewModel> distribuicaoViewModels = new List<ItemDistribuicaoViewModel>();
+
+            foreach (var item in retults)
+            {
+                distribuicaoViewModels.Add(new ItemDistribuicaoViewModel
+                {
+                    Titulo = item.Titulo,
+                    Epc = item.Epc,
+                    Disponivel = item.Disponivel,
+                    Icone = item.Icone,
+                    Observacoes = item.Observacoes
+                });
+            }
+
+            return distribuicaoViewModels;
+        }
 
         public List<RESULTADOMOV> envioParaTeste(string listaEPCS, string codEstoque)
         {
@@ -550,37 +571,6 @@ namespace AppEpi.Droid
                 return null;
             }
         }
-
-
-        public ObservableCollection<DADOSEPI> retornarDadosEpiValidar(string listaEPCS, string cnpj, int fkCliente)
-        {
-            try
-            {
-                WBSClient.Client cl = new WBSClient.Client();
-                var rest = cl.retornarDadosEpiValidar(listaEPCS, cnpj, fkCliente);
-                ObservableCollection<DADOSEPI> lpd = new ObservableCollection<DADOSEPI>();
-                foreach (var item in rest)
-                {
-                    if (item.Qtd != 0)
-                    {
-                        lpd.Add(new DADOSEPI
-                        {
-                            CodProduto = item.CodProduto,
-                            CodFornecedor = item.CodFornecedor,
-                            EPC = item.EPC,
-                            Produto = item.Produto,
-                            Qtd = item.Qtd
-                        });
-                    }
-                }
-                return lpd;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
 
         private string isnullCor(string corAviso)
         {
